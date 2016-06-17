@@ -8,13 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		FA4B72E01D13FD4000C1C4C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B72DF1D13FD4000C1C4C8 /* AppDelegate.swift */; };
-		FA4B72E21D13FD4000C1C4C8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B72E11D13FD4000C1C4C8 /* ViewController.swift */; };
-		FA4B72E51D13FD4000C1C4C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA4B72E31D13FD4000C1C4C8 /* Main.storyboard */; };
 		FA4B72E81D13FD4000C1C4C8 /* TicketVal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA4B72E61D13FD4000C1C4C8 /* TicketVal.xcdatamodeld */; };
 		FA4B72EA1D13FD4000C1C4C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA4B72E91D13FD4000C1C4C8 /* Assets.xcassets */; };
 		FA4B72ED1D13FD4000C1C4C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA4B72EB1D13FD4000C1C4C8 /* LaunchScreen.storyboard */; };
 		FA4B72F81D13FD4100C1C4C8 /* TicketValTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B72F71D13FD4100C1C4C8 /* TicketValTests.swift */; };
 		FA4B73031D13FD4100C1C4C8 /* TicketValUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B73021D13FD4100C1C4C8 /* TicketValUITests.swift */; };
+		FAC9C0561D1426D000189A0C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAC9C0551D1426D000189A0C /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,8 +36,6 @@
 /* Begin PBXFileReference section */
 		FA4B72DC1D13FD4000C1C4C8 /* TicketVal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicketVal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA4B72DF1D13FD4000C1C4C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FA4B72E11D13FD4000C1C4C8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		FA4B72E41D13FD4000C1C4C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FA4B72E71D13FD4000C1C4C8 /* TicketVal.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TicketVal.xcdatamodel; sourceTree = "<group>"; };
 		FA4B72E91D13FD4000C1C4C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA4B72EC1D13FD4000C1C4C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +46,7 @@
 		FA4B72FE1D13FD4100C1C4C8 /* TicketValUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TicketValUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA4B73021D13FD4100C1C4C8 /* TicketValUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValUITests.swift; sourceTree = "<group>"; };
 		FA4B73041D13FD4100C1C4C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAC9C0551D1426D000189A0C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +97,8 @@
 		FA4B72DE1D13FD4000C1C4C8 /* TicketVal */ = {
 			isa = PBXGroup;
 			children = (
+				FAC9C0551D1426D000189A0C /* Main.storyboard */,
 				FA4B72DF1D13FD4000C1C4C8 /* AppDelegate.swift */,
-				FA4B72E11D13FD4000C1C4C8 /* ViewController.swift */,
-				FA4B72E31D13FD4000C1C4C8 /* Main.storyboard */,
 				FA4B72E91D13FD4000C1C4C8 /* Assets.xcassets */,
 				FA4B72EB1D13FD4000C1C4C8 /* LaunchScreen.storyboard */,
 				FA4B72EE1D13FD4000C1C4C8 /* Info.plist */,
@@ -232,9 +229,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAC9C0561D1426D000189A0C /* Main.storyboard in Resources */,
 				FA4B72ED1D13FD4000C1C4C8 /* LaunchScreen.storyboard in Resources */,
 				FA4B72EA1D13FD4000C1C4C8 /* Assets.xcassets in Resources */,
-				FA4B72E51D13FD4000C1C4C8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,7 +257,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA4B72E81D13FD4000C1C4C8 /* TicketVal.xcdatamodeld in Sources */,
-				FA4B72E21D13FD4000C1C4C8 /* ViewController.swift in Sources */,
 				FA4B72E01D13FD4000C1C4C8 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,14 +293,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		FA4B72E31D13FD4000C1C4C8 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FA4B72E41D13FD4000C1C4C8 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		FA4B72EB1D13FD4000C1C4C8 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -486,6 +474,7 @@
 				FA4B73091D13FD4100C1C4C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FA4B730A1D13FD4100C1C4C8 /* Build configuration list for PBXNativeTarget "TicketValTests" */ = {
 			isa = XCConfigurationList;
@@ -494,6 +483,7 @@
 				FA4B730C1D13FD4100C1C4C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FA4B730D1D13FD4100C1C4C8 /* Build configuration list for PBXNativeTarget "TicketValUITests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +492,7 @@
 				FA4B730F1D13FD4100C1C4C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
