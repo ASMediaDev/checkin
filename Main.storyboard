@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sB3-Uq-Oci">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BsE-Jw-yhx">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -30,8 +30,111 @@
                             <constraint firstItem="1ZQ-hN-8s9" firstAttribute="centerX" secondItem="aNA-gC-d9F" secondAttribute="centerX" id="nDp-xg-IgK"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Main" id="5ol-fd-DSb">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="1bm-y4-Zyj"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Dk0-z9-wiD">
+                            <connections>
+                                <segue destination="TW4-nM-CTe" kind="show" identifier="edit" id="4so-cY-6Ic"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mp9-Io-rsC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1482" y="548"/>
+        </scene>
+        <!--Edit your database-->
+        <scene sceneID="e9q-ig-xDm">
+            <objects>
+                <viewController id="TW4-nM-CTe" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CpE-6F-1Ll"/>
+                        <viewControllerLayoutGuide type="bottom" id="dPQ-xq-0I6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Bh3-2h-YsQ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Database" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d3D-QY-ttY">
+                                <rect key="frame" x="247" y="289" width="107" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oY9-zR-FzH">
+                                <rect key="frame" x="237" y="476" width="126" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="126" id="3G0-Ph-9zL"/>
+                                </constraints>
+                                <state key="normal" title="Dropbox Import"/>
+                                <connections>
+                                    <segue destination="i5N-CI-6x9" kind="show" id="6u7-se-SPG"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dPQ-xq-0I6" firstAttribute="top" secondItem="oY9-zR-FzH" secondAttribute="bottom" constant="94" id="0ub-eL-bgx"/>
+                            <constraint firstItem="d3D-QY-ttY" firstAttribute="centerX" secondItem="Bh3-2h-YsQ" secondAttribute="centerX" id="8i9-71-t11"/>
+                            <constraint firstItem="d3D-QY-ttY" firstAttribute="centerY" secondItem="Bh3-2h-YsQ" secondAttribute="centerY" id="xTV-Fo-zSS"/>
+                            <constraint firstItem="oY9-zR-FzH" firstAttribute="centerX" secondItem="d3D-QY-ttY" secondAttribute="centerX" id="zdU-sR-pdH"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Edit your database" id="76s-cX-pQT">
+                        <barButtonItem key="leftBarButtonItem" systemItem="save" id="WtG-Cm-V8O"/>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fbj-Hs-63w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2393" y="548"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="BoF-Tq-rI5">
+            <objects>
+                <viewController id="i5N-CI-6x9" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gmL-Hh-egA"/>
+                        <viewControllerLayoutGuide type="bottom" id="w7Z-8Z-hLV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="d49-KJ-Kzb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dropbox Import" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gd8-NH-yAO">
+                                <rect key="frame" x="240" y="289" width="121" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Gd8-NH-yAO" firstAttribute="centerX" secondItem="d49-KJ-Kzb" secondAttribute="centerX" id="VJv-Ye-zAB"/>
+                            <constraint firstItem="Gd8-NH-yAO" firstAttribute="centerY" secondItem="d49-KJ-Kzb" secondAttribute="centerY" id="umQ-Rf-nNg"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fmd-zH-JxQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3116" y="548"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="okr-DF-tqb">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BsE-Jw-yhx" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="502-7w-62W">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="sB3-Uq-Oci" kind="relationship" relationship="rootViewController" id="1Qk-gZ-pHM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yFD-yB-XGP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="670" y="548"/>
         </scene>
