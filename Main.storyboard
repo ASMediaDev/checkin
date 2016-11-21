@@ -1,124 +1,130 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BsE-Jw-yhx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="o1Q-Yw-77n">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Main View Controller-->
+        <scene sceneID="HET-EI-Kd1">
+            <objects>
+                <viewController id="o1Q-Yw-77n" customClass="MainViewController" customModule="TicketVal" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UbO-Hv-6Lc"/>
+                        <viewControllerLayoutGuide type="bottom" id="YjC-0X-ROb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fTS-oK-Z8e">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfX-41-jSm">
+                                <rect key="frame" x="167" y="141" width="41" height="30"/>
+                                <state key="normal" title="SCAN"/>
+                                <connections>
+                                    <segue destination="sB3-Uq-Oci" kind="show" id="2eE-vD-Lx6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F9b-9e-4Jq">
+                                <rect key="frame" x="155" y="296" width="65" height="30"/>
+                                <state key="normal" title="Database"/>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Welcome to TicketVal!" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="TV0-eQ-Mh6">
+                                <rect key="frame" x="67" y="28" width="240" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="OeX-Zp-qJ6"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gfX-41-jSm" firstAttribute="top" secondItem="TV0-eQ-Mh6" secondAttribute="bottom" constant="79" id="0dx-U8-j62"/>
+                            <constraint firstItem="TV0-eQ-Mh6" firstAttribute="top" secondItem="UbO-Hv-6Lc" secondAttribute="bottom" constant="8" symbolic="YES" id="1WR-jt-h1y"/>
+                            <constraint firstItem="TV0-eQ-Mh6" firstAttribute="leading" secondItem="fTS-oK-Z8e" secondAttribute="leadingMargin" constant="51" id="FwO-Xu-kFH"/>
+                            <constraint firstItem="YjC-0X-ROb" firstAttribute="top" secondItem="F9b-9e-4Jq" secondAttribute="bottom" constant="341" id="H8E-sD-5rH"/>
+                            <constraint firstItem="TV0-eQ-Mh6" firstAttribute="centerX" secondItem="fTS-oK-Z8e" secondAttribute="centerX" id="cRu-uP-Abg"/>
+                            <constraint firstItem="gfX-41-jSm" firstAttribute="centerX" secondItem="F9b-9e-4Jq" secondAttribute="centerX" id="ket-CD-w5H"/>
+                            <constraint firstItem="TV0-eQ-Mh6" firstAttribute="centerX" secondItem="gfX-41-jSm" secondAttribute="centerX" id="mh0-4t-3kh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="database" destination="F9b-9e-4Jq" id="Jlt-Ut-dWO"/>
+                        <outlet property="scan" destination="gfX-41-jSm" id="v6A-ki-pN2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kWz-hq-354" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1412" y="546.47676161919048"/>
+        </scene>
         <!--MainView-->
         <scene sceneID="16H-tZ-eXX">
             <objects>
-                <viewController title="MainView" id="sB3-Uq-Oci" sceneMemberID="viewController">
+                <viewController title="MainView" id="sB3-Uq-Oci" customClass="ScanViewController" customModule="TicketVal" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="g2p-bR-XlG"/>
                         <viewControllerLayoutGuide type="bottom" id="G9H-gU-G18"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="aNA-gC-d9F">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAIN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ZQ-hN-8s9">
-                                <rect key="frame" x="279" y="289" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No QR Code is detected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wq2-Lp-9p9">
+                                <rect key="frame" x="0.0" y="584" width="375" height="40"/>
+                                <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="HrU-4f-Udk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nbb-W6-A3Z">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Bitte QR-Code zentrieren" id="cWF-JF-2B9">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="cQs-6C-rwT">
+                                            <connections>
+                                                <segue destination="o1Q-Yw-77n" kind="show" id="bMH-hD-Pfe"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="1ZQ-hN-8s9" firstAttribute="centerY" secondItem="aNA-gC-d9F" secondAttribute="centerY" id="mV6-SE-NTs"/>
-                            <constraint firstItem="1ZQ-hN-8s9" firstAttribute="centerX" secondItem="aNA-gC-d9F" secondAttribute="centerX" id="nDp-xg-IgK"/>
+                            <constraint firstItem="Nbb-W6-A3Z" firstAttribute="trailing" secondItem="Wq2-Lp-9p9" secondAttribute="trailing" id="3o3-t8-UVv"/>
+                            <constraint firstItem="Nbb-W6-A3Z" firstAttribute="leading" secondItem="aNA-gC-d9F" secondAttribute="leading" id="6dx-Td-qnL"/>
+                            <constraint firstAttribute="trailing" secondItem="Nbb-W6-A3Z" secondAttribute="trailing" id="FV9-Zt-BhQ"/>
+                            <constraint firstItem="Nbb-W6-A3Z" firstAttribute="leading" secondItem="Wq2-Lp-9p9" secondAttribute="leading" id="Rct-zb-N5G"/>
+                            <constraint firstItem="Nbb-W6-A3Z" firstAttribute="top" secondItem="g2p-bR-XlG" secondAttribute="bottom" id="WEz-pf-Ibw"/>
+                            <constraint firstItem="G9H-gU-G18" firstAttribute="top" secondItem="Wq2-Lp-9p9" secondAttribute="bottom" constant="43" id="s0m-RF-6h5"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="Wq2-Lp-9p9"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="Wq2-Lp-9p9"/>
+                            </mask>
+                        </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Main" id="5ol-fd-DSb">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="1bm-y4-Zyj"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Dk0-z9-wiD">
-                            <connections>
-                                <segue destination="TW4-nM-CTe" kind="show" identifier="edit" id="4so-cY-6Ic"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <connections>
+                        <outlet property="messageLabel" destination="Wq2-Lp-9p9" id="GEQ-Ni-prT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mp9-Io-rsC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1482" y="548"/>
-        </scene>
-        <!--Edit your database-->
-        <scene sceneID="e9q-ig-xDm">
-            <objects>
-                <viewController id="TW4-nM-CTe" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="CpE-6F-1Ll"/>
-                        <viewControllerLayoutGuide type="bottom" id="dPQ-xq-0I6"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Bh3-2h-YsQ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Database" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d3D-QY-ttY">
-                                <rect key="frame" x="247" y="289" width="107" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oY9-zR-FzH">
-                                <rect key="frame" x="237" y="476" width="126" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="126" id="3G0-Ph-9zL"/>
-                                </constraints>
-                                <state key="normal" title="Dropbox Import"/>
-                                <connections>
-                                    <segue destination="i5N-CI-6x9" kind="show" id="6u7-se-SPG"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="dPQ-xq-0I6" firstAttribute="top" secondItem="oY9-zR-FzH" secondAttribute="bottom" constant="94" id="0ub-eL-bgx"/>
-                            <constraint firstItem="d3D-QY-ttY" firstAttribute="centerX" secondItem="Bh3-2h-YsQ" secondAttribute="centerX" id="8i9-71-t11"/>
-                            <constraint firstItem="d3D-QY-ttY" firstAttribute="centerY" secondItem="Bh3-2h-YsQ" secondAttribute="centerY" id="xTV-Fo-zSS"/>
-                            <constraint firstItem="oY9-zR-FzH" firstAttribute="centerX" secondItem="d3D-QY-ttY" secondAttribute="centerX" id="zdU-sR-pdH"/>
-                        </constraints>
-                    </view>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Edit your database" id="76s-cX-pQT">
-                        <barButtonItem key="leftBarButtonItem" systemItem="save" id="WtG-Cm-V8O"/>
-                    </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Fbj-Hs-63w" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2393" y="548"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="BoF-Tq-rI5">
-            <objects>
-                <viewController id="i5N-CI-6x9" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="gmL-Hh-egA"/>
-                        <viewControllerLayoutGuide type="bottom" id="w7Z-8Z-hLV"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="d49-KJ-Kzb">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dropbox Import" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gd8-NH-yAO">
-                                <rect key="frame" x="240" y="289" width="121" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Gd8-NH-yAO" firstAttribute="centerX" secondItem="d49-KJ-Kzb" secondAttribute="centerX" id="VJv-Ye-zAB"/>
-                            <constraint firstItem="Gd8-NH-yAO" firstAttribute="centerY" secondItem="d49-KJ-Kzb" secondAttribute="centerY" id="umQ-Rf-nNg"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Fmd-zH-JxQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3116" y="548"/>
+            <point key="canvasLocation" x="2554" y="287"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="okr-DF-tqb">
@@ -130,9 +136,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="sB3-Uq-Oci" kind="relationship" relationship="rootViewController" id="1Qk-gZ-pHM"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yFD-yB-XGP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
