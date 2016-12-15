@@ -16,6 +16,7 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var database: UIButton!
     
+    @IBOutlet weak var databasewarning: UITextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,14 +36,37 @@ class MainViewController: UIViewController {
         
         scan.layer.cornerRadius = 10.0
         database.layer.cornerRadius = 10.0
-  
         
         print("landingpage")
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        checkdb()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func checkdb(){
+        let count = DBViewController().countcodes()
+        
+        if count == 0{
+            
+            databasewarning.text = "Achtung: Es befinden sich keine Tickets in der Datenbank!"
+            
+        }
+        else{
+            
+              databasewarning.text = "Es befinden sich \(count) Tickets in der Datenbank"
+            
+        }
+        
+      
+        
+        
+        
     }
     
 

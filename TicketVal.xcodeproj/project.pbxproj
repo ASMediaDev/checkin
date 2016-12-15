@@ -418,8 +418,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.asmedia.ticketval;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "268bc340-6c3a-4576-8b7e-e2cfdc5f1a51";
-				PROVISIONING_PROFILE_SPECIFIER = "XC iOS: *";
+				PROVISIONING_PROFILE = "cccd2259-5b33-41d1-81da-bd928c75626b";
+				PROVISIONING_PROFILE_SPECIFIER = "XC iOS: com.asmedia.ticketval";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -436,8 +436,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.asmedia.ticketval;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "268bc340-6c3a-4576-8b7e-e2cfdc5f1a51";
-				PROVISIONING_PROFILE_SPECIFIER = "XC iOS: *";
+				PROVISIONING_PROFILE = "cccd2259-5b33-41d1-81da-bd928c75626b";
+				PROVISIONING_PROFILE_SPECIFIER = "XC iOS: com.asmedia.ticketval";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

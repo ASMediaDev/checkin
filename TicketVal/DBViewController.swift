@@ -26,7 +26,7 @@ class DBViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        countcodes()
+        displaycount()
 
         // Do any additional setup after loading the view.
     }
@@ -76,7 +76,7 @@ class DBViewController: UIViewController {
         
         print("Import complete")
         print("\(counter) items imported")
-        countcodes()
+        displaycount()
         
         let alert = UIAlertController(title: "Import erfolgreich", message: "\(counter) Tickets importiert", preferredStyle: UIAlertControllerStyle.alert)
         let backView = alert.view.subviews.last?.subviews.last
@@ -102,7 +102,7 @@ class DBViewController: UIViewController {
         }
         
         print("Coredata truncated")
-        countcodes()
+        displaycount()
         let alert = UIAlertController(title: "Leeren erfolgreich", message: "Alle Tickets wurden aus der Datenbank gelöscht", preferredStyle: UIAlertControllerStyle.alert)
         let backView = alert.view.subviews.last?.subviews.last
         backView?.layer.cornerRadius = 10.0
@@ -149,7 +149,7 @@ class DBViewController: UIViewController {
             return valid
     }
     
-    func countcodes(){
+    func displaycount(){
     
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
@@ -172,14 +172,43 @@ class DBViewController: UIViewController {
             print("Could not fetch \(error), \(error.userInfo)")
             
         }
+    }
     
+    func countcodes() -> Int{
+        var numberofcodes : Int = 0
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Tickets")
+        
+        
+        //fetchRequest.predicate = predicate
+        
+        do{
+            let results = try managedContext.fetch(fetchRequest)
+            
+            codes = results as! [NSManagedObject]
+            
+            numberofcodes = (codes.count)
+            
+            print(numberofcodes)
+            
+            
+        } catch let error as NSError{
+            print("Could not fetch \(error), \(error.userInfo)")
+            
+        }
+        
+        return numberofcodes
+        
     }
 
         
         
         
-        
-    }
+
 
     
 
@@ -193,4 +222,4 @@ class DBViewController: UIViewController {
     }
     */
 
-
+}

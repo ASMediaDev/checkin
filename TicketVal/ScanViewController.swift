@@ -93,7 +93,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
         if metadataObjects == nil || metadataObjects.count == 0 {
             qrCodeFrameView?.frame = CGRect.zero
             messageLabel.backgroundColor = UIColor.lightGray
-            messageLabel.text = "Es wurde kein QR-Code erkannt!"
+            messageLabel.text = "Kein QR-Code erkannt!"
             return
         }
         
@@ -122,15 +122,18 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                 if (valid == true){
                     messageLabel.backgroundColor = UIColor.green
                     messageLabel.text = "Ticket gültig!"
+                    
                     /*
+                    
                     let alert_valid = UIAlertController(title: "Ticket gültig!", message: "\(metadataObj.stringValue)", preferredStyle: UIAlertControllerStyle.alert)
                     let backView = alert_valid.view.subviews.last?.subviews.last
                     backView?.layer.cornerRadius = 10.0
                     backView?.backgroundColor = UIColor.green
                     alert_valid.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil))
                     self.present(alert_valid, animated: true, completion: nil)
-                    */
-                    
+ 
+                     */
+                
                 
                     
                 }else{
@@ -171,5 +174,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
             }
         }
     }
+    
+ 
 }
 
