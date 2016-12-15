@@ -15,7 +15,7 @@ class DBViewController: UIViewController {
     @IBOutlet weak var count: UITextView!
     
     @IBAction func importTickets(_ sender: Any) {
-        insert()
+        //insert()
     }
     @IBAction func truncate(_ sender: UIButton) {
         truncateCoreData()
