@@ -16,6 +16,7 @@ class DBViewController: UIViewController {
     
     @IBAction func importTickets(_ sender: Any) {
         //insert()
+
     }
     @IBAction func truncate(_ sender: UIButton) {
         truncateCoreData()
