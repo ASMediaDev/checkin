@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="o1Q-Yw-77n">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="o1Q-Yw-77n">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +13,7 @@
         <!--Main View Controller-->
         <scene sceneID="HET-EI-Kd1">
             <objects>
-                <viewController id="o1Q-Yw-77n" customClass="MainViewController" customModule="TicketVal" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="o1Q-Yw-77n" customClass="MainViewController" customModule="Checkin" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UbO-Hv-6Lc"/>
                         <viewControllerLayoutGuide type="bottom" id="YjC-0X-ROb"/>
@@ -30,7 +30,7 @@
                                 </constraints>
                                 <state key="normal" title="Verwaltung"/>
                                 <connections>
-                                    <segue destination="n8s-Sh-1h2" kind="show" id="uXS-0r-ZBO"/>
+                                    <segue destination="QIx-VJ-Rbr" kind="show" id="YON-Y2-rwa"/>
                                 </connections>
                             </button>
                             <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4XD-NN-kie">
@@ -86,10 +86,80 @@
             </objects>
             <point key="canvasLocation" x="1412" y="546.47676161919048"/>
         </scene>
+        <!--Login View Controller-->
+        <scene sceneID="fJU-t5-N4z">
+            <objects>
+                <viewController id="QIx-VJ-Rbr" customClass="LoginViewController" customModule="Checkin" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aP8-mh-WNk"/>
+                        <viewControllerLayoutGuide type="bottom" id="e4h-Ex-tcA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cU8-8E-szK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="trm-0P-s9O">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Login" id="NfC-u9-iF8">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="Hma-kG-Dmh">
+                                            <connections>
+                                                <segue destination="o1Q-Yw-77n" kind="show" id="wf4-Sx-gTQ"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="56B-Uk-3Ly">
+                                <rect key="frame" x="57" y="162" width="260" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="11n-up-v7C">
+                                <rect key="frame" x="57" y="198" width="260" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nyn-qp-Iv9">
+                                <rect key="frame" x="139" y="235" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.65122969391076668" blue="0.015030979749412809" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="signInButtonTapped:" destination="QIx-VJ-Rbr" eventType="touchUpInside" id="jRc-ch-swC"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Please sign in with your TicketVal Adminpanel credentials!" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="f7G-xZ-V22">
+                                <rect key="frame" x="78" y="81" width="219" height="67"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="userEmailAddressTextField" destination="56B-Uk-3Ly" id="CTS-EG-K0G"/>
+                        <outlet property="userPasswordTextField" destination="11n-up-v7C" id="2WT-qN-ci0"/>
+                        <segue destination="n8s-Sh-1h2" kind="show" identifier="login_redirect" id="Ctg-kQ-juX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gTd-sY-RFy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2276" y="871.21439280359823"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="Geq-jN-b1i">
             <objects>
-                <viewController id="n8s-Sh-1h2" customClass="DBViewController" customModule="TicketVal" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="n8s-Sh-1h2" customClass="DBViewController" customModule="Checkin" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gUH-Wj-zj8"/>
                         <viewControllerLayoutGuide type="bottom" id="hrY-er-qxE"/>
@@ -145,12 +215,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BWZ-ml-aJM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2461.5999999999999" y="755.17241379310349"/>
+            <point key="canvasLocation" x="3442" y="367"/>
         </scene>
         <!--MainView-->
         <scene sceneID="16H-tZ-eXX">
             <objects>
-                <viewController title="MainView" id="sB3-Uq-Oci" customClass="ScanViewController" customModule="TicketVal" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="MainView" id="sB3-Uq-Oci" customClass="ScanViewController" customModule="Checkin" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="g2p-bR-XlG"/>
                         <viewControllerLayoutGuide type="bottom" id="G9H-gU-G18"/>
@@ -217,6 +287,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="nKb-3G-NHU"/>
+        <segue reference="wf4-Sx-gTQ"/>
     </inferredMetricsTieBreakers>
 </document>
