@@ -42,7 +42,7 @@
                                 </constraints>
                                 <state key="normal" title="Scanner"/>
                                 <connections>
-                                    <segue destination="sB3-Uq-Oci" kind="show" id="i89-vs-3KF"/>
+                                    <segue destination="sB3-Uq-Oci" kind="show" id="ayF-De-EBz"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="undefined" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eXM-sw-qay">
@@ -235,7 +235,7 @@
                                     <navigationItem title="Bitte QR-Code zentrieren" id="cWF-JF-2B9">
                                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="cQs-6C-rwT">
                                             <connections>
-                                                <segue destination="o1Q-Yw-77n" kind="show" id="bMH-hD-Pfe"/>
+                                                <segue destination="o1Q-Yw-77n" kind="show" id="1Jy-Yp-XOh"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="LICHT" id="yGE-di-cUD">
@@ -247,10 +247,10 @@
                                 </items>
                             </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kein QR-Code erkannt!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wq2-Lp-9p9">
-                                <rect key="frame" x="0.0" y="496" width="375" height="171"/>
+                                <rect key="frame" x="0.0" y="571" width="375" height="96"/>
                                 <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="171" id="Odm-WT-hk5"/>
+                                    <constraint firstAttribute="height" constant="96" id="3Up-Ia-iYl"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -259,12 +259,12 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Wq2-Lp-9p9" firstAttribute="bottom" secondItem="G9H-gU-G18" secondAttribute="top" id="6Zv-s9-8WY"/>
-                            <constraint firstAttribute="trailing" secondItem="Nbb-W6-A3Z" secondAttribute="trailing" id="Cmp-3s-sSv"/>
-                            <constraint firstItem="Nbb-W6-A3Z" firstAttribute="leading" secondItem="Wq2-Lp-9p9" secondAttribute="leading" id="J76-H2-kTs"/>
-                            <constraint firstItem="Nbb-W6-A3Z" firstAttribute="leading" secondItem="aNA-gC-d9F" secondAttribute="leading" id="Nby-3x-fDC"/>
-                            <constraint firstItem="Nbb-W6-A3Z" firstAttribute="trailing" secondItem="Wq2-Lp-9p9" secondAttribute="trailing" id="OKe-Re-lvn"/>
-                            <constraint firstItem="Nbb-W6-A3Z" firstAttribute="top" secondItem="g2p-bR-XlG" secondAttribute="bottom" id="xFv-zv-yNm"/>
+                            <constraint firstItem="Wq2-Lp-9p9" firstAttribute="bottom" secondItem="G9H-gU-G18" secondAttribute="top" id="1r9-g4-QUa"/>
+                            <constraint firstItem="Nbb-W6-A3Z" firstAttribute="trailing" secondItem="Wq2-Lp-9p9" secondAttribute="trailing" id="Ldu-Fm-LLX"/>
+                            <constraint firstItem="Nbb-W6-A3Z" firstAttribute="leading" secondItem="aNA-gC-d9F" secondAttribute="leading" id="Oj6-BO-wYB"/>
+                            <constraint firstItem="Nbb-W6-A3Z" firstAttribute="top" secondItem="g2p-bR-XlG" secondAttribute="bottom" id="aoA-RM-dQ6"/>
+                            <constraint firstAttribute="trailing" secondItem="Nbb-W6-A3Z" secondAttribute="trailing" id="jdK-Ov-5iw"/>
+                            <constraint firstItem="Nbb-W6-A3Z" firstAttribute="leading" secondItem="Wq2-Lp-9p9" secondAttribute="leading" id="sjq-Fw-WOz"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
@@ -278,7 +278,7 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="messageLabel" destination="Wq2-Lp-9p9" id="GEQ-Ni-prT"/>
+                        <outlet property="displaycode" destination="Wq2-Lp-9p9" id="IDA-kq-mBj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mp9-Io-rsC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -287,6 +287,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="wf4-Sx-gTQ"/>
+        <segue reference="1Jy-Yp-XOh"/>
     </inferredMetricsTieBreakers>
 </document>
