@@ -10,8 +10,26 @@ import UIKit
 import CoreData
 
 
-class DBViewController: UIViewController {
+class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+   
+    @IBAction func logoutBtn(_ sender: AnyObject) {
+        
+        UserDefaults.standard.removeObject(forKey: "userFirstName")
+        UserDefaults.standard.removeObject(forKey: "userLastName")
+        UserDefaults.standard.removeObject(forKey: "userId")
+        UserDefaults.standard.synchronize()
+        
+        let loginPage = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
+        let appDelegate = UIApplication.shared.delegate
+        appDelegate?.window??.rootViewController = loginPage
+        
+    }
+  
+    @IBAction func selectevent(_ sender: Any) {
+    }
     
+    @IBOutlet weak var eventpicker: UIPickerView!
+
     @IBOutlet weak var count: UITextView!
     
     @IBAction func importTickets(_ sender: Any) {
@@ -23,6 +41,8 @@ class DBViewController: UIViewController {
     }
     
     var codes = [NSManagedObject]()
+    
+    var Array = ["Event1","Event2","Event3"]
     
     
     override func viewDidLoad() {
@@ -36,6 +56,21 @@ class DBViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return Array[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return Array.count
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    
+    
     
    func saveCode (_ code: String){
         

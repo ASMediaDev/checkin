@@ -112,6 +112,8 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
         
         
         if (code == "JSKDJAKSJ"){
+            
+            displaycode.text = attendee
         
             let alertController = UIAlertController(title: "GÜLTIG", message: "Gast: \(attendee)", preferredStyle: .alert)
             
@@ -128,7 +130,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
             alertController.addAction(destroyAction)
             
             self.present(alertController, animated: true) {
-                // ...
+                
             }
             
         }else{
