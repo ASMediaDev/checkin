@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import TicketVal
+@testable import Checkin
 
 class TicketValTests: XCTestCase {
     

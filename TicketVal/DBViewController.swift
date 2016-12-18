@@ -8,6 +8,9 @@
 
 import UIKit
 import CoreData
+import SwiftyJSON
+
+
 
 
 class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -26,9 +29,19 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     }
   
     @IBAction func selectevent(_ sender: Any) {
+      
+        label.text = Array[placementAnswer]
+        getEventNamesFromAPI()
+        
+        
+        
     }
     
     @IBOutlet weak var eventpicker: UIPickerView!
+    
+    @IBOutlet weak var label: UILabel!
+    
+    var placementAnswer = 0;
 
     @IBOutlet weak var count: UITextView!
     
@@ -48,6 +61,10 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         displaycount()
+        
+        
+        eventpicker.delegate = self
+        eventpicker.dataSource = self
 
         // Do any additional setup after loading the view.
     }
@@ -69,6 +86,11 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         return 1
     }
 
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+   
+        placementAnswer = row
+    
+    }
     
     
     
@@ -239,6 +261,39 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         
         return numberofcodes
         
+    }
+    
+    func getEventNamesFromAPI() {
+        
+        let requestURL: URL = URL(string: "http://api.ticketval.de/getEvents.php")!
+        let urlRequest: URLRequest = URLRequest(url: requestURL)
+        let session = URLSession.shared
+        let task = session.dataTask(with: urlRequest) {
+            (data, response, error) -> Void in
+            
+            let httpResponse = response as! HTTPURLResponse
+            let statusCode = httpResponse.statusCode
+            
+            
+            if (statusCode == 200) {
+                print("File downloaded")
+                print(httpResponse)
+                
+                
+            
+                }
+            
+            
+        }
+        
+        task.resume()
+        
+        
+        
+    
+    
+    
+    
     }
 
         

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F19C09A9154A41D40AF0D4B /* Pods_Checkin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9D5A692587E92CF8355CCE /* Pods_Checkin.framework */; };
 		445B1E181D1710860040273F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 445B1E171D1710860040273F /* Launch Screen.storyboard */; };
 		445B1E1A1D1711D10040273F /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 445B1E191D1711D10040273F /* Icon-60@3x.png */; };
 		448796661DE322F200DDCA5B /* DBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448796651DE322F200DDCA5B /* DBViewController.swift */; };
@@ -40,11 +41,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0CDF0CB7278C7DDA83AF460A /* Pods-Checkin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Checkin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Checkin/Pods-Checkin.debug.xcconfig"; sourceTree = "<group>"; };
+		3B93560AD0C0FB862F4FACDB /* Pods_CheckinTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CheckinTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		445B1E171D1710860040273F /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "../Launch Screen.storyboard"; sourceTree = "<group>"; };
 		445B1E191D1711D10040273F /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@3x.png"; sourceTree = "<group>"; };
 		448796651DE322F200DDCA5B /* DBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBViewController.swift; sourceTree = "<group>"; };
 		449E45E41E02D7C20047F76A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		449E45E51E02D7C20047F76A /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		73D431DAE7CC2D1B67E6E010 /* Pods-Checkin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Checkin.release.xcconfig"; path = "Pods/Target Support Files/Pods-Checkin/Pods-Checkin.release.xcconfig"; sourceTree = "<group>"; };
+		AD9D5A692587E92CF8355CCE /* Pods_Checkin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Checkin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7B23B8677C08B81633420D4 /* Pods_CheckinUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CheckinUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA4B72DC1D13FD4000C1C4C8 /* Checkin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Checkin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA4B72DF1D13FD4000C1C4C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA4B72E71D13FD4000C1C4C8 /* TicketVal.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TicketVal.xcdatamodel; sourceTree = "<group>"; };
@@ -66,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F19C09A9154A41D40AF0D4B /* Pods_Checkin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +93,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BDD90C33B0EB8F67FC972969 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0CDF0CB7278C7DDA83AF460A /* Pods-Checkin.debug.xcconfig */,
+				73D431DAE7CC2D1B67E6E010 /* Pods-Checkin.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C910C18D84757A7FD2DB69EF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AD9D5A692587E92CF8355CCE /* Pods_Checkin.framework */,
+				3B93560AD0C0FB862F4FACDB /* Pods_CheckinTests.framework */,
+				E7B23B8677C08B81633420D4 /* Pods_CheckinUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FA4B72D31D13FD4000C1C4C8 = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +119,8 @@
 				FA4B72F61D13FD4100C1C4C8 /* TicketValTests */,
 				FA4B73011D13FD4100C1C4C8 /* TicketValUITests */,
 				FA4B72DD1D13FD4000C1C4C8 /* Products */,
+				BDD90C33B0EB8F67FC972969 /* Pods */,
+				C910C18D84757A7FD2DB69EF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -151,9 +179,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FA4B73071D13FD4100C1C4C8 /* Build configuration list for PBXNativeTarget "Checkin" */;
 			buildPhases = (
+				7A8D6DEFF49B4796F7CA517F /* [CP] Check Pods Manifest.lock */,
 				FA4B72D81D13FD4000C1C4C8 /* Sources */,
 				FA4B72D91D13FD4000C1C4C8 /* Frameworks */,
 				FA4B72DA1D13FD4000C1C4C8 /* Resources */,
+				639393EF44F54E8F0D01683E /* [CP] Embed Pods Frameworks */,
+				7FB4ED805E19B2FCD7492B26 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -207,7 +238,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = Alex;
 				TargetAttributes = {
 					FA4B72DB1D13FD4000C1C4C8 = {
@@ -276,6 +307,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		639393EF44F54E8F0D01683E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Checkin/Pods-Checkin-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7A8D6DEFF49B4796F7CA517F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7FB4ED805E19B2FCD7492B26 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Checkin/Pods-Checkin-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FA4B72D81D13FD4000C1C4C8 /* Sources */ = {
@@ -413,7 +492,9 @@
 		};
 		FA4B73081D13FD4100C1C4C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0CDF0CB7278C7DDA83AF460A /* Pods-Checkin.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -431,7 +512,9 @@
 		};
 		FA4B73091D13FD4100C1C4C8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 73D431DAE7CC2D1B67E6E010 /* Pods-Checkin.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
