@@ -64,7 +64,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         
         tableViewTitle.text = "Attendees for: \(eventarray[placementAnswer])"
         
-        print("btn_pressed")
+        //print("btn_pressed")
         
         self.view.viewWithTag(1)?.isHidden = true
         UserDefaults.standard.setValue(placementAnswer, forKey: "selectedEvent")
