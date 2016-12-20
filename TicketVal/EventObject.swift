@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Event {
+class EventObject {
     
     var title: String!
     var id : Int!

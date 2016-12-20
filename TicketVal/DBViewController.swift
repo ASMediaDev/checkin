@@ -34,48 +34,16 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     @IBOutlet weak var tableViewTitle: UITextView!
     
     
-    func tableView(_ tableView:UITableView, numberOfRowsInSection section:Int) -> Int
-    {
-        return attendees.count
-    }
     
-    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "mycell", for: indexPath)
-
-        
-        if (attendees.isEmpty){
-            
-        cell.textLabel?.text = "empty"
-        } else {
-        
-            
-        cell.textLabel?.text = attendees[indexPath.item]
-                
-            
-            
-        }
-        return cell
-    }
-  
     @IBAction func selectevent(_ sender: Any) {
-      
         label.text = "Selected Event: \(eventarray[placementAnswer])"
-        
         tableViewTitle.text = "Attendees for: \(eventarray[placementAnswer])"
-        
-        //print("btn_pressed")
-        
         self.view.viewWithTag(1)?.isHidden = true
         UserDefaults.standard.setValue(placementAnswer, forKey: "selectedEvent")
         print(UserDefaults.standard.value(forKey: "selectedEvent")!)
-        //getAttendees(eventId: (UserDefaults.standard.value(forKey: "selectedEvent") as! Int)+1)
-        //attendeesTableView.reloadData()
         self.view.viewWithTag(3)?.isHidden = false
-        //print(attendees)
         
         attendees = []
-        
         
         let api = TicketValAPI()
         api.getAttendees(eventId: (placementAnswer)+1) {(error, attendees) in
@@ -91,18 +59,11 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
                 DispatchQueue.main.async {
                     self.attendeesTableView.reloadData()
                 }
-                
             }
-            
-            
         }
-        
-        
-       
     }
     
     @IBOutlet weak var attendeesTableView: UITableView!
-    
     
     @IBOutlet weak var eventpicker: UIPickerView!
     
@@ -110,29 +71,23 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     
     @IBOutlet weak var attendeesTextView: UITextView!
     
-    
-    var placementAnswer = 0;
 
-       @IBAction func openpicker(_ sender: Any) {
+    @IBAction func openpicker(_ sender: Any) {
         
         self.eventpicker.reloadAllComponents()
         self.view.viewWithTag(3)?.isHidden = true
         self.view.viewWithTag(1)?.isHidden = false
-        
-        
-        
     }
     
-    var codes = [NSManagedObject]()
-    
-    //var Array = [""]
+    var placementAnswer = 0;
     
     var eventarray = [String]()
     
+    var eventsdictionary = NSDictionary()
+    
     var attendees = [String]()
     
-    
-    
+    var attendeesdictionary = NSDictionary()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -146,15 +101,13 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
                 print(error)
             }else {
                 //print("Content:")
+                print(events[0].startdate)
+                
                 for event in events {
                     self.eventarray.append(event.title)
                     }
                 }
-            }
-        
-       
-        
-
+        }
         // Do any additional setup after loading the view.
     }
 
@@ -163,6 +116,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         // Dispose of any resources that can be recreated.
     }
     
+    //pickerview methods
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         //Array = getEventNamesFromAPI()
        
@@ -185,6 +139,41 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         print(placementAnswer)
     
     }
+    
+    //tableview methods
+    
+    func tableView(_ tableView:UITableView, numberOfRowsInSection section:Int) -> Int
+    {
+        return attendees.count
+    }
+    
+    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "mycell", for: indexPath)
+        
+        
+        if (attendees.isEmpty){
+            
+            cell.textLabel?.text = "empty"
+        } else {
+            
+            
+            cell.textLabel?.text = attendees[indexPath.item]
+            
+            
+            
+        }
+        return cell
+    }
+    
+    //coredata methods
+    
+    func checkDataStore() {
+        
+        
+        
+    }
+
 
     /*
     // MARK: - Navigation

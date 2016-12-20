@@ -14,8 +14,9 @@
 		449E45E61E02D7C20047F76A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449E45E41E02D7C20047F76A /* LoginViewController.swift */; };
 		449E45E71E02D7C20047F76A /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 449E45E51E02D7C20047F76A /* LoginViewController.xib */; };
 		44E4F44D1E09333600EDF8B5 /* TicketValAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E4F44C1E09333600EDF8B5 /* TicketValAPI.swift */; };
-		44E4F4501E09370900EDF8B5 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E4F44F1E09370900EDF8B5 /* Event.swift */; };
-		44E4F4521E0969BC00EDF8B5 /* Attendee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E4F4511E0969BC00EDF8B5 /* Attendee.swift */; };
+		44E4F4501E09370900EDF8B5 /* EventObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E4F44F1E09370900EDF8B5 /* EventObject.swift */; };
+		44E4F4521E0969BC00EDF8B5 /* AttendeeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E4F4511E0969BC00EDF8B5 /* AttendeeObject.swift */; };
+		44E4F4541E098AC800EDF8B5 /* DatabaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E4F4531E098AC800EDF8B5 /* DatabaseController.swift */; };
 		FA4B72E01D13FD4000C1C4C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B72DF1D13FD4000C1C4C8 /* AppDelegate.swift */; };
 		FA4B72E81D13FD4000C1C4C8 /* TicketVal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA4B72E61D13FD4000C1C4C8 /* TicketVal.xcdatamodeld */; };
 		FA4B72EA1D13FD4000C1C4C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA4B72E91D13FD4000C1C4C8 /* Assets.xcassets */; };
@@ -52,8 +53,9 @@
 		449E45E41E02D7C20047F76A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		449E45E51E02D7C20047F76A /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		44E4F44C1E09333600EDF8B5 /* TicketValAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketValAPI.swift; sourceTree = "<group>"; };
-		44E4F44F1E09370900EDF8B5 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		44E4F4511E0969BC00EDF8B5 /* Attendee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attendee.swift; sourceTree = "<group>"; };
+		44E4F44F1E09370900EDF8B5 /* EventObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventObject.swift; sourceTree = "<group>"; };
+		44E4F4511E0969BC00EDF8B5 /* AttendeeObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendeeObject.swift; sourceTree = "<group>"; };
+		44E4F4531E098AC800EDF8B5 /* DatabaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseController.swift; sourceTree = "<group>"; };
 		73D431DAE7CC2D1B67E6E010 /* Pods-Checkin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Checkin.release.xcconfig"; path = "Pods/Target Support Files/Pods-Checkin/Pods-Checkin.release.xcconfig"; sourceTree = "<group>"; };
 		AD9D5A692587E92CF8355CCE /* Pods_Checkin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Checkin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7B23B8677C08B81633420D4 /* Pods_CheckinUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CheckinUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,10 +105,17 @@
 			isa = PBXGroup;
 			children = (
 				44E4F44C1E09333600EDF8B5 /* TicketValAPI.swift */,
-				44E4F44F1E09370900EDF8B5 /* Event.swift */,
-				44E4F4511E0969BC00EDF8B5 /* Attendee.swift */,
+				44E4F44F1E09370900EDF8B5 /* EventObject.swift */,
+				44E4F4511E0969BC00EDF8B5 /* AttendeeObject.swift */,
 			);
 			name = TicketValAPI;
+			sourceTree = "<group>";
+		};
+		44E4F4961E098EFC00EDF8B5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		BDD90C33B0EB8F67FC972969 /* Pods */ = {
@@ -153,6 +162,7 @@
 		FA4B72DE1D13FD4000C1C4C8 /* checkin */ = {
 			isa = PBXGroup;
 			children = (
+				44E4F4961E098EFC00EDF8B5 /* Models */,
 				44E4F44E1E09333D00EDF8B5 /* TicketValAPI */,
 				445B1E191D1711D10040273F /* Icon-60@3x.png */,
 				FAC9C0551D1426D000189A0C /* Main.storyboard */,
@@ -166,6 +176,7 @@
 				FA4B72E91D13FD4000C1C4C8 /* Assets.xcassets */,
 				FA4B72EE1D13FD4000C1C4C8 /* Info.plist */,
 				FA4B72E61D13FD4000C1C4C8 /* TicketVal.xcdatamodeld */,
+				44E4F4531E098AC800EDF8B5 /* DatabaseController.swift */,
 			);
 			name = checkin;
 			path = TicketVal;
@@ -378,13 +389,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44E4F4501E09370900EDF8B5 /* Event.swift in Sources */,
+				44E4F4541E098AC800EDF8B5 /* DatabaseController.swift in Sources */,
+				44E4F4501E09370900EDF8B5 /* EventObject.swift in Sources */,
 				44E4F44D1E09333600EDF8B5 /* TicketValAPI.swift in Sources */,
 				449E45E61E02D7C20047F76A /* LoginViewController.swift in Sources */,
 				FA7E9F621D17F42B00BB21D4 /* ScanViewController.swift in Sources */,
 				FA4B72E81D13FD4000C1C4C8 /* TicketVal.xcdatamodeld in Sources */,
 				FA4B72E01D13FD4000C1C4C8 /* AppDelegate.swift in Sources */,
-				44E4F4521E0969BC00EDF8B5 /* Attendee.swift in Sources */,
+				44E4F4521E0969BC00EDF8B5 /* AttendeeObject.swift in Sources */,
 				448796661DE322F200DDCA5B /* DBViewController.swift in Sources */,
 				FAB458EE1DDC723200BF53C5 /* MainViewController.swift in Sources */,
 			);
@@ -461,7 +473,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -502,7 +514,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

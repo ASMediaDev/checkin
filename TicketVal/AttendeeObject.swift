@@ -9,7 +9,7 @@
 import Foundation
 
 
-class Attendee {
+class AttendeeObject {
     
     var orderid : Int!
     var ticketid : Int!
