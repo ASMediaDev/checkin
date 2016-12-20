@@ -9,11 +9,14 @@
 import UIKit
 import CoreData
 import SwiftyJSON
+import Alamofire
 
 
 
 
-class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+
+class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource  {
+    
    
     @IBAction func logoutBtn(_ sender: AnyObject) {
         
@@ -27,44 +30,94 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         appDelegate?.window??.rootViewController = loginPage
         
     }
+    
+    func tableView(_ tableView:UITableView, numberOfRowsInSection section:Int) -> Int
+    {
+        return 20
+    }
+    
+    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        let cell:UITableViewCell=UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "mycell")
+        if (attendees.isEmpty){
+            
+            cell.textLabel?.text = "empty"
+            
+        }else{
+            
+        cell.textLabel?.text = attendees[0]
+        
+        }
+        
+        return cell
+    }
   
     @IBAction func selectevent(_ sender: Any) {
       
-        label.text = Array[placementAnswer]
-        getEventNamesFromAPI()
+        label.text = "Selected Event: \(events[placementAnswer])"
+        print("btn_pressed")
+        
+        self.view.viewWithTag(1)?.isHidden = true
+        UserDefaults.standard.setValue(placementAnswer, forKey: "selectedEvent")
+        print(UserDefaults.standard.value(forKey: "selectedEvent")!)
+        getAttendees(eventId: (UserDefaults.standard.value(forKey: "selectedEvent") as! Int)+1)
+        attendeesTableView.reloadData()
+        self.view.viewWithTag(3)?.isHidden = false
+        //print(attendees)
         
         
-        
+       
     }
+    
+    @IBOutlet weak var attendeesTableView: UITableView!
+    
     
     @IBOutlet weak var eventpicker: UIPickerView!
     
     @IBOutlet weak var label: UILabel!
     
+    @IBOutlet weak var attendeesTextView: UITextView!
+    
+    
     var placementAnswer = 0;
 
-    @IBOutlet weak var count: UITextView!
-    
-    @IBAction func importTickets(_ sender: Any) {
-        //insert()
-
-    }
-    @IBAction func truncate(_ sender: UIButton) {
-        truncateCoreData()
+       @IBAction func openpicker(_ sender: Any) {
+        
+        self.eventpicker.reloadAllComponents()
+        self.view.viewWithTag(3)?.isHidden = true
+        self.view.viewWithTag(1)?.isHidden = false
+        
+        
+        
     }
     
     var codes = [NSManagedObject]()
     
-    var Array = ["Event1","Event2","Event3"]
+    var Array = [""]
+    
+    var events = [String]()
+    
+    var attendees = [String]()
+    
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        displaycount()
         
+        self.view.viewWithTag(1)?.isHidden = true
+        let storedEvent = UserDefaults.standard.value(forKey: "selectedEvent") as! Int
+        getEvents()
+       
+        
+        print(storedEvent)
+        //print(events[storedEvent])
+        
+        //label.text = "Selected Event: \(events[storedEvent])"
         
         eventpicker.delegate = self
         eventpicker.dataSource = self
+        //getAttendees(eventId: (UserDefaults.standard.value(forKey: "selectedEvent") as! Int)+1)
 
         // Do any additional setup after loading the view.
     }
@@ -75,11 +128,15 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return Array[row]
+        //Array = getEventNamesFromAPI()
+       
+        return events[row]
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return Array.count
+        //Array = getEventNamesFromAPI()
+        return events.count
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -89,213 +146,100 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
    
         placementAnswer = row
+        //print(placementAnswer)
     
     }
     
+   
     
     
-   func saveCode (_ code: String){
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        let managedContext = appDelegate.managedObjectContext
-        
-        let entity = NSEntityDescription.entity(forEntityName: "Tickets", in: managedContext)
-        
-        let ticket = NSManagedObject(entity: entity!, insertInto: managedContext)
-        
-        ticket.setValue(code, forKey: "code")
-        
-        do{
-            try managedContext.save()
-            
-            codes.append(ticket)
-            
-        } catch let error as NSError{
-            print("Could not save \(error), \(error.userInfo)")
-        }
-    }
-    
-    func insert () {
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        let contentsOfUrl = Bundle.main.url(forResource: "Midsemester_Tickets_2", withExtension: "csv")
-        
-        let items = appDelegate.parseCSV(contentsOfUrl!, encoding: String.Encoding.utf8)
-        
-        var counter = 0
-        
-        for element in items! {
-            saveCode(element)
-            print ("\(element) inserted")
-            counter = counter + 1
-        }
-        
-        print("Import complete")
-        print("\(counter) items imported")
-        displaycount()
-        
-        let alert = UIAlertController(title: "Import erfolgreich", message: "\(counter) Tickets importiert", preferredStyle: UIAlertControllerStyle.alert)
-        let backView = alert.view.subviews.last?.subviews.last
-        backView?.layer.cornerRadius = 10.0
-        
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func truncateCoreData(){
-        
-        let appDel = UIApplication.shared.delegate as! AppDelegate
-        let context = appDel.managedObjectContext
-        let coord = appDel.persistentStoreCoordinator
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Tickets")
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        
-        do {
-            try coord.execute(deleteRequest, with: context)
-        } catch let error as NSError {
-            debugPrint(error)
-        }
-        
-        print("Coredata truncated")
-        displaycount()
-        let alert = UIAlertController(title: "Leeren erfolgreich", message: "Alle Tickets wurden aus der Datenbank gelöscht", preferredStyle: UIAlertControllerStyle.alert)
-        let backView = alert.view.subviews.last?.subviews.last
-        backView?.layer.cornerRadius = 10.0
-        
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-
-    }
-    
-        func validate(_ scan: String) -> Bool{
-            
-        var valid = false
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        let managedContext = appDelegate.managedObjectContext
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Tickets")
-        
-        let predicate = NSPredicate(format: "code == %@", scan)
-        
-        fetchRequest.predicate = predicate
-        
-        do{
-            let results = try managedContext.fetch(fetchRequest)
-            
-            codes = results as! [NSManagedObject]
-            
-            //print("Codes:")
-            //print(codes[0])
-            
-            if results.isEmpty{
-                print("invalid")
-                valid = false
-            }else{
-                print("valid")
-                valid = true
+    func getEvents() {
+        print("Inside Events")
+        let url = URL(string: "http://api.ticketval.de/getEvents.php")
+        let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            if error != nil
+            {
+                print ("ERROR")
             }
-        
-        } catch let error as NSError{
-            print("Could not fetch \(error), \(error.userInfo)")
-            
-        }
-            return valid
-    }
-    
-    func displaycount(){
-    
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        let managedContext = appDelegate.managedObjectContext
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Tickets")
-        
-        
-        //fetchRequest.predicate = predicate
-        
-        do{
-            let results = try managedContext.fetch(fetchRequest)
-            
-            codes = results as! [NSManagedObject]
-            
-            count.text = "Es befinden sich \(codes.count) Tickets in der Datenbank"
-            
-            
-        } catch let error as NSError{
-            print("Could not fetch \(error), \(error.userInfo)")
-            
-        }
-    }
-    
-    func countcodes() -> Int{
-        var numberofcodes : Int = 0
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        let managedContext = appDelegate.managedObjectContext
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Tickets")
-        
-        
-        //fetchRequest.predicate = predicate
-        
-        do{
-            let results = try managedContext.fetch(fetchRequest)
-            
-            codes = results as! [NSManagedObject]
-            
-            numberofcodes = (codes.count)
-            
-            print(numberofcodes)
-            
-            
-        } catch let error as NSError{
-            print("Could not fetch \(error), \(error.userInfo)")
-            
-        }
-        
-        return numberofcodes
-        
-    }
-    
-    func getEventNamesFromAPI() {
-        
-        let requestURL: URL = URL(string: "http://api.ticketval.de/getEvents.php")!
-        let urlRequest: URLRequest = URLRequest(url: requestURL)
-        let session = URLSession.shared
-        let task = session.dataTask(with: urlRequest) {
-            (data, response, error) -> Void in
-            
-            let httpResponse = response as! HTTPURLResponse
-            let statusCode = httpResponse.statusCode
-            
-            
-            if (statusCode == 200) {
-                print("File downloaded")
-                print(httpResponse)
-                
-                
-            
+            else
+            {
+                if let content = data
+                {
+                    do
+                    {
+                        //Array
+                        let myJson = try JSONSerialization.jsonObject(with: content, options: .mutableContainers) as AnyObject
+                    
+                        for dictionary in myJson as! [[String: AnyObject]]{
+                            //print(dictionary)
+                            
+                            self.events.append((dictionary["title"] as AnyObject) as! String)
+                    }
+                      
+                    print(self.events)
+                    self.eventpicker.reloadAllComponents()
+                    }
+                    catch
+                    {
+                        
+                    }
                 }
-            
-            
+            }
         }
-        
         task.resume()
+        self.eventpicker.reloadAllComponents()
+}
+    
+    func getAttendees(eventId: Int){
         
+        print("Inside attendees")
+        let urlstring = "http://api.ticketval.de/getAttendees.php"
+        let eventIdString = "?eventId=\(eventId)"
+        let url = URL(string: urlstring + eventIdString)
         
+        //print(url!)
         
-    
-    
-    
-    
-    }
+        let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            if error != nil
+            {
+                print ("ERROR")
+            }
+            else
+            {
+                if let content = data
+                {
+                    do
+                    {
+                        //Array
+                        let myJson = try JSONSerialization.jsonObject(with: content, options: .mutableContainers) as AnyObject
+                        
+                        for dictionary in myJson as! [[String: AnyObject]]{
+                            //print(dictionary)
+                            
+                            //print ("Dictionary:")
+                            //print(((dictionary["first_name"] as AnyObject) as! String))
+                            self.attendees.append((dictionary["first_name"] as AnyObject) as! String)
+                        }
+                        
+                        
+                        //print(self.attendees)
+                        self.attendeesTableView.reloadData()
+                    }
+                    catch
+                    {
+                        
+                    }
+                }
+            }
+        }
+        task.resume()
 
+        
+       
+        
+        
+        
+    }
         
         
         

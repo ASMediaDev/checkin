@@ -70,7 +70,7 @@ class MainViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        checkdb()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -78,25 +78,6 @@ class MainViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func checkdb(){
-        let count = DBViewController().countcodes()
-        
-        if count == 0{
-            
-            databasewarning.text = "Achtung: Es befinden sich keine Tickets in der Datenbank!"
-            
-        }
-        else{
-            
-              databasewarning.text = "Es befinden sich \(count) Tickets in der Datenbank"
-            
-        }
-        
-      
-        
-        
-        
-    }
     
 
     /*
