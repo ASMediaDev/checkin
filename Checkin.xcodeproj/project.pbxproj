@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3F19C09A9154A41D40AF0D4B /* Pods_Checkin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9D5A692587E92CF8355CCE /* Pods_Checkin.framework */; };
+		443AD89C1E09969E00359161 /* Attendees+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443AD89A1E09969E00359161 /* Attendees+CoreDataClass.swift */; };
+		443AD89D1E09969E00359161 /* Attendees+CoreDataProperties_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443AD89B1E09969E00359161 /* Attendees+CoreDataProperties_1.swift */; };
 		445B1E181D1710860040273F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 445B1E171D1710860040273F /* Launch Screen.storyboard */; };
 		445B1E1A1D1711D10040273F /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 445B1E191D1711D10040273F /* Icon-60@3x.png */; };
 		448796661DE322F200DDCA5B /* DBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448796651DE322F200DDCA5B /* DBViewController.swift */; };
@@ -47,6 +49,8 @@
 /* Begin PBXFileReference section */
 		0CDF0CB7278C7DDA83AF460A /* Pods-Checkin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Checkin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Checkin/Pods-Checkin.debug.xcconfig"; sourceTree = "<group>"; };
 		3B93560AD0C0FB862F4FACDB /* Pods_CheckinTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CheckinTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		443AD89A1E09969E00359161 /* Attendees+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Attendees+CoreDataClass.swift"; sourceTree = "<group>"; };
+		443AD89B1E09969E00359161 /* Attendees+CoreDataProperties_1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Attendees+CoreDataProperties_1.swift"; sourceTree = "<group>"; };
 		445B1E171D1710860040273F /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "../Launch Screen.storyboard"; sourceTree = "<group>"; };
 		445B1E191D1711D10040273F /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@3x.png"; sourceTree = "<group>"; };
 		448796651DE322F200DDCA5B /* DBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBViewController.swift; sourceTree = "<group>"; };
@@ -162,6 +166,8 @@
 		FA4B72DE1D13FD4000C1C4C8 /* checkin */ = {
 			isa = PBXGroup;
 			children = (
+				443AD89A1E09969E00359161 /* Attendees+CoreDataClass.swift */,
+				443AD89B1E09969E00359161 /* Attendees+CoreDataProperties_1.swift */,
 				44E4F4961E098EFC00EDF8B5 /* Models */,
 				44E4F44E1E09333D00EDF8B5 /* TicketValAPI */,
 				445B1E191D1711D10040273F /* Icon-60@3x.png */,
@@ -394,10 +400,12 @@
 				44E4F44D1E09333600EDF8B5 /* TicketValAPI.swift in Sources */,
 				449E45E61E02D7C20047F76A /* LoginViewController.swift in Sources */,
 				FA7E9F621D17F42B00BB21D4 /* ScanViewController.swift in Sources */,
+				443AD89D1E09969E00359161 /* Attendees+CoreDataProperties_1.swift in Sources */,
 				FA4B72E81D13FD4000C1C4C8 /* TicketVal.xcdatamodeld in Sources */,
 				FA4B72E01D13FD4000C1C4C8 /* AppDelegate.swift in Sources */,
 				44E4F4521E0969BC00EDF8B5 /* AttendeeObject.swift in Sources */,
 				448796661DE322F200DDCA5B /* DBViewController.swift in Sources */,
+				443AD89C1E09969E00359161 /* Attendees+CoreDataClass.swift in Sources */,
 				FAB458EE1DDC723200BF53C5 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,7 +10,7 @@ import Foundation
 
 class TicketValAPI{
     
-    func getEvents(completion: @escaping (Error?, [Event]) -> Void) {
+    func getEvents(completion: @escaping (Error?, [EventObject]) -> Void) {
         print("Inside Events/API")
         let url = URL(string: "http://api.ticketval.de/getEvents.php")
         let task = URLSession.shared.dataTask(with: url!) { (data, response, error) -> Void in
@@ -25,11 +25,11 @@ class TicketValAPI{
                 let eventsData = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as! NSArray
                     
                 //print(eventsData)
-                var events = [Event]()
+                var events = [EventObject]()
                     
                     for event in eventsData{
                         
-                        let event = Event(data: event as! NSDictionary)
+                        let event = EventObject(data: event as! NSDictionary)
                         events.append(event)
                         
                     }
@@ -45,7 +45,7 @@ class TicketValAPI{
         task.resume()
     }
     
-    func getAttendees(eventId: Int, completion: @escaping (Error?, [Attendee]) -> Void){
+    func getAttendees(eventId: Int, completion: @escaping (Error?, [AttendeeObject]) -> Void){
         
         print("Inside attendees")
         let urlstring = "http://api.ticketval.de/getAttendees.php"
@@ -64,11 +64,11 @@ class TicketValAPI{
                     
                     //print(eventsData)
                     
-                    var attendees = [Attendee]()
+                    var attendees = [AttendeeObject]()
                     
                     for attendee in attendeesData{
                         
-                        let attendee = Attendee(data: attendee as! NSDictionary)
+                        let attendee = AttendeeObject(data: attendee as! NSDictionary)
                         attendees.append(attendee)
                         
                     }

@@ -11,6 +11,13 @@ import CoreData
 
 class DatabaseController{
     
+    
+    
+    class func getContext() -> NSManagedObjectContext{
+        return self.persistentContainer.viewContext
+        
+    }
+    
     // MARK: - Core Data stack
     
     

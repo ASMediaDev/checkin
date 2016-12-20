@@ -108,6 +108,8 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
                     }
                 }
         }
+        
+        checkDataStore()
         // Do any additional setup after loading the view.
     }
 
@@ -170,6 +172,38 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     
     func checkDataStore() {
         
+        
+        
+        let fetchRequest:NSFetchRequest<Attendees> = Attendees.fetchRequest()
+        
+        do{
+            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+            print("number of results: \(searchResults.count)")
+         
+            for result in searchResults as [Attendees]{
+                print("\(result.first_name!)")
+                print("\(result.last_name!)")
+                print(result.private_reference_number!)
+            }
+        }
+        catch{
+            print("Error: \(error)")
+        }
+        
+        
+    }
+    
+    func insertIntoDataStore() {
+        
+        let attendee:Attendees = NSEntityDescription.insertNewObject(forEntityName: "Attendees", into: DatabaseController.getContext()) as! Attendees
+        
+        attendee.first_name = "John"
+        attendee.last_name = "Smith"
+        attendee.ticket_id = 2
+        attendee.order_id = 1
+        attendee.private_reference_number = 817283627
+        
+        DatabaseController.saveContext()
         
         
     }
