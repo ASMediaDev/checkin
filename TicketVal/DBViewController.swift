@@ -31,39 +31,71 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         
     }
     
+    @IBOutlet weak var tableViewTitle: UITextView!
+    
+    
     func tableView(_ tableView:UITableView, numberOfRowsInSection section:Int) -> Int
     {
-        return 20
+        return attendees.count
     }
     
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell:UITableViewCell=UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "mycell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "mycell", for: indexPath)
+
+        
         if (attendees.isEmpty){
             
-            cell.textLabel?.text = "empty"
-            
-        }else{
-            
-        cell.textLabel?.text = attendees[0]
+        cell.textLabel?.text = "empty"
+        } else {
         
+            
+        cell.textLabel?.text = attendees[indexPath.item]
+                
+            
+            
         }
-        
         return cell
     }
   
     @IBAction func selectevent(_ sender: Any) {
       
         label.text = "Selected Event: \(eventarray[placementAnswer])"
+        
+        tableViewTitle.text = "Attendees for: \(eventarray[placementAnswer])"
+        
         print("btn_pressed")
         
         self.view.viewWithTag(1)?.isHidden = true
         UserDefaults.standard.setValue(placementAnswer, forKey: "selectedEvent")
         print(UserDefaults.standard.value(forKey: "selectedEvent")!)
         //getAttendees(eventId: (UserDefaults.standard.value(forKey: "selectedEvent") as! Int)+1)
-        attendeesTableView.reloadData()
+        //attendeesTableView.reloadData()
         self.view.viewWithTag(3)?.isHidden = false
         //print(attendees)
+        
+        attendees = []
+        
+        
+        let api = TicketValAPI()
+        api.getAttendees(eventId: (placementAnswer)+1) {(error, attendees) in
+            if let error = error{
+                print(error)
+            }else {
+                //print("Content:")
+                for attendee in attendees {
+                    self.attendees.append(attendee.firstname + " " + attendee.lastname)
+                }
+                
+                print(self.attendees)
+                DispatchQueue.main.async {
+                    self.attendeesTableView.reloadData()
+                }
+                
+            }
+            
+            
+        }
         
         
        
@@ -110,30 +142,17 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         
         let api = TicketValAPI()
         api.getEvents() {(error, events) in
-            
             if let error = error{
-                
                 print(error)
-                
             }else {
                 //print("Content:")
-                
                 for event in events {
                     self.eventarray.append(event.title)
-                    
-                    
+                    }
                 }
-             
-                
             }
         
-        
-         
-            
-        }
-        
-        
-        
+       
         
 
         // Do any additional setup after loading the view.
@@ -166,67 +185,6 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         print(placementAnswer)
     
     }
-    
-   
-    
-
-    
-    func getAttendees(eventId: Int){
-        
-        print("Inside attendees")
-        let urlstring = "http://api.ticketval.de/getAttendees.php"
-        let eventIdString = "?eventId=\(eventId)"
-        let url = URL(string: urlstring + eventIdString)
-        
-        //print(url!)
-        
-        let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
-            if error != nil
-            {
-                print ("ERROR")
-            }
-            else
-            {
-                if let content = data
-                {
-                    do
-                    {
-                        //Array
-                        let myJson = try JSONSerialization.jsonObject(with: content, options: .mutableContainers) as AnyObject
-                        
-                        for dictionary in myJson as! [[String: AnyObject]]{
-                            //print(dictionary)
-                            
-                            //print ("Dictionary:")
-                            //print(((dictionary["first_name"] as AnyObject) as! String))
-                            self.attendees.append((dictionary["first_name"] as AnyObject) as! String)
-                        }
-                        
-                        
-                        //print(self.attendees)
-                        self.attendeesTableView.reloadData()
-                    }
-                    catch
-                    {
-                        
-                    }
-                }
-            }
-        }
-        task.resume()
-
-        
-       
-        
-        
-        
-    }
-        
-        
-        
-
-
-    
 
     /*
     // MARK: - Navigation
