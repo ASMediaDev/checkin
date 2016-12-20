@@ -54,13 +54,13 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
   
     @IBAction func selectevent(_ sender: Any) {
       
-        label.text = "Selected Event: \(events[placementAnswer])"
+        label.text = "Selected Event: \(eventarray[placementAnswer])"
         print("btn_pressed")
         
         self.view.viewWithTag(1)?.isHidden = true
         UserDefaults.standard.setValue(placementAnswer, forKey: "selectedEvent")
         print(UserDefaults.standard.value(forKey: "selectedEvent")!)
-        getAttendees(eventId: (UserDefaults.standard.value(forKey: "selectedEvent") as! Int)+1)
+        //getAttendees(eventId: (UserDefaults.standard.value(forKey: "selectedEvent") as! Int)+1)
         attendeesTableView.reloadData()
         self.view.viewWithTag(3)?.isHidden = false
         //print(attendees)
@@ -93,9 +93,9 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     
     var codes = [NSManagedObject]()
     
-    var Array = [""]
+    //var Array = [""]
     
-    var events = [String]()
+    var eventarray = [String]()
     
     var attendees = [String]()
     
@@ -104,20 +104,37 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.viewWithTag(1)?.isHidden = true
-        let storedEvent = UserDefaults.standard.value(forKey: "selectedEvent") as! Int
-        getEvents()
-       
-        
-        print(storedEvent)
-        //print(events[storedEvent])
-        
-        //label.text = "Selected Event: \(events[storedEvent])"
-        
         eventpicker.delegate = self
         eventpicker.dataSource = self
-        //getAttendees(eventId: (UserDefaults.standard.value(forKey: "selectedEvent") as! Int)+1)
+        
+        let api = TicketValAPI()
+        api.getEvents() {(error, events) in
+            
+            if let error = error{
+                
+                print(error)
+                
+            }else {
+                //print("Content:")
+                
+                for event in events {
+                    self.eventarray.append(event.title)
+                    
+                    
+                }
+             
+                
+            }
+        
+        
+         
+            
+        }
+        
+        
+        
+        
 
         // Do any additional setup after loading the view.
     }
@@ -130,13 +147,13 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         //Array = getEventNamesFromAPI()
        
-        return events[row]
+        return eventarray[row]
         
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         //Array = getEventNamesFromAPI()
-        return events.count
+        return eventarray.count
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -146,49 +163,13 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
    
         placementAnswer = row
-        //print(placementAnswer)
+        print(placementAnswer)
     
     }
     
    
     
-    
-    func getEvents() {
-        print("Inside Events")
-        let url = URL(string: "http://api.ticketval.de/getEvents.php")
-        let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
-            if error != nil
-            {
-                print ("ERROR")
-            }
-            else
-            {
-                if let content = data
-                {
-                    do
-                    {
-                        //Array
-                        let myJson = try JSONSerialization.jsonObject(with: content, options: .mutableContainers) as AnyObject
-                    
-                        for dictionary in myJson as! [[String: AnyObject]]{
-                            //print(dictionary)
-                            
-                            self.events.append((dictionary["title"] as AnyObject) as! String)
-                    }
-                      
-                    print(self.events)
-                    self.eventpicker.reloadAllComponents()
-                    }
-                    catch
-                    {
-                        
-                    }
-                }
-            }
-        }
-        task.resume()
-        self.eventpicker.reloadAllComponents()
-}
+
     
     func getAttendees(eventId: Int){
         
