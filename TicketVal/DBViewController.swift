@@ -15,6 +15,7 @@ import Alamofire
 
 
 
+
 class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource  {
     
    
@@ -30,8 +31,24 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         appDelegate?.window??.rootViewController = loginPage
         
     }
+    @IBAction func insertAttendeesButton(_ sender: Any) {
+        
+        insertAttendees(eventId: (placementAnswer)+1)
+        print("Attendees inserted")
+    }
     
     @IBOutlet weak var tableViewTitle: UITextView!
+    
+    @IBAction func showDatabase(_ sender: Any) {
+        checkDataStore()
+    }
+    
+    
+    @IBAction func truncateDatabase(_ sender: Any) {
+        emptyDataStore()
+        print("Database truncated")
+        
+    }
     
     
     
@@ -62,6 +79,10 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
             }
         }
     }
+    
+    
+    
+    
     
     @IBOutlet weak var attendeesTableView: UITableView!
     
@@ -193,6 +214,29 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         
     }
     
+    func emptyDataStore(){
+        
+        let fetchRequest:NSFetchRequest<Attendees> = Attendees.fetchRequest()
+        
+        do{
+            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+            
+            
+            for result in searchResults {
+                
+                DatabaseController.getContext().delete(result)
+                
+            }
+        }
+        catch{
+            print("Error: \(error)")
+        }
+
+        
+        
+        
+    }
+    
     func insertIntoDataStore() {
         
         let attendee:Attendees = NSEntityDescription.insertNewObject(forEntityName: "Attendees", into: DatabaseController.getContext()) as! Attendees
@@ -204,6 +248,47 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         attendee.private_reference_number = 817283627
         
         DatabaseController.saveContext()
+        
+        
+    }
+    
+    func insertAttendees(eventId: Int){
+        
+        print("Event: \(eventId) selected!")
+        
+        attendees = []
+        
+        let attendeeDbObject:Attendees = NSEntityDescription.insertNewObject(forEntityName: "Attendees", into: DatabaseController.getContext()) as! Attendees
+        
+        let api = TicketValAPI()
+        api.getAttendees(eventId: eventId) {(error, attendees) in
+            if let error = error{
+                print(error)
+            }else {
+                //print("Content:")
+                for attendee in attendees {
+                    attendeeDbObject.order_id = attendee.orderid as NSNumber?
+                    attendeeDbObject.ticket_id = attendee.ticketid as NSNumber?
+                    attendeeDbObject.first_name = attendee.firstname
+                    attendeeDbObject.last_name = attendee.lastname
+                    attendeeDbObject.private_reference_number = attendee.private_reference_number as NSNumber?
+                    DatabaseController.saveContext()
+                    //print("Attendee \(attendee.firstname) inserted")
+                    
+                    }
+                
+                
+                //print(self.attendees)
+                DispatchQueue.main.async {
+                    
+                }
+            }
+        }
+
+        
+        
+        
+        
         
         
     }
