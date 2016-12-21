@@ -2,7 +2,7 @@
 //  Attendees+CoreDataProperties.swift
 //  
 //
-//  Created by Alex Seitz on 20.12.16.
+//  Created by Alex Seitz on 21.12.16.
 //
 //  This file was automatically generated and should not be edited.
 //
@@ -22,5 +22,6 @@ extension Attendees {
     @NSManaged public var order_id: NSNumber?
     @NSManaged public var private_reference_number: NSNumber?
     @NSManaged public var ticket_id: NSNumber?
+    @NSManaged public var arrived: Bool
 
 }

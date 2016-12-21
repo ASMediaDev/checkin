@@ -204,7 +204,8 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
             for result in searchResults as [Attendees]{
                 print("\(result.first_name!)")
                 print("\(result.last_name!)")
-                print(result.private_reference_number!)
+                //print(result.private_reference_number!)
+                print(result.arrived)
             }
         }
         catch{
@@ -246,6 +247,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         attendee.ticket_id = 2
         attendee.order_id = 1
         attendee.private_reference_number = 817283627
+        //attendee.arrived = false
         
         DatabaseController.saveContext()
         
@@ -255,11 +257,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     func insertAttendees(eventId: Int){
         
         print("Event: \(eventId) selected!")
-        
         attendees = []
-        
-        let attendeeDbObject:Attendees = NSEntityDescription.insertNewObject(forEntityName: "Attendees", into: DatabaseController.getContext()) as! Attendees
-        
         let api = TicketValAPI()
         api.getAttendees(eventId: eventId) {(error, attendees) in
             if let error = error{
@@ -267,29 +265,29 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
             }else {
                 //print("Content:")
                 for attendee in attendees {
+                    
+                    let attendeeDbObject:Attendees = NSEntityDescription.insertNewObject(forEntityName: "Attendees", into: DatabaseController.getContext()) as! Attendees
+                    
                     attendeeDbObject.order_id = attendee.orderid as NSNumber?
                     attendeeDbObject.ticket_id = attendee.ticketid as NSNumber?
                     attendeeDbObject.first_name = attendee.firstname
                     attendeeDbObject.last_name = attendee.lastname
                     attendeeDbObject.private_reference_number = attendee.private_reference_number as NSNumber?
+                    attendeeDbObject.arrived = false
                     DatabaseController.saveContext()
                     //print("Attendee \(attendee.firstname) inserted")
                     
                     }
-                
-                
-                //print(self.attendees)
-                DispatchQueue.main.async {
-                    
-                }
             }
         }
-
+    }
+    
+    func arrivedCheck(private_reference_number: Int) -> Bool{
         
         
         
         
-        
+        return false
         
     }
 
