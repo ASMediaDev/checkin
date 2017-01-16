@@ -65,7 +65,7 @@ class MainViewController: UIViewController {
         
         //scan.layer.cornerRadius = 10.0
         //database.layer.cornerRadius = 10.0
-        
+    
         print("landingpage")
     }
     

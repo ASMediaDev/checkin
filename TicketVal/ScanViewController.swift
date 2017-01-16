@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import CoreData
 
 
 class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
@@ -104,37 +105,77 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
     }
     
     func found(code: String) {
+        
         print(code)
         displaycode.backgroundColor = UIColor.green
         displaycode.text = code
         
-        let attendee = "Alexander Seitz"
+        let dbview = DBViewController()
         
+        var attendee: String = ""
         
-        if (code == "JSKDJAKSJ"){
-            
-            displaycode.text = attendee
+        let reference = Int(code)
         
-            let alertController = UIAlertController(title: "GÜLTIG", message: "Gast: \(attendee)", preferredStyle: .alert)
+        if(reference == nil){
             
-            let cancelAction = UIAlertAction(title: "einchecken", style: .cancel) { action in
-                print(action)
-                self.captureSession.startRunning()
-            }
-            alertController.addAction(cancelAction)
+            print("false input")
             
-            let destroyAction = UIAlertAction(title: "abbrechen", style: .destructive) { action in
-                print(action)
-                self.captureSession.startRunning()
-            }
-            alertController.addAction(destroyAction)
+            }else if(dbview.ticketExists(private_reference_number: reference!)){
             
-            self.present(alertController, animated: true) {
+                //print("Ticket exists")
+            
+            if(dbview.hasArrived(private_reference_number: reference!)==false){
                 
+            
+                attendee = dbview.getNameforTicket(private_reference_number: reference!)
+            
+                let alertController = UIAlertController(title: "GÜLTIG", message: "Gast: \(attendee)", preferredStyle: .alert)
+            
+                let cancelAction = UIAlertAction(title: "einchecken", style: .cancel) { action in
+                    print(action)
+                    dbview.checkIn(private_reference_number: reference!)
+                    print("Checked in!")
+                self.captureSession.startRunning()
+                }
+                alertController.addAction(cancelAction)
+            
+                let destroyAction = UIAlertAction(title: "abbrechen", style: .destructive) { action in
+                print(action)
+                self.captureSession.startRunning()
+                }
+                alertController.addAction(destroyAction)
+            
+                self.present(alertController, animated: true) {
+                
+                }
             }
+            else if(dbview.hasArrived(private_reference_number: reference!)==true){
+                let alertController = UIAlertController(title: "UNGÜLTIG", message: "Das Ticket wurde bereits verwendet!", preferredStyle: .alert)
+                
+                
+                let destroyAction = UIAlertAction(title: "abbrechen", style: .destructive) { action in
+                    print(action)
+                    self.captureSession.startRunning()
+                }
+                alertController.addAction(destroyAction)
+                
+                let cancelAction = UIAlertAction(title: "auschecken", style: .cancel) { action in
+                    print(action)
+                    dbview.checkOut(private_reference_number: reference!)
+                    print("Checked out!")
+                    self.captureSession.startRunning()
+                }
+                alertController.addAction(cancelAction)
+                
+                self.present(alertController, animated: true) {
+                    // ...
+                }
+
+                
+                }
             
-        }else{
-            
+            } else {
+                //print("Ticket doesn't exist!")
             let alertController = UIAlertController(title: "UNGÜLTIG", message: "Das Ticket ist nicht gültig", preferredStyle: .alert)
             
             
@@ -147,8 +188,12 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
             self.present(alertController, animated: true) {
                 // ...
             }
-            
-    }
+        
+}
+        
+        
+        
+     
         
     }
     

@@ -34,8 +34,12 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     @IBAction func insertAttendeesButton(_ sender: Any) {
         
         insertAttendees(eventId: (placementAnswer)+1)
+     
         print("Attendees inserted")
+        countAttendees()
     }
+    
+    @IBOutlet weak var attendeesCount: UITextView!
     
     @IBOutlet weak var tableViewTitle: UITextView!
     
@@ -46,6 +50,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     
     @IBAction func truncateDatabase(_ sender: Any) {
         emptyDataStore()
+        countAttendees()
         print("Database truncated")
         
     }
@@ -130,7 +135,12 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
                 }
         }
         
-        checkDataStore()
+        //checkDataStore()
+        
+        print(ticketExists(private_reference_number: 617191322))
+        
+        countAttendees()
+        
         // Do any additional setup after loading the view.
     }
 
@@ -282,12 +292,183 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         }
     }
     
-    func arrivedCheck(private_reference_number: Int) -> Bool{
+   func ticketExists(private_reference_number: Int) -> Bool{
         
+        let fetchRequest:NSFetchRequest<Attendees> = Attendees.fetchRequest()
         
+        fetchRequest.predicate = NSPredicate(format: "private_reference_number == \(private_reference_number)")
+        
+        do{
+            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+           
+            if (searchResults.count != 0){
+                
+                return true
+                
+            }
+            
+        }
+        catch{
+            print("Error: \(error)")
+        }
         
         
         return false
+        
+    }
+    
+    func hasArrived(private_reference_number: Int) -> Bool{
+        
+        let fetchRequest:NSFetchRequest<Attendees> = Attendees.fetchRequest()
+        
+        fetchRequest.predicate = NSPredicate(format: "private_reference_number == \(private_reference_number) AND arrived == false")
+        
+        do{
+            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+            
+            if (searchResults.count != 0){
+                print("Arrival status = false")
+                return false
+                
+                
+            }
+            
+        }
+        catch{
+            print("Error: \(error)")
+        }
+
+        return true
+    }
+    
+    func checkIn(private_reference_number: Int){
+        
+        let fetchRequest:NSFetchRequest<Attendees> = Attendees.fetchRequest()
+        
+        fetchRequest.predicate = NSPredicate(format: "private_reference_number == \(private_reference_number)")
+        
+        do{
+            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+            
+            if (searchResults.count > 1){
+                
+                print("Error: TicketID not unique!")
+                
+            }
+            else{
+                
+                let arrivedAttendee = searchResults[0] as NSManagedObject
+                
+                arrivedAttendee.setValue(true, forKey: "arrived")
+                
+                do{
+                    try arrivedAttendee.managedObjectContext?.save()
+                }
+                catch{
+                    let saveError = error as NSError
+                    print(saveError)
+                }
+                
+            }
+            
+            
+            
+        }
+        catch{
+            print("Error: \(error)")
+        }
+
+        
+    }
+    
+    func checkOut(private_reference_number: Int){
+        let fetchRequest:NSFetchRequest<Attendees> = Attendees.fetchRequest()
+        
+        fetchRequest.predicate = NSPredicate(format: "private_reference_number == \(private_reference_number)")
+        
+        do{
+            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+            
+            if (searchResults.count > 1){
+                
+                print("Error: TicketID not unique!")
+                
+            }
+            else{
+                
+                let arrivedAttendee = searchResults[0] as NSManagedObject
+                
+                arrivedAttendee.setValue(false, forKey: "arrived")
+                
+                do{
+                    try arrivedAttendee.managedObjectContext?.save()
+                }
+                catch{
+                    let saveError = error as NSError
+                    print(saveError)
+                }
+                
+            }
+            
+            
+            
+        }
+        catch{
+            print("Error: \(error)")
+        }
+        
+        
+    }
+    
+    func getNameforTicket(private_reference_number: Int) -> String{
+        
+        var attendeeName = ""
+        
+        let fetchRequest:NSFetchRequest<Attendees> = Attendees.fetchRequest()
+        
+        fetchRequest.predicate = NSPredicate(format: "private_reference_number == \(private_reference_number)")
+        
+        do{
+            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+            
+            if (searchResults.count == 1){
+                
+                attendeeName = ((searchResults.first?.first_name)! + " " + (searchResults.first?.last_name)!)
+                
+            } else {
+                
+                attendeeName = "ERROR"
+                
+            }
+            
+        }
+        catch{
+            print("Error: \(error)")
+        }
+
+        return attendeeName
+       
+    }
+    
+    func countAttendees(){
+        
+        let fetchRequest:NSFetchRequest<Attendees> = Attendees.fetchRequest()
+        
+        do{
+            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+            print("number of results: \(searchResults.count)")
+            
+            attendeesCount.text = "Number of Attendees in Databse: \(searchResults.count)"
+            
+            
+        }
+        
+        catch{
+            print("Error: \(error)")
+        }
+        
+        
+        
         
     }
 
