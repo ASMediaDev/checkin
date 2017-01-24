@@ -33,10 +33,35 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     }
     @IBAction func insertAttendeesButton(_ sender: Any) {
         
-        insertAttendees(eventId: (placementAnswer)+1)
-     
-        print("Attendees inserted")
-        countAttendees()
+        let alertController = UIAlertController(title: "WARNUNG", message: "Durch den Import werden alle bisher importierten Datensätze gelöscht!", preferredStyle: .alert)
+        
+        
+        let okAction = UIAlertAction(title: "Fortfahren", style: .default) { action in
+            
+            self.insertAttendees(eventId: (self.placementAnswer)+1)
+            
+            print("Attendees inserted")
+            self.attendeesCount.text = "Number of Attendees in Databse: \(self.countAttendees())"
+           
+            
+            
+        }
+        alertController.addAction(okAction)
+        
+        let cancelAction = UIAlertAction(title: "Abbrechen", style: .cancel) { action in
+            
+        }
+        alertController.addAction(cancelAction)
+        
+        
+        
+        self.present(alertController, animated: true) {
+            // ...
+        }
+
+        
+        
+        
     }
     
     @IBOutlet weak var attendeesCount: UITextView!
@@ -50,7 +75,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     
     @IBAction func truncateDatabase(_ sender: Any) {
         emptyDataStore()
-        countAttendees()
+         attendeesCount.text = "Number of Attendees in Databse: \(countAttendees())"
         print("Database truncated")
         
     }
@@ -58,8 +83,8 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     
     
     @IBAction func selectevent(_ sender: Any) {
-        label.text = "Selected Event: \(eventarray[placementAnswer])"
-        tableViewTitle.text = "Attendees for: \(eventarray[placementAnswer])"
+        label.text = "Selected Event from Webservice: \(eventarray[placementAnswer])"
+        tableViewTitle.text = "Attendees found online for: \(eventarray[placementAnswer])"
         self.view.viewWithTag(1)?.isHidden = true
         UserDefaults.standard.setValue(placementAnswer, forKey: "selectedEvent")
         print(UserDefaults.standard.value(forKey: "selectedEvent")!)
@@ -139,7 +164,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         
         print(ticketExists(private_reference_number: 617191322))
         
-        countAttendees()
+        attendeesCount.text = "Number of Attendees in Databse: \(countAttendees())"
         
         // Do any additional setup after loading the view.
     }
@@ -267,6 +292,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     func insertAttendees(eventId: Int){
         
         print("Event: \(eventId) selected!")
+        emptyDataStore()
         attendees = []
         let api = TicketValAPI()
         api.getAttendees(eventId: eventId) {(error, attendees) in
@@ -274,7 +300,9 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
                 print(error)
             }else {
                 //print("Content:")
+                var insertcounter = 0
                 for attendee in attendees {
+                    
                     
                     let attendeeDbObject:Attendees = NSEntityDescription.insertNewObject(forEntityName: "Attendees", into: DatabaseController.getContext()) as! Attendees
                     
@@ -285,9 +313,30 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
                     attendeeDbObject.private_reference_number = attendee.private_reference_number as NSNumber?
                     attendeeDbObject.arrived = false
                     DatabaseController.saveContext()
+                    insertcounter = insertcounter + 1
                     //print("Attendee \(attendee.firstname) inserted")
                     
                     }
+                
+                
+                let alertController = UIAlertController(title: "Import abgeschlossen", message: "Es wurden \(insertcounter) Datensätze importiert", preferredStyle: .alert)
+                
+                
+                let destroyAction = UIAlertAction(title: "ok", style: .default) { action in
+                    
+                
+                   
+                   
+                }
+                alertController.addAction(destroyAction)
+                
+            
+                
+                self.present(alertController, animated: true) {
+                    // ...
+                }
+
+                
             }
         }
     }
@@ -329,6 +378,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
             if (searchResults.count != 0){
                 print("Arrival status = false")
                 return false
+              
                 
                 
             }
@@ -339,6 +389,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         }
 
         return true
+        
     }
     
     func checkIn(private_reference_number: Int){
@@ -360,6 +411,8 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
                 let arrivedAttendee = searchResults[0] as NSManagedObject
                 
                 arrivedAttendee.setValue(true, forKey: "arrived")
+                arrivedAttendee.setValue(NSDate(), forKey: "checkin_time")
+                
                 
                 do{
                     try arrivedAttendee.managedObjectContext?.save()
@@ -450,7 +503,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
        
     }
     
-    func countAttendees(){
+    func countAttendees() -> Int{
         
         let fetchRequest:NSFetchRequest<Attendees> = Attendees.fetchRequest()
         
@@ -458,7 +511,9 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
             let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
             print("number of results: \(searchResults.count)")
             
-            attendeesCount.text = "Number of Attendees in Databse: \(searchResults.count)"
+            //attendeesCount.text = "Number of Attendees in Databse: \(searchResults.count)"
+            return (searchResults.count)
+            
             
             
         }
@@ -467,7 +522,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
             print("Error: \(error)")
         }
         
-        
+        return 0
         
         
     }

@@ -170,7 +170,6 @@
 			children = (
 				44E4F4961E098EFC00EDF8B5 /* Models */,
 				44E4F44E1E09333D00EDF8B5 /* TicketValAPI */,
-				445B1E191D1711D10040273F /* Icon-60@3x.png */,
 				FAC9C0551D1426D000189A0C /* Main.storyboard */,
 				449E45E41E02D7C20047F76A /* LoginViewController.swift */,
 				449E45E51E02D7C20047F76A /* LoginViewController.xib */,
@@ -180,6 +179,7 @@
 				FA4B72DF1D13FD4000C1C4C8 /* AppDelegate.swift */,
 				445B1E171D1710860040273F /* Launch Screen.storyboard */,
 				FA4B72E91D13FD4000C1C4C8 /* Assets.xcassets */,
+				445B1E191D1711D10040273F /* Icon-60@3x.png */,
 				FA4B72EE1D13FD4000C1C4C8 /* Info.plist */,
 				FA4B72E61D13FD4000C1C4C8 /* TicketVal.xcdatamodeld */,
 				44E4F4531E098AC800EDF8B5 /* DatabaseController.swift */,

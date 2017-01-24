@@ -150,7 +150,32 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                 }
             }
             else if(dbview.hasArrived(private_reference_number: reference!)==true){
-                let alertController = UIAlertController(title: "UNGÜLTIG", message: "Das Ticket wurde bereits verwendet!", preferredStyle: .alert)
+                
+                    var checkin_time:Date? = nil
+                
+                
+                
+                
+                    let fetchRequest:NSFetchRequest<Attendees> = Attendees.fetchRequest()
+                
+                    fetchRequest.predicate = NSPredicate(format: "private_reference_number == \(reference!) AND arrived == true")
+                
+                    do{
+                        let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+                    
+                        if (searchResults.count == 1){
+                        checkin_time = searchResults[0].checkin_time
+                            
+                        }
+                    
+                    }
+                    catch{
+                        print("Error: \(error)")
+                    }
+
+                
+                
+                let alertController = UIAlertController(title: "UNGÜLTIG", message: "Das Ticket wurde bereits verwendet. Datum: \(checkin_time)", preferredStyle: .alert)
                 
                 
                 let destroyAction = UIAlertAction(title: "abbrechen", style: .destructive) { action in

@@ -22,5 +22,7 @@ extension Attendees {
     @NSManaged public var private_reference_number: NSNumber?
     @NSManaged public var ticket_id: NSNumber?
     @NSManaged public var arrived: Bool
+    @NSManaged public var checkin_time: Date
+    
 
 }

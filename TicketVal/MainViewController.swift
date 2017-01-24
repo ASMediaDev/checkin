@@ -11,6 +11,9 @@ import UIKit
 class MainViewController: UIViewController {
     
     let gradientLayer = CAGradientLayer()
+    
+    let dbview = DBViewController()
+    
 
     @IBOutlet weak var scan: UIButton!
     
@@ -66,6 +69,8 @@ class MainViewController: UIViewController {
         //scan.layer.cornerRadius = 10.0
         //database.layer.cornerRadius = 10.0
     
+         databasewarning.text = "Number of Attendees in Databse: \(dbview.countAttendees())"
+        
         print("landingpage")
     }
     
