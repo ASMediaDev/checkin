@@ -16,6 +16,7 @@ class AttendeeObject {
     var firstname : String!
     var lastname : String!
     var private_reference_number : Int!
+    var eventid: Int!
     
     
     
@@ -28,6 +29,7 @@ class AttendeeObject {
         self.firstname = getStringFromJSON(data: data, key: "first_name")
         self.lastname = getStringFromJSON(data: data, key: "last_name")
         self.private_reference_number = (data["private_reference_number"] as! NSString).integerValue
+        self.eventid = (data["event_id"] as! NSString).integerValue
         
         
         

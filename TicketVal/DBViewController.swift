@@ -10,10 +10,7 @@ import UIKit
 import CoreData
 import SwiftyJSON
 import Alamofire
-
-
-
-
+import RealmSwift
 
 
 class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource  {
@@ -162,7 +159,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         
         //checkDataStore()
         
-        print(ticketExists(private_reference_number: 617191322))
+        //print(ticketExists(private_reference_number: 617191322))
         
         attendeesCount.text = "Number of Attendees in Databse: \(countAttendees())"
         
@@ -215,10 +212,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
             cell.textLabel?.text = "empty"
         } else {
             
-            
             cell.textLabel?.text = attendees[indexPath.item]
-            
-            
             
         }
         return cell
@@ -230,113 +224,71 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         
         
         
-        let fetchRequest:NSFetchRequest<Attendees> = Attendees.fetchRequest()
         
-        do{
-            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
-            print("number of results: \(searchResults.count)")
-         
-            for result in searchResults as [Attendees]{
-                print("\(result.first_name!)")
-                print("\(result.last_name!)")
-                //print(result.private_reference_number!)
-                print(result.arrived)
-            }
-        }
-        catch{
-            print("Error: \(error)")
-        }
+                let realm = try! Realm()
+                let AttendeesFromRealm = realm.objects(Attendee.self)
         
-        
+                for attendee in AttendeesFromRealm{
+            
+                    print("Attendee \(attendee.firstName) \(attendee.lastName) is attending \(attendee.eventName) ")
+                    
+            
+                }
     }
     
     func emptyDataStore(){
         
-        let fetchRequest:NSFetchRequest<Attendees> = Attendees.fetchRequest()
-        
-        do{
-            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
-            
-            
-            for result in searchResults {
-                
-                DatabaseController.getContext().delete(result)
-                
-            }
+        let realm = try! Realm()
+        try! realm.write {
+            realm.deleteAll()
         }
-        catch{
-            print("Error: \(error)")
-        }
-
-        
-        
-        
     }
-    
-    func insertIntoDataStore() {
-        
-        let attendee:Attendees = NSEntityDescription.insertNewObject(forEntityName: "Attendees", into: DatabaseController.getContext()) as! Attendees
-        
-        attendee.first_name = "John"
-        attendee.last_name = "Smith"
-        attendee.ticket_id = 2
-        attendee.order_id = 1
-        attendee.private_reference_number = 817283627
-        //attendee.arrived = false
-        
-        DatabaseController.saveContext()
-        
-        
-    }
+  
     
     func insertAttendees(eventId: Int){
         
-        print("Event: \(eventId) selected!")
-        emptyDataStore()
-        attendees = []
         let api = TicketValAPI()
         api.getAttendees(eventId: eventId) {(error, attendees) in
             if let error = error{
                 print(error)
             }else {
-                //print("Content:")
+                
+                self.emptyDataStore()
+                
                 var insertcounter = 0
                 for attendee in attendees {
                     
+                    let attendeeRealmObject = Attendee()
+                    attendeeRealmObject.ticketId = attendee.ticketid
+                    attendeeRealmObject.orderId = attendee.orderid
+                    attendeeRealmObject.firstName = attendee.firstname
+                    attendeeRealmObject.lastName = attendee.lastname
+                    attendeeRealmObject.private_reference_number = attendee.private_reference_number
+                    attendeeRealmObject.arrived = false
+                    attendeeRealmObject.eventName = self.eventarray[(attendee.eventid)-1]
                     
-                    let attendeeDbObject:Attendees = NSEntityDescription.insertNewObject(forEntityName: "Attendees", into: DatabaseController.getContext()) as! Attendees
                     
-                    attendeeDbObject.order_id = attendee.orderid as NSNumber?
-                    attendeeDbObject.ticket_id = attendee.ticketid as NSNumber?
-                    attendeeDbObject.first_name = attendee.firstname
-                    attendeeDbObject.last_name = attendee.lastname
-                    attendeeDbObject.private_reference_number = attendee.private_reference_number as NSNumber?
-                    attendeeDbObject.arrived = false
-                    DatabaseController.saveContext()
-                    insertcounter = insertcounter + 1
-                    //print("Attendee \(attendee.firstname) inserted")
+                    let realm = try! Realm()
                     
+                    try! realm.write {
+                        realm.add(attendeeRealmObject)
+                        print("Added \(attendeeRealmObject.firstName) to Realm")
+                        insertcounter = insertcounter + 1
+                        
                     }
-                
+                }
                 
                 let alertController = UIAlertController(title: "Import abgeschlossen", message: "Es wurden \(insertcounter) Datensätze importiert", preferredStyle: .alert)
                 
                 
                 let destroyAction = UIAlertAction(title: "ok", style: .default) { action in
                     
-                
-                   
-                   
                 }
+                
                 alertController.addAction(destroyAction)
-                
-            
-                
                 self.present(alertController, animated: true) {
                     // ...
                 }
-
-                
             }
         }
     }
