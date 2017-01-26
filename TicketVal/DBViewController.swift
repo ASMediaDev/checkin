@@ -336,8 +336,17 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
             
         }else{
             
+            let date = NSDate()
+            let calendar = NSCalendar.current
+            let month = calendar.component(.month, from: date as Date)
+            let day = calendar.component(.day, from: date as Date)
+            let hour = calendar.component(.hour, from: date as Date)
+            let minute = calendar.component(.minute, from: date as Date)
+            
+            let timestamp: String = ("\(day).\(month) \(hour):\(minute)")
+            
             try! realm.write {
-                realm.create(Attendee.self, value: ["private_reference_number": private_reference_number, "arrived": true], update: true)
+                realm.create(Attendee.self, value: ["private_reference_number": private_reference_number, "arrived": true, "checkinTime": timestamp], update: true)
             }
         }
     }
@@ -381,6 +390,28 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         }
         
         return attendeeName
+        
+    }
+    
+    func getCheckinTime(private_reference_number: Int) -> String{
+        
+        var checkinTime = ""
+        
+        let realm = try! Realm()
+        
+        let attendees = realm.objects(Attendee.self).filter("private_reference_number = \(private_reference_number)")
+        
+        if (attendees.count == 1){
+            
+            checkinTime = attendees[0].checkinTime
+            
+        }else{
+            
+            checkinTime = "Not checked in yet"
+            
+        }
+        
+        return checkinTime
         
     }
     

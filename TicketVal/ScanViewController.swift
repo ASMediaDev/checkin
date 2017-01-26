@@ -128,6 +128,8 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                 
             
                 attendee = dbview.getNameforTicket(private_reference_number: reference!)
+                
+                displaycode.backgroundColor = UIColor.green
             
                 let alertController = UIAlertController(title: "GÜLTIG", message: "Gast: \(attendee)", preferredStyle: .alert)
             
@@ -141,6 +143,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
             
                 let destroyAction = UIAlertAction(title: "abbrechen", style: .destructive) { action in
                 print(action)
+                self.displaycode.backgroundColor = UIColor.lightGray
                 self.captureSession.startRunning()
                 }
                 alertController.addAction(destroyAction)
@@ -151,28 +154,10 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
             }
             else if(dbview.hasArrived(private_reference_number: reference!)==true){
                 
-                    var checkin_time:Date? = nil
+                let checkin_time = dbview.getCheckinTime(private_reference_number: reference!)
+                    //implement checkintime update
                 
-                
-                
-                
-                    let fetchRequest:NSFetchRequest<Attendees> = Attendees.fetchRequest()
-                
-                    fetchRequest.predicate = NSPredicate(format: "private_reference_number == \(reference!) AND arrived == true")
-                
-                    do{
-                        let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
-                    
-                        if (searchResults.count == 1){
-                        checkin_time = searchResults[0].checkin_time
-                            
-                        }
-                    
-                    }
-                    catch{
-                        print("Error: \(error)")
-                    }
-
+                displaycode.backgroundColor = UIColor.yellow
                 
                 
                 let alertController = UIAlertController(title: "UNGÜLTIG", message: "Das Ticket wurde bereits verwendet. Datum: \(checkin_time)", preferredStyle: .alert)
@@ -181,6 +166,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                 let destroyAction = UIAlertAction(title: "abbrechen", style: .destructive) { action in
                     print(action)
                     self.captureSession.startRunning()
+                    self.displaycode.backgroundColor = UIColor.lightGray
                 }
                 alertController.addAction(destroyAction)
                 
@@ -200,6 +186,9 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                 }
             
             } else {
+            
+            displaycode.backgroundColor = UIColor.red
+            
                 //print("Ticket doesn't exist!")
             let alertController = UIAlertController(title: "UNGÜLTIG", message: "Das Ticket ist nicht gültig", preferredStyle: .alert)
             
@@ -207,6 +196,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
             let destroyAction = UIAlertAction(title: "abbrechen", style: .destructive) { action in
                 print(action)
                 self.captureSession.startRunning()
+                self.displaycode.backgroundColor = UIColor.lightGray
             }
             alertController.addAction(destroyAction)
             
