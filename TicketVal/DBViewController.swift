@@ -67,6 +67,8 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     
     @IBAction func showDatabase(_ sender: Any) {
         checkDataStore()
+        print("Ticket exists: \(ticketExists(private_reference_number: 787313345))")
+        print("Arrived: \(hasArrived(private_reference_number: 787313345))")
     }
     
     
@@ -218,12 +220,9 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         return cell
     }
     
-    //coredata methods
+    //Realm methods
     
     func checkDataStore() {
-        
-        
-        
         
                 let realm = try! Realm()
                 let AttendeesFromRealm = realm.objects(Attendee.self)
@@ -231,8 +230,6 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
                 for attendee in AttendeesFromRealm{
             
                     print("Attendee \(attendee.firstName) \(attendee.lastName) is attending \(attendee.eventName) ")
-                    
-            
                 }
     }
     
@@ -267,15 +264,13 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
                     attendeeRealmObject.arrived = false
                     attendeeRealmObject.eventName = self.eventarray[(attendee.eventid)-1]
                     
-                    
                     let realm = try! Realm()
                     
                     try! realm.write {
                         realm.add(attendeeRealmObject)
                         print("Added \(attendeeRealmObject.firstName) to Realm")
                         insertcounter = insertcounter + 1
-                        
-                    }
+                        }
                 }
                 
                 let alertController = UIAlertController(title: "Import abgeschlossen", message: "Es wurden \(insertcounter) Datensätze importiert", preferredStyle: .alert)
@@ -294,200 +289,108 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     }
     
    func ticketExists(private_reference_number: Int) -> Bool{
-        
-        let fetchRequest:NSFetchRequest<Attendees> = Attendees.fetchRequest()
-        
-        fetchRequest.predicate = NSPredicate(format: "private_reference_number == \(private_reference_number)")
-        
-        do{
-            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
-           
-            if (searchResults.count != 0){
-                
-                return true
-                
-            }
+    
+        let realm = try! Realm()
+    
+        let attendees = realm.objects(Attendee.self).filter("private_reference_number = \(private_reference_number)")
+    
+        if (attendees.count != 0){
             
+            return true
+        
+        } else{
+            
+            return false
         }
-        catch{
-            print("Error: \(error)")
-        }
-        
-        
-        return false
-        
     }
     
     func hasArrived(private_reference_number: Int) -> Bool{
         
-        let fetchRequest:NSFetchRequest<Attendees> = Attendees.fetchRequest()
+        let realm = try! Realm()
         
-        fetchRequest.predicate = NSPredicate(format: "private_reference_number == \(private_reference_number) AND arrived == false")
+        let attendees = realm.objects(Attendee.self).filter("private_reference_number = \(private_reference_number) AND arrived = true")
         
-        do{
-            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
-            
-            if (searchResults.count != 0){
-                print("Arrival status = false")
-                return false
-              
-                
-                
-            }
-            
+        if (attendees.count != 0){
+        
+            return true
+        
+        } else{
+        
+            return false
         }
-        catch{
-            print("Error: \(error)")
-        }
-
-        return true
-        
     }
     
     func checkIn(private_reference_number: Int){
         
-        let fetchRequest:NSFetchRequest<Attendees> = Attendees.fetchRequest()
         
-        fetchRequest.predicate = NSPredicate(format: "private_reference_number == \(private_reference_number)")
+        let realm = try! Realm()
         
-        do{
-            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+        let attendees = realm.objects(Attendee.self).filter("private_reference_number = \(private_reference_number)")
+        
+        if(attendees.count > 1){
             
-            if (searchResults.count > 1){
-                
-                print("Error: TicketID not unique!")
-                
+            print("Error: TicketID not unique!")
+        }else if (attendees.count == 0){
+            
+            print("Error: Ticket doesn't exist")
+            
+        }else{
+            
+            try! realm.write {
+                realm.create(Attendee.self, value: ["private_reference_number": private_reference_number, "arrived": true], update: true)
             }
-            else{
-                
-                let arrivedAttendee = searchResults[0] as NSManagedObject
-                
-                arrivedAttendee.setValue(true, forKey: "arrived")
-                arrivedAttendee.setValue(NSDate(), forKey: "checkin_time")
-                
-                
-                do{
-                    try arrivedAttendee.managedObjectContext?.save()
-                }
-                catch{
-                    let saveError = error as NSError
-                    print(saveError)
-                }
-                
-            }
-            
-            
-            
         }
-        catch{
-            print("Error: \(error)")
-        }
-
-        
     }
     
     func checkOut(private_reference_number: Int){
-        let fetchRequest:NSFetchRequest<Attendees> = Attendees.fetchRequest()
         
-        fetchRequest.predicate = NSPredicate(format: "private_reference_number == \(private_reference_number)")
+        let realm = try! Realm()
         
-        do{
-            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+        let attendees = realm.objects(Attendee.self).filter("private_reference_number = \(private_reference_number)")
+        
+        if(attendees.count > 1){
             
-            if (searchResults.count > 1){
-                
-                print("Error: TicketID not unique!")
-                
+            print("Error: TicketID not unique!")
+        }else if (attendees.count == 0){
+            
+            print("Error: Ticket doesn't exist")
+            
+        }else{
+            
+            try! realm.write {
+                realm.create(Attendee.self, value: ["private_reference_number": private_reference_number, "arrived": false], update: true)
             }
-            else{
-                
-                let arrivedAttendee = searchResults[0] as NSManagedObject
-                
-                arrivedAttendee.setValue(false, forKey: "arrived")
-                
-                do{
-                    try arrivedAttendee.managedObjectContext?.save()
-                }
-                catch{
-                    let saveError = error as NSError
-                    print(saveError)
-                }
-                
-            }
-            
-            
-            
         }
-        catch{
-            print("Error: \(error)")
-        }
-        
-        
     }
     
     func getNameforTicket(private_reference_number: Int) -> String{
         
         var attendeeName = ""
         
-        let fetchRequest:NSFetchRequest<Attendees> = Attendees.fetchRequest()
+        let realm = try! Realm()
         
-        fetchRequest.predicate = NSPredicate(format: "private_reference_number == \(private_reference_number)")
+        let attendees = realm.objects(Attendee.self).filter("private_reference_number = \(private_reference_number)")
         
-        do{
-            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+        if (attendees.count == 1){
             
-            if (searchResults.count == 1){
-                
-                attendeeName = ((searchResults.first?.first_name)! + " " + (searchResults.first?.last_name)!)
-                
-            } else {
-                
-                attendeeName = "ERROR"
-                
-            }
+            attendeeName = (attendees[0].firstName + "" + attendees[0].lastName)
+        }else{
+            
+            attendeeName = "Attendeename not found!"
             
         }
-        catch{
-            print("Error: \(error)")
-        }
-
+        
         return attendeeName
-       
+        
     }
     
     func countAttendees() -> Int{
         
-        let fetchRequest:NSFetchRequest<Attendees> = Attendees.fetchRequest()
+        let realm = try! Realm()
         
-        do{
-            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
-            print("number of results: \(searchResults.count)")
-            
-            //attendeesCount.text = "Number of Attendees in Databse: \(searchResults.count)"
-            return (searchResults.count)
-            
-            
-            
-        }
+        let attendees = realm.objects(Attendee.self)
         
-        catch{
-            print("Error: \(error)")
-        }
-        
-        return 0
-        
-        
+        return attendees.count
+    
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
