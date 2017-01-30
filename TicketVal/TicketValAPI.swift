@@ -71,50 +71,64 @@ class TicketValAPI{
         
     }
     
-    func getAttendees(eventId: Int, completion: @escaping (Error?, [AttendeeObject]) -> Void){
+    func getAttendees(eventId: Int, completion: @escaping (Error?, [AttendeeObject]) -> Void) {
         
-        print("Inside attendees")
-        let urlstring = "http://api.ticketval.de/getAttendees.php"
-        let eventIdString = "?eventId=\(eventId)"
-        let url = URL(string: urlstring + eventIdString)
+        var userNameKeychain: String = ""
+        var accessTokenKeychain: Any = ""
         
-        let task = URLSession.shared.dataTask(with: url!) { (data, response, error) -> Void in
-            if error != nil
-            {
-                print ("ERROR")
+        var attendees = [AttendeeObject]()
+        
+        let dictionary = Locksmith.loadDataForUserAccount(userAccount: "TicketValAPI")
+        
+        if (dictionary?.isEmpty == false){
+            
+            print("Found AccessToken")
+            
+            for (key,value) in dictionary!{
+                userNameKeychain = key
+                accessTokenKeychain = value
             }
-            else
-            {
-                do{
-                    let attendeesData = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as! NSArray
+            
+            let queue = DispatchQueue(label: "com.asmedia.ticketval.response-queue", qos: .utility, attributes: [.concurrent])
+            
+            let myUrl = URL(string: "http://laravel.ticketval.de/api/getAttendees/\(eventId)")
+            
+            
+           let headers = ["Authorization":"Bearer \(accessTokenKeychain)"]
+            
+            
+            
+            Alamofire.request(myUrl!, method: .get, headers: headers).responseJSON(
+                queue: queue,
+                completionHandler: { response in
                     
-                    //print(eventsData)
-                    
-                    var attendees = [AttendeeObject]()
+                    let attendeesData = response.result.value as! NSArray
                     
                     for attendee in attendeesData{
                         
                         let attendee = AttendeeObject(data: attendee as! NSDictionary)
+                        //print(event.title)
                         attendees.append(attendee)
                         
                     }
                     
                     completion(nil, attendees)
-                    //print(events[0].title)
                     
-                }catch{
-                    print(error)
-                }
-                
+                    
+                    DispatchQueue.main.async {
+                        
+                        print(attendees[0].firstname)
+                        
+                        
+                    }
             }
+            )
         }
-        task.resume()
+        
+        
+        
     }
 
-     
-        
-        
-        
 }
 
 
