@@ -16,40 +16,59 @@ import Locksmith
 
 class TicketValAPI{
     
-    
     func getEvents(completion: @escaping (Error?, [EventObject]) -> Void) {
-        print("Inside Events/API")
-        let url = URL(string: "http://api.ticketval.de/getEvents.php")
-        let task = URLSession.shared.dataTask(with: url!) { (data, response, error) -> Void in
-            if error != nil
-            {
-                print ("ERROR")
+        
+        var userNameKeychain: String = ""
+        var accessTokenKeychain: Any = ""
+        
+        var events = [EventObject]()
+        
+        let dictionary = Locksmith.loadDataForUserAccount(userAccount: "TicketValAPI")
+        
+        if (dictionary?.isEmpty == false){
+            
+            print("Found AccessToken")
+            
+            for (key,value) in dictionary!{
+                userNameKeychain = key
+                accessTokenKeychain = value
             }
-            else
-            {
+        
+        let queue = DispatchQueue(label: "com.asmedia.ticketval.response-queue", qos: .utility, attributes: [.concurrent])
+        
+        let myUrl = URL(string: "http://laravel.ticketval.de/api/getEvents")
+            
+        let headers = ["Authorization":"Bearer \(accessTokenKeychain)"]
+            
+            Alamofire.request(myUrl!, method: .get, headers: headers).responseJSON(
+            queue: queue,
+                completionHandler: { response in
                 
-                do{
-                let eventsData = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as! NSArray
-                    
-                //print(eventsData)
-                var events = [EventObject]()
-                    
+                    let eventsData = response.result.value as! NSArray
+                
                     for event in eventsData{
-                        
-                        let event = EventObject(data: event as! NSDictionary)
-                        events.append(event)
-                        
-                    }
-                    completion(nil, events)
-                    //print(events[0].title)
                     
-                }catch{
-                    print(error)
+                    let event = EventObject(data: event as! NSDictionary)
+                    //print(event.title)
+                    events.append(event)
+                    
                 }
-              
-            }
+                
+                completion(nil, events)
+
+                
+                    DispatchQueue.main.async {
+                    
+                    print(events[0].title)
+                
+                
+                    }
+                }
+            )
         }
-        task.resume()
+        
+       
+        
     }
     
     func getAttendees(eventId: Int, completion: @escaping (Error?, [AttendeeObject]) -> Void){
@@ -97,6 +116,8 @@ class TicketValAPI{
         
         
 }
+
+
 
     
     

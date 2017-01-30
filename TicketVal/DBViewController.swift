@@ -149,6 +149,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         eventpicker.dataSource = self
         
         let api = TicketValAPI()
+        
         api.getEvents() {(error, events) in
             if let error = error{
                 print(error)
@@ -161,6 +162,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
                     }
                 }
         }
+ 
         
         //checkDataStore()
         
