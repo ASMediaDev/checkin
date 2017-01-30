@@ -7,8 +7,16 @@
 //
 
 import UIKit
+import Alamofire
+import Locksmith
+
 
 class LoginViewController: UIViewController {
+    
+    var clientID: String = ""
+    var clientSecret:String = ""
+    
+    
     @IBOutlet weak var userEmailAddressTextField: UITextField!
 
     @IBOutlet weak var userPasswordTextField: UITextField!
@@ -18,7 +26,71 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var userNameKeychain: String?
+        var userPasswordKeychain: Any?
+     
+        
+        let dictionary = Locksmith.loadDataForUserAccount(userAccount: "TicketVal")
+        
+       
+        
+        if (dictionary?.isEmpty == false){
+            
+            print("Found Credentials - Performing Login")
+            
+            for (key,value) in dictionary!{
+                userNameKeychain = key
+                userPasswordKeychain = value
+                
+            }
+            let myUrl = URL(string: "http://laravel.ticketval.de/api/login")
+            
+       
+            
+            var statusCode = 0
+            
+            let param : [String: String] =
+                [
+                    "userName": userNameKeychain!,
+                    "userPassword": userPasswordKeychain! as! String
+            ]
+            
+            Alamofire.request(myUrl!, method: .post, parameters: param, encoding: URLEncoding.httpBody).responseJSON{ response in
+                
+                //alamofireresponse = response
+                print(response.result.value as Any)
+                
+                if let result = response.result.value{
+                    let JSON = result as! NSDictionary
+                    print(JSON.value(forKey: "status")!)
+                    
+                    statusCode = Int((JSON.value(forKey: "status")) as! String)!
+                    
+                }
+                if statusCode == 200{
+                    
+                    print("Login succesful")
+                    
+                    print("Getting AccessToken")
+                    self.getAccessToken(userName: userNameKeychain! , userPassword: userPasswordKeychain as! String)
+                    
+                    
+                    
+                }else{
+                    
+                    print("Login not succesful")
+                }
+                
+                
+            }
+            
 
+            
+           
+            
+            
+        }
      
 
         
@@ -33,8 +105,10 @@ class LoginViewController: UIViewController {
     
     @IBAction func signInButtonTapped(_ sender: AnyObject) {
         
-        let userName = userEmailAddressTextField.text
-        let userPassword = userPasswordTextField.text
+        
+        
+        let userName = self.userEmailAddressTextField.text
+        let userPassword = self.userPasswordTextField.text
         
         print(userName!)
         print(userPassword!)
@@ -53,85 +127,100 @@ class LoginViewController: UIViewController {
             
         }
         
-        let myUrl = URL(string: "http://api.ticketval.de/signin.php")
+        do{
         
-        var request = URLRequest(url: myUrl!)
+        try Locksmith.saveData(data: [userName!:userPassword!], forUserAccount: "TicketVal")
+            
+        }catch{
+            
+            //catch
+        }
         
-        request.httpMethod = "POST"
+        let myUrl = URL(string: "http://laravel.ticketval.de/api/login")
         
-        let postString = "userName=\(userName!)&userPassword=\(userPassword!)"
+        //var alamofireresponse: DataResponse<Any>?
         
+        var statusCode = 0
+        
+        let param : [String: String] =
+            [
+                "userName": userName!,
+                "userPassword": userPassword!
+        ]
+        
+        Alamofire.request(myUrl!, method: .post, parameters: param, encoding: URLEncoding.httpBody).responseJSON{ response in
+            
+            //alamofireresponse = response
+            print(response.result.value as Any)
+            
+            if let result = response.result.value{
+                let JSON = result as! NSDictionary
+                print(JSON.value(forKey: "status")!)
+                
+                statusCode = Int((JSON.value(forKey: "status")) as! String)!
+               
+            }
+            if statusCode == 200{
+                
+                print("Login succesful")
+                self.getAccessToken(userName: userName!, userPassword: userPassword!)
+                
+                
+                
+                
+            }else{
+                
+                print("Login not succesful")
+            }
+            
+        }
     
-        request.httpBody = postString.data(using: String.Encoding.utf8)
+    }
+    
+    public func getAccessToken(userName: String, userPassword: String){
+        
+        let myUrl = URL(string: "http://laravel.ticketval.de/oauth/token")
+        
+        //var alamofireresponse: DataResponse<Any>?
         
        
         
-        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            
-            DispatchQueue.main.async
-                {
-                    if(error != nil)
-                    {
-                        //Display an alert message
-                        let myAlert = UIAlertController(title: "Alert", message: error!.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
-                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler:nil)
-                        myAlert.addAction(okAction)
-                        self.present(myAlert, animated: true, completion: nil)
-                        return
-                    }
+        let param : [String: String] =
+            [
+                "grant_type": "password",
+                "client_id": "4",
+                "client_secret": "WGy6yOMh1730nI71mKR2V02FT6b8JrgS6A0GDKTm",
+                "username": userName,
+                "password": userPassword
+        ]
+        
+        Alamofire.request(myUrl!, method: .post, parameters: param, encoding: URLEncoding.httpBody).responseJSON{ response in
+            if let result = response.result.value{
+                let JSON = result as! NSDictionary
+                print(JSON.value(forKey: "access_token")!)
+                
+                do{
+                    try Locksmith.saveData(data: [userName : JSON.value(forKey: "access_token")!], forUserAccount: "TicketValAPI")
+                }catch{
                     
-                    do {
-                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                        
-                        if let parseJSON = json {
-                            
-                            let userId = parseJSON["userId"] as? String
-                            if(userId != nil)
-                            {
-                                
-                                UserDefaults.standard.set(parseJSON["userFirstName"], forKey: "userFirstName")
-                                UserDefaults.standard.set(parseJSON["userLastName"], forKey: "userLastName")
-                                UserDefaults.standard.set(parseJSON["userId"], forKey: "userId")
-                                UserDefaults.standard.synchronize()
-                                
-                                // take user to a protected page
-                                
-                                [self .performSegue(withIdentifier:"login_redirect", sender: nil)]
-                                 
-                                 //appDelegate?.window??.rootViewController = mainPageNav
-                                
-                                
-                                
-                                
-                                
-                                
-                            } else {
-                                // display an alert message
-                                let userMessage = parseJSON["message"] as? String
-                                let myAlert = UIAlertController(title: "Alert", message: userMessage, preferredStyle: UIAlertControllerStyle.alert);
-                                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler:nil)
-                                myAlert.addAction(okAction);
-                                self.present(myAlert, animated: true, completion: nil)
-                            }
-                            
-                        }
-                    } catch
-                    {
-                        print(error)
-                    }
-                    
-                    
-            }
-            
-            
-            
-        }
+                    //catch
+                }
+                
+                print("Redirecting...")
+                
+                [self .performSegue(withIdentifier:"login_redirect", sender: nil)]
 
-        
-        task.resume()
-        
+                
+        }
+    
     }
     
+    
+    }
+}
+
+
+
     
     /*
     // MARK: - Navigation
@@ -144,4 +233,4 @@ class LoginViewController: UIViewController {
     */
 
 
-}
+

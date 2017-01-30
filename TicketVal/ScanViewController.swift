@@ -13,22 +13,38 @@ import CoreData
 
 class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
+    
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
     
 
     
     @IBOutlet weak var displaycode: UILabel!
-   
-   
-
+    
+    @IBOutlet weak var previewOverlay: UIView!
+    
+    @IBOutlet weak var eventStatusTextView: UITextView!
+    
+       
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        displaycode.backgroundColor = UIColor.red
-        displaycode.text = "NO QR-CODE DETECTED"
+        displaycode.backgroundColor = UIColor.lightGray
+        //displaycode.alpha = 0.2
+        //displaycode.text = "NO QR-CODE DETECTED"
         
+        let dbview = DBViewController()
         
+        if (dbview.countAttendees() == 0){
+            
+            eventStatusTextView.text = "No Event synchronized"
+    
+        }else{
+            
+            updateEventStatus()
+        }
+        
+
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
         
@@ -108,7 +124,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
         
         print(code)
         displaycode.backgroundColor = UIColor.green
-        displaycode.text = code
+        //displaycode.text = code
         
         let dbview = DBViewController()
         
@@ -130,6 +146,8 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                 attendee = dbview.getNameforTicket(private_reference_number: reference!)
                 
                 displaycode.backgroundColor = UIColor.green
+                
+                
             
                 let alertController = UIAlertController(title: "GÜLTIG", message: "Gast: \(attendee)", preferredStyle: .alert)
             
@@ -137,7 +155,10 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                     print(action)
                     dbview.checkIn(private_reference_number: reference!)
                     print("Checked in!")
-                self.captureSession.startRunning()
+                    self.displaycode.backgroundColor = UIColor.lightGray
+                    self.captureSession.startRunning()
+                    self.updateEventStatus()
+                    
                 }
                 alertController.addAction(cancelAction)
             
@@ -145,6 +166,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                 print(action)
                 self.displaycode.backgroundColor = UIColor.lightGray
                 self.captureSession.startRunning()
+               
                 }
                 alertController.addAction(destroyAction)
             
@@ -155,8 +177,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
             else if(dbview.hasArrived(private_reference_number: reference!)==true){
                 
                 let checkin_time = dbview.getCheckinTime(private_reference_number: reference!)
-                    //implement checkintime update
-                
+                                    
                 displaycode.backgroundColor = UIColor.yellow
                 
                 
@@ -167,6 +188,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                     print(action)
                     self.captureSession.startRunning()
                     self.displaycode.backgroundColor = UIColor.lightGray
+                   
                 }
                 alertController.addAction(destroyAction)
                 
@@ -175,6 +197,8 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                     dbview.checkOut(private_reference_number: reference!)
                     print("Checked out!")
                     self.captureSession.startRunning()
+                    self.updateEventStatus()
+                    self.displaycode.backgroundColor = UIColor.lightGray
                 }
                 alertController.addAction(cancelAction)
                 
@@ -241,6 +265,14 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                 print(error)
             }
         }
+    }
+    
+    func updateEventStatus(){
+        
+        let dbview = DBViewController()
+        
+        eventStatusTextView.text = "Event: \(dbview.getSyncedEvent()) Attendees: \(dbview.countAttendeesArrived())/\(dbview.countAttendees())"
+        
     }
     
  

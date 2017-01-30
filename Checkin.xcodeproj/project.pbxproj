@@ -47,6 +47,7 @@
 		0CDF0CB7278C7DDA83AF460A /* Pods-Checkin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Checkin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Checkin/Pods-Checkin.debug.xcconfig"; sourceTree = "<group>"; };
 		3B93560AD0C0FB862F4FACDB /* Pods_CheckinTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CheckinTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44238D2F1E392C1600109EC0 /* RealmObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmObjects.swift; path = ../RealmObjects.swift; sourceTree = "<group>"; };
+		443560981E3F69DF001FF8CB /* Checkin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Checkin.entitlements; sourceTree = "<group>"; };
 		445B1E171D1710860040273F /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "../Launch Screen.storyboard"; sourceTree = "<group>"; };
 		445B1E191D1711D10040273F /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@3x.png"; sourceTree = "<group>"; };
 		448796651DE322F200DDCA5B /* DBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +132,7 @@
 		FA4B72D31D13FD4000C1C4C8 = {
 			isa = PBXGroup;
 			children = (
+				443560981E3F69DF001FF8CB /* Checkin.entitlements */,
 				FA4B72DE1D13FD4000C1C4C8 /* checkin */,
 				FA4B72F61D13FD4100C1C4C8 /* TicketValTests */,
 				FA4B73011D13FD4100C1C4C8 /* TicketValUITests */,
@@ -263,6 +265,11 @@
 						DevelopmentTeam = 9MD8QB8CL4;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					FA4B72F21D13FD4100C1C4C8 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -516,6 +523,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Checkin.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
@@ -536,6 +544,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Checkin.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";

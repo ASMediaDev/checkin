@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWw-Jc-8kG">
-                                <rect key="frame" x="131.5" y="353" width="112" height="83"/>
+                                <rect key="frame" x="132" y="353" width="112" height="83"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="83" id="wtK-2i-3fs"/>
@@ -34,7 +34,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4XD-NN-kie">
-                                <rect key="frame" x="131.5" y="208" width="112" height="83"/>
+                                <rect key="frame" x="132" y="208" width="112" height="83"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="83" id="BSt-6l-YaI"/>
@@ -366,7 +366,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nbb-W6-A3Z">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
-                                    <navigationItem title="Bitte QR-Code zentrieren" id="cWF-JF-2B9">
+                                    <navigationItem title="TicketVal Checkin" id="cWF-JF-2B9">
                                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="cQs-6C-rwT">
                                             <connections>
                                                 <segue destination="o1Q-Yw-77n" kind="show" id="1Jy-Yp-XOh"/>
@@ -380,16 +380,25 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kein QR-Code erkannt!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wq2-Lp-9p9">
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kein QR-Code erkannt!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wq2-Lp-9p9">
                                 <rect key="frame" x="0.0" y="571" width="375" height="96"/>
                                 <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="96" id="3Up-Ia-iYl"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="No Event selected!" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="giE-TX-SCx">
+                                <rect key="frame" x="0.0" y="64" width="375" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="OPg-xc-Jjt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -397,8 +406,11 @@
                             <constraint firstItem="Nbb-W6-A3Z" firstAttribute="trailing" secondItem="Wq2-Lp-9p9" secondAttribute="trailing" id="Ldu-Fm-LLX"/>
                             <constraint firstItem="Nbb-W6-A3Z" firstAttribute="leading" secondItem="aNA-gC-d9F" secondAttribute="leading" id="Oj6-BO-wYB"/>
                             <constraint firstItem="Nbb-W6-A3Z" firstAttribute="top" secondItem="g2p-bR-XlG" secondAttribute="bottom" id="aoA-RM-dQ6"/>
+                            <constraint firstItem="giE-TX-SCx" firstAttribute="top" secondItem="Nbb-W6-A3Z" secondAttribute="bottom" id="cCb-kR-GCm"/>
                             <constraint firstAttribute="trailing" secondItem="Nbb-W6-A3Z" secondAttribute="trailing" id="jdK-Ov-5iw"/>
                             <constraint firstItem="Nbb-W6-A3Z" firstAttribute="leading" secondItem="Wq2-Lp-9p9" secondAttribute="leading" id="sjq-Fw-WOz"/>
+                            <constraint firstItem="giE-TX-SCx" firstAttribute="leading" secondItem="Nbb-W6-A3Z" secondAttribute="leading" id="vSF-uv-Wnl"/>
+                            <constraint firstItem="giE-TX-SCx" firstAttribute="trailing" secondItem="Nbb-W6-A3Z" secondAttribute="trailing" id="xgY-Zf-Z76"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
@@ -413,14 +425,15 @@
                     </view>
                     <connections>
                         <outlet property="displaycode" destination="Wq2-Lp-9p9" id="IDA-kq-mBj"/>
+                        <outlet property="eventStatusTextView" destination="giE-TX-SCx" id="xn1-dt-hrk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mp9-Io-rsC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2561" y="-206"/>
+            <point key="canvasLocation" x="2560.8000000000002" y="-206.44677661169416"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="WZD-Xy-sMa"/>
+        <segue reference="1Jy-Yp-XOh"/>
     </inferredMetricsTieBreakers>
 </document>

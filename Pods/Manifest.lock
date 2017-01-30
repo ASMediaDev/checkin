@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.2.0)
+  - Locksmith (3.0.0)
   - Realm (2.3.0):
     - Realm/Headers (= 2.3.0)
   - Realm/Headers (2.3.0)
@@ -9,15 +10,17 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
+  - Locksmith
   - RealmSwift
   - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
+  Locksmith: 310b4cc5031af5728bf4db5d4de547a5100c6a3b
   Realm: 69d7de9aa569a11eed490aaabc8f2109e3985ecf
   RealmSwift: dc6f99ea55e59490cec69c860f91932b6bf7efb6
   SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
 
-PODFILE CHECKSUM: f0369abd7abf6d064806fc94003d370da2e7ceba
+PODFILE CHECKSUM: 96d9391a074d149674ecf65854e3c4d694c9486b
 
 COCOAPODS: 1.1.1

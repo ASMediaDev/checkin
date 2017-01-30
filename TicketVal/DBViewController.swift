@@ -11,6 +11,7 @@ import CoreData
 import SwiftyJSON
 import Alamofire
 import RealmSwift
+import Locksmith
 
 
 class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource  {
@@ -18,11 +19,13 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
    
     @IBAction func logoutBtn(_ sender: AnyObject) {
         
-        UserDefaults.standard.removeObject(forKey: "userFirstName")
-        UserDefaults.standard.removeObject(forKey: "userLastName")
-        UserDefaults.standard.removeObject(forKey: "userId")
-        UserDefaults.standard.synchronize()
         
+        do{
+            try Locksmith.deleteDataForUserAccount(userAccount: "TicketVal")
+        }catch{
+            
+            
+        }
         let loginPage = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
         let appDelegate = UIApplication.shared.delegate
         appDelegate?.window??.rootViewController = loginPage
@@ -423,5 +426,25 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         
         return attendees.count
     
+    }
+    
+    func countAttendeesArrived() -> Int{
+        
+        let realm = try! Realm()
+        
+        let attendeesArrived = realm.objects(Attendee.self).filter("arrived = true")
+
+        return attendeesArrived.count
+        
+        
+    }
+    
+    func getSyncedEvent() -> String{
+        
+        let realm = try! Realm()
+        
+        let attendees = realm.objects(Attendee.self)
+        
+        return (attendees.first?.eventName)!
     }
 }

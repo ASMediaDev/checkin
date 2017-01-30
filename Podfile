@@ -3,21 +3,22 @@ platform :ios, '9.3'
 use_frameworks!
 
 target 'Checkin' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  
+    # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+    
+    
+    # Pods for Checkin
+    
+    pod 'SwiftyJSON'
+    pod 'Alamofire', '~> 4.0'
+    pod 'RealmSwift'
+    pod 'Locksmith'
+end
 
-  # Pods for Checkin
 
-  pod 'SwiftyJSON'
-  pod 'Alamofire', '~> 4.0'
-  pod 'RealmSwift'
-  end
-
-  
 post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    target.build_configurations.each do |config|
-      config.build_settings['SWIFT_VERSION'] = '3.0'
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['SWIFT_VERSION'] = '3.0'
+        end
     end
-  end
 end
