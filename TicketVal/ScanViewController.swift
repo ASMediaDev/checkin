@@ -146,6 +146,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                 attendee = dbview.getNameforTicket(private_reference_number: reference!)
                 
                 displaycode.backgroundColor = UIColor.green
+                displaycode.text = attendee
                 
                 
             
@@ -156,6 +157,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                     dbview.checkIn(private_reference_number: reference!)
                     print("Checked in!")
                     self.displaycode.backgroundColor = UIColor.lightGray
+                    self.displaycode.text = "Kein QR-Code erkannt!"
                     self.captureSession.startRunning()
                     self.updateEventStatus()
                     
@@ -165,6 +167,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                 let destroyAction = UIAlertAction(title: "abbrechen", style: .destructive) { action in
                 print(action)
                 self.displaycode.backgroundColor = UIColor.lightGray
+                self.displaycode.text = "Kein QR-Code erkannt!"
                 self.captureSession.startRunning()
                
                 }
@@ -176,9 +179,12 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
             }
             else if(dbview.hasArrived(private_reference_number: reference!)==true){
                 
+                attendee = dbview.getNameforTicket(private_reference_number: reference!)
+                
                 let checkin_time = dbview.getCheckinTime(private_reference_number: reference!)
                                     
                 displaycode.backgroundColor = UIColor.yellow
+                displaycode.text = attendee
                 
                 
                 let alertController = UIAlertController(title: "UNGÜLTIG", message: "Das Ticket wurde bereits verwendet. Datum: \(checkin_time)", preferredStyle: .alert)
@@ -188,6 +194,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                     print(action)
                     self.captureSession.startRunning()
                     self.displaycode.backgroundColor = UIColor.lightGray
+                    self.displaycode.text = "Kein QR-Code erkannt!"
                    
                 }
                 alertController.addAction(destroyAction)
@@ -199,6 +206,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                     self.captureSession.startRunning()
                     self.updateEventStatus()
                     self.displaycode.backgroundColor = UIColor.lightGray
+                    self.displaycode.text = "Kein QR-Code erkannt!"
                 }
                 alertController.addAction(cancelAction)
                 
@@ -221,6 +229,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                 print(action)
                 self.captureSession.startRunning()
                 self.displaycode.backgroundColor = UIColor.lightGray
+                self.displaycode.text = "Kein QR-Code erkannt!"
             }
             alertController.addAction(destroyAction)
             

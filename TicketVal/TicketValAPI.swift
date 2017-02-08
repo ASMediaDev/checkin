@@ -36,7 +36,7 @@ class TicketValAPI{
         
         let queue = DispatchQueue(label: "com.asmedia.ticketval.response-queue", qos: .utility, attributes: [.concurrent])
         
-        let myUrl = URL(string: "http://laravel.ticketval.de/api/getEvents")
+        let myUrl = URL(string: "https://ticketval.de/api/getEvents")
             
         let headers = ["Authorization":"Bearer \(accessTokenKeychain)"]
             
@@ -91,7 +91,7 @@ class TicketValAPI{
             
             let queue = DispatchQueue(label: "com.asmedia.ticketval.response-queue", qos: .utility, attributes: [.concurrent])
             
-            let myUrl = URL(string: "http://laravel.ticketval.de/api/getAttendees/\(eventId)")
+            let myUrl = URL(string: "https://ticketval.de/api/getAttendees/\(eventId)")
             
             
            let headers = ["Authorization":"Bearer \(accessTokenKeychain)"]
@@ -117,7 +117,7 @@ class TicketValAPI{
                     
                     DispatchQueue.main.async {
                         
-                        print(attendees[0].firstname)
+                        //print(attendees[0].firstname)
                         
                         
                     }

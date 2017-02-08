@@ -33,7 +33,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     }
     @IBAction func insertAttendeesButton(_ sender: Any) {
         
-        let alertController = UIAlertController(title: "WARNUNG", message: "Durch den Import werden alle bisher importierten Datensätze gelöscht!", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "WARNUNG", message: "Durch die Synchronisation werden alle bisher importierten Datensätze gelöscht!", preferredStyle: .alert)
         
         
         let okAction = UIAlertAction(title: "Fortfahren", style: .default) { action in
@@ -41,7 +41,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
             self.insertAttendees(eventId: (self.placementAnswer)+1)
             
             print("Attendees inserted")
-            self.attendeesCount.text = "Number of Attendees in Databse: \(self.countAttendees())"
+            //self.attendeesCount.text = "Number of Attendees in Database: \(self.countAttendees())"
            
             
             
@@ -77,7 +77,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     
     @IBAction func truncateDatabase(_ sender: Any) {
         emptyDataStore()
-         attendeesCount.text = "Number of Attendees in Databse: \(countAttendees())"
+         attendeesCount.text = "Number of Attendees in Database: \(countAttendees())"
         print("Database truncated")
         
     }
@@ -168,7 +168,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         
         //print(ticketExists(private_reference_number: 617191322))
         
-        attendeesCount.text = "Number of Attendees in Databse: \(countAttendees())"
+        attendeesCount.text = "Number of Attendees in Database: \(countAttendees())"
         
         // Do any additional setup after loading the view.
     }
@@ -278,10 +278,12 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
                         }
                 }
                 
-                let alertController = UIAlertController(title: "Import abgeschlossen", message: "Es wurden \(insertcounter) Datensätze importiert", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Synchronisation abgeschlossen!", message: "Es wurden \(insertcounter) Datensätze importiert", preferredStyle: .alert)
                 
                 
                 let destroyAction = UIAlertAction(title: "ok", style: .default) { action in
+                    
+                    self.attendeesCount.text = "Number of Attendees in Database: \(self.countAttendees())"
                     
                 }
                 
@@ -387,7 +389,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         
         if (attendees.count == 1){
             
-            attendeeName = (attendees[0].firstName + "" + attendees[0].lastName)
+            attendeeName = (attendees[0].firstName + " " + attendees[0].lastName)
         }else{
             
             attendeeName = "Attendeename not found!"

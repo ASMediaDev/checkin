@@ -7,8 +7,26 @@
 //
 
 import UIKit
+import Locksmith
 
 class MainViewController: UIViewController {
+    
+    
+    
+    @IBAction func btn_cleartokens(_ sender: Any) {
+        
+        do{
+            try Locksmith.deleteDataForUserAccount(userAccount: "TicketValAPI")
+            
+            print("AccessTokens deleted")
+        }catch{
+            
+            
+        }
+    }
+  
+    
+    
     
     let gradientLayer = CAGradientLayer()
     
@@ -17,36 +35,8 @@ class MainViewController: UIViewController {
 
     @IBOutlet weak var scan: UIButton!
     
-   
-    @IBAction func database(_ sender: Any) {
-        
-        let userId = UserDefaults.standard.string(forKey: "userId")
-        
-        if(userId != nil)
-        {
-            //take user to DBViewController
-            let mainStoryboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            
-            let mainPage = mainStoryboard.instantiateViewController(withIdentifier: "DBViewController")
-            
-            let appDelegate = UIApplication.shared.delegate
-            appDelegate?.window??.rootViewController = mainPage
-            
-            
-        } else {
-            
-            let mainStoryboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            
-            let loginPage = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController")
-            
-            let appDelegate = UIApplication.shared.delegate
-            appDelegate?.window??.rootViewController = loginPage
-            
-            
-        }
-        
-        
-    }
+
+    @IBOutlet weak var maint: UIButton!
     
     @IBOutlet weak var databasewarning: UITextView!
 
@@ -66,10 +56,22 @@ class MainViewController: UIViewController {
         gradientLayer.frame = self.view.bounds
         self.view.layer.insertSublayer(gradientLayer, at: 0)
         
-        //scan.layer.cornerRadius = 10.0
-        //database.layer.cornerRadius = 10.0
+        scan.layer.cornerRadius = 10.0
+        maint.layer.cornerRadius = 10.0
     
-         databasewarning.text = "Number of Attendees in Databse: \(dbview.countAttendees())"
+        
+        if(dbview.countAttendees()==0){
+            
+            databasewarning.text = "Es befinden sich keine Gäste in der Datenbank!"
+            
+            
+        }else {
+            
+            databasewarning.text = "Number of Attendees in Database: \(dbview.countAttendees())"
+            
+        }
+        
+        
         
         print("landingpage")
     }

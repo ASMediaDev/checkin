@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="o1Q-Yw-77n">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="o1Q-Yw-77n">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -30,7 +30,7 @@
                                 </constraints>
                                 <state key="normal" title="Verwaltung"/>
                                 <connections>
-                                    <action selector="database:" destination="o1Q-Yw-77n" eventType="touchUpInside" id="JWA-Az-Jnd"/>
+                                    <segue destination="QIx-VJ-Rbr" kind="showDetail" action="showViewController:sender:" id="UiF-08-Ij5"/>
                                 </connections>
                             </button>
                             <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4XD-NN-kie">
@@ -40,7 +40,7 @@
                                     <constraint firstAttribute="height" constant="83" id="BSt-6l-YaI"/>
                                     <constraint firstAttribute="width" constant="112" id="nc8-Jy-OZr"/>
                                 </constraints>
-                                <state key="normal" title="Scanner"/>
+                                <state key="normal" title="Checkin"/>
                                 <connections>
                                     <segue destination="sB3-Uq-Oci" kind="show" id="ayF-De-EBz"/>
                                 </connections>
@@ -61,6 +61,14 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Fh-Ml-Jog">
+                                <rect key="frame" x="119" y="617" width="137" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Clear Keychain"/>
+                                <connections>
+                                    <action selector="btn_cleartokens:" destination="o1Q-Yw-77n" eventType="touchUpInside" id="dDw-VD-N0L"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -78,6 +86,7 @@
                     </view>
                     <connections>
                         <outlet property="databasewarning" destination="eXM-sw-qay" id="VYp-qa-jb8"/>
+                        <outlet property="maint" destination="fWw-Jc-8kG" id="Uiy-0D-ogb"/>
                         <outlet property="scan" destination="4XD-NN-kie" id="jPX-3i-rl3"/>
                     </connections>
                 </viewController>
@@ -276,10 +285,13 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oQa-l4-lZK">
                                 <rect key="frame" x="116" y="273" width="143" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.65122969389999996" blue="0.015030979749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="143" id="QdE-ou-das"/>
                                 </constraints>
-                                <state key="normal" title="Insert Attendees"/>
+                                <state key="normal" title="SYNC">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="insertAttendeesButton:" destination="n8s-Sh-1h2" eventType="touchUpInside" id="Wz0-FC-Vf9"/>
                                 </connections>
@@ -434,6 +446,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="1Jy-Yp-XOh"/>
+        <segue reference="wf4-Sx-gTQ"/>
     </inferredMetricsTieBreakers>
 </document>
