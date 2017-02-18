@@ -258,7 +258,7 @@
                                     <outlet property="delegate" destination="n8s-Sh-1h2" id="fUi-eA-JPa"/>
                                 </connections>
                             </tableView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Attendees" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hK1-OS-kWY">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Attendees" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hK1-OS-kWY">
                                 <rect key="frame" x="23" y="311" width="240" height="33"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -361,7 +361,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BWZ-ml-aJM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3765.5999999999999" y="545.57721139430294"/>
+            <point key="canvasLocation" x="4063" y="421"/>
         </scene>
         <!--MainView-->
         <scene sceneID="16H-tZ-eXX">
@@ -446,6 +446,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="wf4-Sx-gTQ"/>
+        <segue reference="WZD-Xy-sMa"/>
     </inferredMetricsTieBreakers>
 </document>

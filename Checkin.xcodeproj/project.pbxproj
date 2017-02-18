@@ -12,6 +12,14 @@
 		445B1E181D1710860040273F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 445B1E171D1710860040273F /* Launch Screen.storyboard */; };
 		445B1E1A1D1711D10040273F /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 445B1E191D1711D10040273F /* Icon-60@3x.png */; };
 		448796661DE322F200DDCA5B /* DBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448796651DE322F200DDCA5B /* DBViewController.swift */; };
+		449A02601E57001D00FF106E /* TestFairySDK-1.8.2 in Resources */ = {isa = PBXBuildFile; fileRef = 449A025F1E57001D00FF106E /* TestFairySDK-1.8.2 */; };
+		449A02621E57006D00FF106E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449A02611E57006D00FF106E /* CoreMedia.framework */; };
+		449A02641E57007600FF106E /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449A02631E57007600FF106E /* CoreMotion.framework */; };
+		449A02661E57007E00FF106E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449A02651E57007E00FF106E /* AVFoundation.framework */; };
+		449A02681E57008600FF106E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449A02671E57008600FF106E /* SystemConfiguration.framework */; };
+		449A026A1E57009000FF106E /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449A02691E57009000FF106E /* OpenGLES.framework */; };
+		449A026F1E5701CE00FF106E /* libTestFairy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 449A026C1E5701CE00FF106E /* libTestFairy.a */; };
+		449A02701E5701CE00FF106E /* upload-dsym.sh in Resources */ = {isa = PBXBuildFile; fileRef = 449A026E1E5701CE00FF106E /* upload-dsym.sh */; };
 		449E45E61E02D7C20047F76A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449E45E41E02D7C20047F76A /* LoginViewController.swift */; };
 		449E45E71E02D7C20047F76A /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 449E45E51E02D7C20047F76A /* LoginViewController.xib */; };
 		44E4F44D1E09333600EDF8B5 /* TicketValAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E4F44C1E09333600EDF8B5 /* TicketValAPI.swift */; };
@@ -51,6 +59,16 @@
 		445B1E171D1710860040273F /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "../Launch Screen.storyboard"; sourceTree = "<group>"; };
 		445B1E191D1711D10040273F /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@3x.png"; sourceTree = "<group>"; };
 		448796651DE322F200DDCA5B /* DBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBViewController.swift; sourceTree = "<group>"; };
+		449A025F1E57001D00FF106E /* TestFairySDK-1.8.2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "TestFairySDK-1.8.2"; sourceTree = "<group>"; };
+		449A02611E57006D00FF106E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		449A02631E57007600FF106E /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		449A02651E57007E00FF106E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		449A02671E57008600FF106E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		449A02691E57009000FF106E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		449A026B1E5700F900FF106E /* Bridging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Bridging.h; path = ../Bridging.h; sourceTree = "<group>"; };
+		449A026C1E5701CE00FF106E /* libTestFairy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFairy.a; path = "TestFairySDK-1.8.2/libTestFairy.a"; sourceTree = "<group>"; };
+		449A026D1E5701CE00FF106E /* TestFairy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestFairy.h; path = "TestFairySDK-1.8.2/TestFairy.h"; sourceTree = "<group>"; };
+		449A026E1E5701CE00FF106E /* upload-dsym.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "upload-dsym.sh"; path = "TestFairySDK-1.8.2/upload-dsym.sh"; sourceTree = "<group>"; };
 		449E45E41E02D7C20047F76A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		449E45E51E02D7C20047F76A /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		44E4F44C1E09333600EDF8B5 /* TicketValAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketValAPI.swift; sourceTree = "<group>"; };
@@ -79,6 +97,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				449A026A1E57009000FF106E /* OpenGLES.framework in Frameworks */,
+				449A02681E57008600FF106E /* SystemConfiguration.framework in Frameworks */,
+				449A02661E57007E00FF106E /* AVFoundation.framework in Frameworks */,
+				449A02641E57007600FF106E /* CoreMotion.framework in Frameworks */,
+				449A02621E57006D00FF106E /* CoreMedia.framework in Frameworks */,
+				449A026F1E5701CE00FF106E /* libTestFairy.a in Frameworks */,
 				3F19C09A9154A41D40AF0D4B /* Pods_Checkin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -122,6 +146,11 @@
 		C910C18D84757A7FD2DB69EF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				449A02691E57009000FF106E /* OpenGLES.framework */,
+				449A02671E57008600FF106E /* SystemConfiguration.framework */,
+				449A02651E57007E00FF106E /* AVFoundation.framework */,
+				449A02631E57007600FF106E /* CoreMotion.framework */,
+				449A02611E57006D00FF106E /* CoreMedia.framework */,
 				AD9D5A692587E92CF8355CCE /* Pods_Checkin.framework */,
 				3B93560AD0C0FB862F4FACDB /* Pods_CheckinTests.framework */,
 				E7B23B8677C08B81633420D4 /* Pods_CheckinUITests.framework */,
@@ -155,7 +184,12 @@
 		FA4B72DE1D13FD4000C1C4C8 /* checkin */ = {
 			isa = PBXGroup;
 			children = (
+				449A026B1E5700F900FF106E /* Bridging.h */,
 				44238D2F1E392C1600109EC0 /* RealmObjects.swift */,
+				449A026C1E5701CE00FF106E /* libTestFairy.a */,
+				449A026D1E5701CE00FF106E /* TestFairy.h */,
+				449A026E1E5701CE00FF106E /* upload-dsym.sh */,
+				449A025F1E57001D00FF106E /* TestFairySDK-1.8.2 */,
 				44E4F44E1E09333D00EDF8B5 /* TicketValAPI */,
 				FAC9C0551D1426D000189A0C /* Main.storyboard */,
 				449E45E41E02D7C20047F76A /* LoginViewController.swift */,
@@ -264,7 +298,7 @@
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 9MD8QB8CL4;
 						LastSwiftMigration = 0810;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -311,8 +345,10 @@
 				449E45E71E02D7C20047F76A /* LoginViewController.xib in Resources */,
 				445B1E1A1D1711D10040273F /* Icon-60@3x.png in Resources */,
 				445B1E181D1710860040273F /* Launch Screen.storyboard in Resources */,
+				449A02701E5701CE00FF106E /* upload-dsym.sh in Resources */,
 				FAC9C0561D1426D000189A0C /* Main.storyboard in Resources */,
 				FA4B72EA1D13FD4000C1C4C8 /* Assets.xcassets in Resources */,
+				449A02601E57001D00FF106E /* TestFairySDK-1.8.2 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,14 +561,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Checkin.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = 9MD8QB8CL4;
 				INFOPLIST_FILE = TicketVal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ticketval;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TicketVal/TestFairySDK-1.8.2",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ticketval.checkin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ec7f241d-a292-469d-a4b0-a6b82e09d442";
+				PROVISIONING_PROFILE_SPECIFIER = Checkin;
+				SWIFT_OBJC_BRIDGING_HEADER = Bridging.h;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -546,14 +587,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Checkin.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = 9MD8QB8CL4;
 				INFOPLIST_FILE = TicketVal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ticketval;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TicketVal/TestFairySDK-1.8.2",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ticketval.checkin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ec7f241d-a292-469d-a4b0-a6b82e09d442";
+				PROVISIONING_PROFILE_SPECIFIER = Checkin;
+				SWIFT_OBJC_BRIDGING_HEADER = Bridging.h;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
