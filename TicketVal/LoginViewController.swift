@@ -17,13 +17,9 @@ class LoginViewController: UIViewController {
     var clientID: String = ""
     var clientSecret:String = ""
     
-    
     @IBOutlet weak var userEmailAddressTextField: UITextField!
 
     @IBOutlet weak var userPasswordTextField: UITextField!
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,16 +28,13 @@ class LoginViewController: UIViewController {
         var userPasswordKeychain: Any?
      
         let dictionary = Locksmith.loadDataForUserAccount(userAccount: "TicketVal")
-    
+        
+        /*
         if (dictionary?.isEmpty == false){
-            
-            print("Found Credentials - Performing Login")
-            
             
             let progress = GradientCircularProgress()
             
             progress.show(message: "Logging in...", style: tvStyle())
-            
             
             for (key,value) in dictionary!{
                 userNameKeychain = key
@@ -76,15 +69,8 @@ class LoginViewController: UIViewController {
                         
                     }
                     if statusCode == 200{
-                        
-                        print("Login succesful")
-                        
-                        
-                        
-                        print("Validating AccessToken")
+                
                         self.validateAccessToken(userName: userNameKeychain! , userPassword: userPasswordKeychain as! String, progress: progress)
-                        
-                        //progress.dismiss()
                         
                     }else{
                         
@@ -96,13 +82,8 @@ class LoginViewController: UIViewController {
                     
                 case .failure(let error):
                     if error._code == NSURLErrorTimedOut {
-                        
-                        
-                        
-                        //timeout here
+
                     }
-                    
-                    
                     
                     let alert = UIAlertController(title: "Alert", message: "Your internet connection appears to be offline", preferredStyle: UIAlertControllerStyle.alert)
                     let backView = alert.view.subviews.last?.subviews.last
@@ -116,9 +97,8 @@ class LoginViewController: UIViewController {
             }
             
         }
-    
-        // Do any additional setup after loading the view.
     }
+ */
 }
 
     override func didReceiveMemoryWarning() {
@@ -141,8 +121,7 @@ class LoginViewController: UIViewController {
         print(userPassword!)
         
         if((userName?.isEmpty)! || (userPassword?.isEmpty)!){
-            //Display an alert message
-            
+       
             let alert = UIAlertController(title: "Alert", message: "All fields are required to sign in!", preferredStyle: UIAlertControllerStyle.alert)
             let backView = alert.view.subviews.last?.subviews.last
             backView?.layer.cornerRadius = 10.0
@@ -154,6 +133,8 @@ class LoginViewController: UIViewController {
             
         }
         
+        /*
+        
         do{
         
         try Locksmith.saveData(data: [userName!:userPassword!], forUserAccount: "TicketVal")
@@ -162,11 +143,10 @@ class LoginViewController: UIViewController {
             
             //catch
         }
+        */
         
         let myUrl = URL(string: "https://ticketval.de/api/login")
-        
-        //var alamofireresponse: DataResponse<Any>?
-        
+
         var statusCode = 0
         
         let param : [String: String] =
@@ -177,7 +157,6 @@ class LoginViewController: UIViewController {
         
         Alamofire.request(myUrl!, method: .post, parameters: param, encoding: URLEncoding.httpBody).responseJSON{ response in
             
-            //alamofireresponse = response
             print(response.result.value as Any)
             
             if let result = response.result.value{
@@ -192,9 +171,6 @@ class LoginViewController: UIViewController {
                 print("Login succesful")
                 self.validateAccessToken(userName: userName!, userPassword: userPassword!, progress: progress)
                 
-                
-                
-                
             }else{
                 
                 print("Login not succesful")
@@ -204,11 +180,11 @@ class LoginViewController: UIViewController {
     
     }
     
+//AccessToken Methods:
+    
     public func getAccessToken(userName: String, userPassword: String, progress: GradientCircularProgress){
         
         let myUrl = URL(string: "https://ticketval.de/oauth/token")
-        
-        //var alamofireresponse: DataResponse<Any>?
         
         let manager = Alamofire.SessionManager.default
         
@@ -239,15 +215,8 @@ class LoginViewController: UIViewController {
                         //catch
                     }
                     
-                    print("Redirecting...")
-                    
-                    
-                    
                     self.performSegue(withIdentifier:"login_redirect", sender: nil)
-                    
                     progress.dismiss()
-                    
-                    
                 }
                 break
                 
@@ -262,8 +231,6 @@ class LoginViewController: UIViewController {
     }
     
     public func validateAccessToken(userName: String, userPassword: String, progress: GradientCircularProgress){
-        
-        print("inside validation")
         
         var userNameKeychain: String = ""
         var accessTokenKeychain: Any = ""
@@ -291,8 +258,6 @@ class LoginViewController: UIViewController {
                 queue: queue,
                 completionHandler: { response in
                     
-                    
-                    
                     if let result = response.result.value{
                         let JSON = result as! NSDictionary
                         print(JSON.value(forKey: "status")!)
@@ -301,24 +266,13 @@ class LoginViewController: UIViewController {
                         
                     }
                     if statusCode == 200{
-                        
-                        print("Token valid!")
-                        
-                        //self.redirect()
-                        
-                        //self.performSegue(withIdentifier:"login_redirect", sender: nil)
-                        
+                     
                         DispatchQueue.main.sync {
-                            
-                            
+            
                             self.performSegue(withIdentifier:"login_redirect", sender: nil)
                             
                         }
-
-                        
                         progress.dismiss()
-                        
-                        
                         
                     }else{
                         
@@ -328,38 +282,21 @@ class LoginViewController: UIViewController {
                     }
                     
                     
-                                }
-            )
-        } else{
+            })
+            } else{
             
-            print("No Token found")
-            self.getAccessToken(userName: userName, userPassword: userPassword, progress: progress)
+                print("No Token found")
+                self.getAccessToken(userName: userName, userPassword: userPassword, progress: progress)
         }
-        
-        
-        
     }
     
     
     public func redirect(){
-    
+        
             self.performSegue(withIdentifier:"login_redirect", sender: nil)
-    
     }
+
 }
-
-
-
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 
 

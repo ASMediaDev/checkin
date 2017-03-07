@@ -56,19 +56,12 @@ class TicketValAPI{
                 
                 completion(nil, events)
 
-                
                     DispatchQueue.main.async {
-                    
                     print(events[0].title)
-                
-                
                     }
                 }
             )
         }
-        
-       
-        
     }
     
     func getAttendees(eventId: Int, completion: @escaping (Error?, [AttendeeObject]) -> Void) {
@@ -124,11 +117,7 @@ class TicketValAPI{
             }
             )
         }
-        
-        
-        
     }
-
 }
 
 

@@ -10,12 +10,7 @@ import Foundation
 import RealmSwift
 
 class Attendee: Object {
-    
-// Specify properties to ignore (Realm won't persist these)
-    
-//  override static func ignoredProperties() -> [String] {
-//    return []
-//  }
+
     
     dynamic var ticketId: Int = Int(0)
     dynamic var private_reference_number: Int = Int(0)
@@ -25,6 +20,7 @@ class Attendee: Object {
     dynamic var checkinTime: String = ""
     dynamic var arrived: Bool = false
     dynamic var eventName: String = ""
+    dynamic var is_cancelled: Bool = false
     
     override static func primaryKey() -> String? {
         return "private_reference_number"
@@ -41,17 +37,4 @@ class Attendee: Object {
             fatalError(error.localizedDescription)
         }
     }
-    
-    
-    /*
-     String lastName;
-     String firstName;
-     String checkinTime;
-     Boolean arrived;
-     String eventName;
- 
- */
-    
-    
-    
 }

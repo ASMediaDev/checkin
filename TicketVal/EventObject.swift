@@ -15,9 +15,6 @@ class EventObject {
     var startdate : String!
     var enddate : String!
     var organiserid : Int!
-    
-
-
 
     init(data : NSDictionary){
     
@@ -26,9 +23,6 @@ class EventObject {
         self.startdate = getStringFromJSON(data: data, key: "start_date")
         self.enddate = getStringFromJSON(data: data, key: "end_date")
         self.organiserid = (data["organiser_id"] as! NSString).integerValue
-     
-        
-
     }
     
     
@@ -39,9 +33,5 @@ class EventObject {
             return info
         }
         return ""
-    
-        
     }
-    
-
 }

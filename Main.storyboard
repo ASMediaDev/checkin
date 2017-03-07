@@ -26,9 +26,12 @@
                                 <rect key="frame" x="132" y="353" width="112" height="83"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="83" id="wtK-2i-3fs"/>
+                                    <constraint firstAttribute="height" constant="83" id="8wA-j9-Twl"/>
                                 </constraints>
-                                <state key="normal" title="Verwaltung"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                <state key="normal" title="Verwaltung">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <segue destination="QIx-VJ-Rbr" kind="showDetail" action="showViewController:sender:" id="UiF-08-Ij5"/>
                                 </connections>
@@ -37,57 +40,53 @@
                                 <rect key="frame" x="132" y="208" width="112" height="83"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="83" id="BSt-6l-YaI"/>
-                                    <constraint firstAttribute="width" constant="112" id="nc8-Jy-OZr"/>
+                                    <constraint firstAttribute="height" constant="83" id="BMO-Pl-WrL"/>
+                                    <constraint firstAttribute="width" constant="112" id="qi7-dn-6hg"/>
                                 </constraints>
-                                <state key="normal" title="Checkin"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                <state key="normal" title="Checkin">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <segue destination="sB3-Uq-Oci" kind="show" id="ayF-De-EBz"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="undefined" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eXM-sw-qay">
-                                <rect key="frame" x="16" y="531" width="343" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="undefined" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eXM-sw-qay">
+                                <rect key="frame" x="16" y="531" width="343" height="116"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Welcome to TicketVal!" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="TV0-eQ-Mh6">
-                                <rect key="frame" x="42" y="28" width="291" height="55"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Willkommen bei Ticketval!" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="TV0-eQ-Mh6">
+                                <rect key="frame" x="42" y="83" width="291" height="55"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="55" id="VfU-EM-VKp"/>
+                                    <constraint firstAttribute="height" constant="55" id="Gp1-yd-SQ4"/>
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Fh-Ml-Jog">
-                                <rect key="frame" x="119" y="617" width="137" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Clear Keychain"/>
-                                <connections>
-                                    <action selector="btn_cleartokens:" destination="o1Q-Yw-77n" eventType="touchUpInside" id="dDw-VD-N0L"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="fWw-Jc-8kG" firstAttribute="top" secondItem="4XD-NN-kie" secondAttribute="bottom" constant="62" id="8i1-8a-idT"/>
-                            <constraint firstItem="TV0-eQ-Mh6" firstAttribute="centerX" secondItem="fTS-oK-Z8e" secondAttribute="centerX" id="CLz-Lk-m7Q"/>
-                            <constraint firstItem="4XD-NN-kie" firstAttribute="trailing" secondItem="fWw-Jc-8kG" secondAttribute="trailing" id="CTY-Yu-xU5"/>
-                            <constraint firstItem="TV0-eQ-Mh6" firstAttribute="top" secondItem="UbO-Hv-6Lc" secondAttribute="bottom" constant="8" symbolic="YES" id="EDU-QP-ois"/>
-                            <constraint firstItem="4XD-NN-kie" firstAttribute="leading" secondItem="fWw-Jc-8kG" secondAttribute="leading" id="HYe-Zk-ZJt"/>
-                            <constraint firstItem="TV0-eQ-Mh6" firstAttribute="centerX" secondItem="4XD-NN-kie" secondAttribute="centerX" id="HcN-vu-Nzb"/>
-                            <constraint firstItem="TV0-eQ-Mh6" firstAttribute="leading" secondItem="fTS-oK-Z8e" secondAttribute="leadingMargin" constant="26" id="NyK-kG-RiQ"/>
-                            <constraint firstItem="4XD-NN-kie" firstAttribute="centerX" secondItem="fTS-oK-Z8e" secondAttribute="centerX" id="UWZ-Z9-Jps"/>
-                            <constraint firstItem="YjC-0X-ROb" firstAttribute="top" secondItem="fWw-Jc-8kG" secondAttribute="bottom" constant="231" id="bcp-xX-BYV"/>
-                            <constraint firstItem="fWw-Jc-8kG" firstAttribute="centerX" secondItem="fTS-oK-Z8e" secondAttribute="centerX" id="bi6-8P-HcO"/>
+                            <constraint firstItem="eXM-sw-qay" firstAttribute="trailing" secondItem="fTS-oK-Z8e" secondAttribute="trailingMargin" id="3fL-jh-zhl"/>
+                            <constraint firstItem="4XD-NN-kie" firstAttribute="trailing" secondItem="fWw-Jc-8kG" secondAttribute="trailing" id="5CO-pm-uYO"/>
+                            <constraint firstItem="fWw-Jc-8kG" firstAttribute="centerX" secondItem="eXM-sw-qay" secondAttribute="centerX" id="78b-eq-paj"/>
+                            <constraint firstAttribute="bottom" secondItem="eXM-sw-qay" secondAttribute="bottom" constant="20" symbolic="YES" id="BRA-dy-6fq"/>
+                            <constraint firstItem="eXM-sw-qay" firstAttribute="top" secondItem="fWw-Jc-8kG" secondAttribute="bottom" constant="95" id="IFa-j0-nJ3"/>
+                            <constraint firstItem="4XD-NN-kie" firstAttribute="leading" secondItem="fWw-Jc-8kG" secondAttribute="leading" id="OTw-Df-25W"/>
+                            <constraint firstItem="fWw-Jc-8kG" firstAttribute="top" secondItem="4XD-NN-kie" secondAttribute="bottom" constant="62" id="PZJ-41-nqV"/>
+                            <constraint firstItem="TV0-eQ-Mh6" firstAttribute="centerX" secondItem="4XD-NN-kie" secondAttribute="centerX" id="RKC-Vq-2pr"/>
+                            <constraint firstItem="TV0-eQ-Mh6" firstAttribute="top" secondItem="UbO-Hv-6Lc" secondAttribute="bottom" constant="63" id="W4U-By-Rib"/>
+                            <constraint firstItem="eXM-sw-qay" firstAttribute="leading" secondItem="fTS-oK-Z8e" secondAttribute="leadingMargin" id="YzA-9T-AvA"/>
+                            <constraint firstItem="TV0-eQ-Mh6" firstAttribute="leading" secondItem="fTS-oK-Z8e" secondAttribute="leadingMargin" constant="26" id="oQI-vg-q5k"/>
+                            <constraint firstItem="4XD-NN-kie" firstAttribute="top" secondItem="TV0-eQ-Mh6" secondAttribute="bottom" constant="70" id="smG-5o-GxV"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="databasewarning" destination="eXM-sw-qay" id="VYp-qa-jb8"/>
                         <outlet property="maint" destination="fWw-Jc-8kG" id="Uiy-0D-ogb"/>
                         <outlet property="scan" destination="4XD-NN-kie" id="jPX-3i-rl3"/>
+                        <outlet property="status_textview" destination="eXM-sw-qay" id="4pX-bl-lRu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kWz-hq-354" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -144,8 +143,8 @@
                                     <action selector="signInButtonTapped:" destination="QIx-VJ-Rbr" eventType="touchUpInside" id="jRc-ch-swC"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Please sign in with your TicketVal Adminpanel credentials!" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="f7G-xZ-V22">
-                                <rect key="frame" x="78" y="81" width="219" height="67"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Please sign in with your TicketVal credentials!" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="f7G-xZ-V22">
+                                <rect key="frame" x="78" y="81" width="219" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -386,7 +385,7 @@
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="LICHT" id="yGE-di-cUD">
                                             <connections>
-                                                <action selector="light:" destination="sB3-Uq-Oci" id="NWl-xS-Yop"/>
+                                                <action selector="toggleFlash:" destination="sB3-Uq-Oci" id="jyo-ii-2ow"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -436,8 +435,9 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="displaycode" destination="Wq2-Lp-9p9" id="IDA-kq-mBj"/>
                         <outlet property="eventStatusTextView" destination="giE-TX-SCx" id="xn1-dt-hrk"/>
+                        <outlet property="scanStatus" destination="Wq2-Lp-9p9" id="HVe-gB-uyg"/>
+                        <segue destination="QIx-VJ-Rbr" kind="show" identifier="scan_to_login" id="PRq-JC-PTu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mp9-Io-rsC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -446,6 +446,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="WZD-Xy-sMa"/>
+        <segue reference="PRq-JC-PTu"/>
+        <segue reference="1Jy-Yp-XOh"/>
     </inferredMetricsTieBreakers>
 </document>

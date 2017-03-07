@@ -21,7 +21,6 @@
 		449A026F1E5701CE00FF106E /* libTestFairy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 449A026C1E5701CE00FF106E /* libTestFairy.a */; };
 		449A02701E5701CE00FF106E /* upload-dsym.sh in Resources */ = {isa = PBXBuildFile; fileRef = 449A026E1E5701CE00FF106E /* upload-dsym.sh */; };
 		449E45E61E02D7C20047F76A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449E45E41E02D7C20047F76A /* LoginViewController.swift */; };
-		449E45E71E02D7C20047F76A /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 449E45E51E02D7C20047F76A /* LoginViewController.xib */; };
 		44E4F44D1E09333600EDF8B5 /* TicketValAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E4F44C1E09333600EDF8B5 /* TicketValAPI.swift */; };
 		44E4F4501E09370900EDF8B5 /* EventObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E4F44F1E09370900EDF8B5 /* EventObject.swift */; };
 		44E4F4521E0969BC00EDF8B5 /* AttendeeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E4F4511E0969BC00EDF8B5 /* AttendeeObject.swift */; };
@@ -70,7 +69,6 @@
 		449A026D1E5701CE00FF106E /* TestFairy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestFairy.h; path = "TestFairySDK-1.8.2/TestFairy.h"; sourceTree = "<group>"; };
 		449A026E1E5701CE00FF106E /* upload-dsym.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "upload-dsym.sh"; path = "TestFairySDK-1.8.2/upload-dsym.sh"; sourceTree = "<group>"; };
 		449E45E41E02D7C20047F76A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		449E45E51E02D7C20047F76A /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		44E4F44C1E09333600EDF8B5 /* TicketValAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketValAPI.swift; sourceTree = "<group>"; };
 		44E4F44F1E09370900EDF8B5 /* EventObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventObject.swift; sourceTree = "<group>"; };
 		44E4F4511E0969BC00EDF8B5 /* AttendeeObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendeeObject.swift; sourceTree = "<group>"; };
@@ -193,7 +191,6 @@
 				44E4F44E1E09333D00EDF8B5 /* TicketValAPI */,
 				FAC9C0551D1426D000189A0C /* Main.storyboard */,
 				449E45E41E02D7C20047F76A /* LoginViewController.swift */,
-				449E45E51E02D7C20047F76A /* LoginViewController.xib */,
 				FAB458ED1DDC723200BF53C5 /* MainViewController.swift */,
 				448796651DE322F200DDCA5B /* DBViewController.swift */,
 				FA7E9F611D17F42B00BB21D4 /* ScanViewController.swift */,
@@ -298,7 +295,7 @@
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 9MD8QB8CL4;
 						LastSwiftMigration = 0810;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -342,7 +339,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				449E45E71E02D7C20047F76A /* LoginViewController.xib in Resources */,
 				445B1E1A1D1711D10040273F /* Icon-60@3x.png in Resources */,
 				445B1E181D1710860040273F /* Launch Screen.storyboard in Resources */,
 				449A02701E5701CE00FF106E /* upload-dsym.sh in Resources */,
@@ -561,8 +557,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Checkin.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = 9MD8QB8CL4;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TicketVal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -571,8 +567,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ticketval.checkin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ec7f241d-a292-469d-a4b0-a6b82e09d442";
-				PROVISIONING_PROFILE_SPECIFIER = Checkin;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = Bridging.h;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -587,8 +583,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Checkin.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = 9MD8QB8CL4;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TicketVal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -597,8 +593,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ticketval.checkin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ec7f241d-a292-469d-a4b0-a6b82e09d442";
-				PROVISIONING_PROFILE_SPECIFIER = Checkin;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = Bridging.h;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;

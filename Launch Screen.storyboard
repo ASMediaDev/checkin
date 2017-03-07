@@ -21,14 +21,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cTy-vz-nYx">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.65122969389999996" blue="0.015030979749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" notEnabled="YES"/>
+                                </accessibility>
+                            </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Checkin" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="GJd-Yh-RWb">
                                 <rect key="frame" x="118" y="91" width="140.5" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="82s-6p-1hi"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="att-d2-iNR">
                                 <rect key="frame" x="59" y="205" width="256" height="256"/>

@@ -8,42 +8,37 @@
 
 import UIKit
 import CoreData
-import SwiftyJSON
 import Alamofire
 import RealmSwift
 import Locksmith
 
 
 class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource  {
-    
+   
+//Buttons
    
     @IBAction func logoutBtn(_ sender: AnyObject) {
-        
         
         do{
             try Locksmith.deleteDataForUserAccount(userAccount: "TicketVal")
         }catch{
-            
-            
+        
         }
         let loginPage = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
         let appDelegate = UIApplication.shared.delegate
         appDelegate?.window??.rootViewController = loginPage
         
     }
+    
     @IBAction func insertAttendeesButton(_ sender: Any) {
         
         let alertController = UIAlertController(title: "WARNUNG", message: "Durch die Synchronisation werden alle bisher importierten Datensätze gelöscht!", preferredStyle: .alert)
         
         
         let okAction = UIAlertAction(title: "Fortfahren", style: .default) { action in
-            
+
             self.insertAttendees(eventId: (self.placementAnswer)+1)
-            
             print("Attendees inserted")
-            //self.attendeesCount.text = "Number of Attendees in Database: \(self.countAttendees())"
-           
-            
             
         }
         alertController.addAction(okAction)
@@ -58,15 +53,8 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         self.present(alertController, animated: true) {
             // ...
         }
-
-        
-        
-        
     }
     
-    @IBOutlet weak var attendeesCount: UITextView!
-    
-    @IBOutlet weak var tableViewTitle: UITextView!
     
     @IBAction func showDatabase(_ sender: Any) {
         checkDataStore()
@@ -77,12 +65,17 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     
     @IBAction func truncateDatabase(_ sender: Any) {
         emptyDataStore()
-         attendeesCount.text = "Number of Attendees in Database: \(countAttendees())"
+        attendeesCount.text = "Number of Attendees in Database: \(countAttendees())"
         print("Database truncated")
         
     }
     
-    
+    @IBAction func openpicker(_ sender: Any) {
+        
+        self.eventpicker.reloadAllComponents()
+        self.view.viewWithTag(3)?.isHidden = true
+        self.view.viewWithTag(1)?.isHidden = false
+    }
     
     @IBAction func selectevent(_ sender: Any) {
         label.text = "Selected Event from Webservice: \(eventarray[placementAnswer])"
@@ -111,10 +104,13 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
             }
         }
     }
+
+
+//Variables&Outlets
     
+    @IBOutlet weak var attendeesCount: UITextView!
     
-    
-    
+    @IBOutlet weak var tableViewTitle: UITextView!
     
     @IBOutlet weak var attendeesTableView: UITableView!
     
@@ -123,14 +119,6 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     @IBOutlet weak var label: UILabel!
     
     @IBOutlet weak var attendeesTextView: UITextView!
-    
-
-    @IBAction func openpicker(_ sender: Any) {
-        
-        self.eventpicker.reloadAllComponents()
-        self.view.viewWithTag(3)?.isHidden = true
-        self.view.viewWithTag(1)?.isHidden = false
-    }
     
     var placementAnswer = 0;
     
@@ -141,6 +129,8 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     var attendees = [String]()
     
     var attendeesdictionary = NSDictionary()
+    
+//Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -159,19 +149,16 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
                 
                 for event in events {
                     self.eventarray.append(event.title)
-                    }
                 }
+            }
         }
- 
-        
-        //checkDataStore()
-        
-        //print(ticketExists(private_reference_number: 617191322))
         
         attendeesCount.text = "Number of Attendees in Database: \(countAttendees())"
         
         // Do any additional setup after loading the view.
     }
+    
+ 
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -179,6 +166,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     }
     
     //pickerview methods
+
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         //Array = getEventNamesFromAPI()
        
@@ -260,22 +248,40 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
                 var insertcounter = 0
                 for attendee in attendees {
                     
-                    let attendeeRealmObject = Attendee()
-                    attendeeRealmObject.ticketId = attendee.ticketid
-                    attendeeRealmObject.orderId = attendee.orderid
-                    attendeeRealmObject.firstName = attendee.firstname
-                    attendeeRealmObject.lastName = attendee.lastname
-                    attendeeRealmObject.private_reference_number = attendee.private_reference_number
-                    attendeeRealmObject.arrived = false
-                    attendeeRealmObject.eventName = self.eventarray[(attendee.eventid)-1]
+                    let is_cancelled = attendee.is_cancelled!
                     
-                    let realm = try! Realm()
-                    
-                    try! realm.write {
-                        realm.add(attendeeRealmObject)
-                        print("Added \(attendeeRealmObject.firstName) to Realm")
-                        insertcounter = insertcounter + 1
+                    switch is_cancelled{
+                        
+                    case 0:
+                        
+                        let attendeeRealmObject = Attendee()
+                        attendeeRealmObject.ticketId = attendee.ticketid
+                        attendeeRealmObject.orderId = attendee.orderid
+                        attendeeRealmObject.firstName = attendee.firstname
+                        attendeeRealmObject.lastName = attendee.lastname
+                        attendeeRealmObject.private_reference_number = attendee.private_reference_number
+                        attendeeRealmObject.arrived = false
+                        attendeeRealmObject.eventName = self.eventarray[(attendee.eventid)-1]
+                        
+                        
+                        
+                        let realm = try! Realm()
+                        
+                        try! realm.write {
+                            realm.add(attendeeRealmObject)
+                            print("Added \(attendeeRealmObject.firstName) to Realm")
+                            insertcounter = insertcounter + 1
                         }
+                        
+                    
+                    case 1:
+                        break
+                        
+                    default:
+                        break
+                        
+                    }
+                 
                 }
                 
                 let alertController = UIAlertController(title: "Synchronisation abgeschlossen!", message: "Es wurden \(insertcounter) Datensätze importiert", preferredStyle: .alert)

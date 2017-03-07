@@ -3,12 +3,9 @@ platform :ios, '9.3'
 use_frameworks!
 
 target 'Checkin' do
-    # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-    
     
     # Pods for Checkin
     
-    pod 'SwiftyJSON'
     pod 'Alamofire', '~> 4.0'
     pod 'RealmSwift'
     pod 'Locksmith'
