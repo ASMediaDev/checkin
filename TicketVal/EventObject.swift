@@ -25,11 +25,9 @@ class EventObject {
         self.organiserid = (data["organiser_id"] as! NSString).integerValue
     }
     
-    
     func getStringFromJSON(data: NSDictionary, key: String) -> String{
         
         if let info = data[key] as? String {
-            //print("Info: \(info)")
             return info
         }
         return ""

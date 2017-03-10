@@ -21,15 +21,29 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var userPasswordTextField: UITextField!
     
+    
+    @IBAction func forgot_button(_ sender: Any) {
+        
+        let email = "forgot@ticketval.de"
+        if let url = URL(string: "mailto:\(email)") {
+            UIApplication.shared.open(url)
+        }
+        
+        
+    }
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+      
         
         var userNameKeychain: String?
         var userPasswordKeychain: Any?
      
         let dictionary = Locksmith.loadDataForUserAccount(userAccount: "TicketVal")
         
-        /*
+        
         if (dictionary?.isEmpty == false){
             
             let progress = GradientCircularProgress()
@@ -98,7 +112,7 @@ class LoginViewController: UIViewController {
             
         }
     }
- */
+ 
 }
 
     override func didReceiveMemoryWarning() {
@@ -109,31 +123,27 @@ class LoginViewController: UIViewController {
     
     @IBAction func signInButtonTapped(_ sender: AnyObject) {
         
-        
-        let progress = GradientCircularProgress()
-        
-        progress.show(message: "Logging in...", style: tvStyle())
-        
         let userName = self.userEmailAddressTextField.text
         let userPassword = self.userPasswordTextField.text
         
-        print(userName!)
-        print(userPassword!)
-        
         if((userName?.isEmpty)! || (userPassword?.isEmpty)!){
        
-            let alert = UIAlertController(title: "Alert", message: "All fields are required to sign in!", preferredStyle: UIAlertControllerStyle.alert)
-            let backView = alert.view.subviews.last?.subviews.last
-            backView?.layer.cornerRadius = 10.0
+            let alertController = UIAlertController(title: "Achtung", message: "Zur Anmeldung müssen beide Felder ausgefüllt sein!", preferredStyle: .alert)
+           
+            let defaultAction = UIAlertAction(title: "ok", style: .default) { action in
+               
+            }
+            alertController.addAction(defaultAction)
             
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            
+            self.present(alertController, animated: true) {
+                // ...
+            }
+
             return
             
         }
         
-        /*
+        
         
         do{
         
@@ -143,37 +153,78 @@ class LoginViewController: UIViewController {
             
             //catch
         }
-        */
+ 
+        
+        let progress = GradientCircularProgress()
+        
+        progress.show(message: "Anmeldung erfolgt...", style: tvStyle())
         
         let myUrl = URL(string: "https://ticketval.de/api/login")
 
         var statusCode = 0
         
         let param : [String: String] =
-            [
-                "userName": userName!,
-                "userPassword": userPassword!
-        ]
+            ["userName": userName!, "userPassword": userPassword!]
         
         Alamofire.request(myUrl!, method: .post, parameters: param, encoding: URLEncoding.httpBody).responseJSON{ response in
-            
-            print(response.result.value as Any)
-            
+ 
             if let result = response.result.value{
                 let JSON = result as! NSDictionary
                 print(JSON.value(forKey: "status")!)
                 
                 statusCode = Int((JSON.value(forKey: "status")) as! String)!
-               
             }
+        
             if statusCode == 200{
-                
-                print("Login succesful")
                 self.validateAccessToken(userName: userName!, userPassword: userPassword!, progress: progress)
+            }else if statusCode == 403{
+                progress.dismiss()
+    
+                let alertController = UIAlertController(title: "Falsche Zugangsdaten!", message: "Die eingegebenen Zugangsdaten sind nicht korrekt", preferredStyle: .alert)
                 
-            }else{
+                let defaultAction = UIAlertAction(title: "ok", style: .default) { action in
+                    
+                    self.userEmailAddressTextField.text = ""
+                    self.userPasswordTextField.text = ""
+                }
+                alertController.addAction(defaultAction)
                 
-                print("Login not succesful")
+                self.present(alertController, animated: true) {
+                    // ...
+                }
+                
+                return
+            }else if statusCode == 444{
+                
+                progress.dismiss()
+                
+                let alertController = UIAlertController(title: "Falsche Zugangsdaten!", message: "Der Benutzer wurde nicht gefunden", preferredStyle: .alert)
+                
+                let defaultAction = UIAlertAction(title: "ok", style: .default) { action in
+                    
+                    self.userEmailAddressTextField.text = ""
+                    self.userPasswordTextField.text = ""
+                    
+                }
+                alertController.addAction(defaultAction)
+                
+                self.present(alertController, animated: true) {
+                    // ...
+                }
+                
+                return
+            }
+            else{
+                
+                let alert = UIAlertController(title: "Achtung!", message: "Bitte Internetverbindung prüfen", preferredStyle: UIAlertControllerStyle.alert)
+                let backView = alert.view.subviews.last?.subviews.last
+                backView?.layer.cornerRadius = 10.0
+                
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                
+                progress.dismiss()
+
             }
             
         }
@@ -191,19 +242,14 @@ class LoginViewController: UIViewController {
         manager.session.configuration.timeoutIntervalForRequest = 120
         
         let param : [String: String] =
-            [
-                "grant_type": "password",
-                "client_id": "9",
-                "client_secret": "gj7A2WkvpltIA3pIbDAQv0NziJc1sLc9JmYCazli",
-                "username": userName,
-                "password": userPassword
-        ]
+            ["grant_type": "password", "client_id": "9",
+             "client_secret": "gj7A2WkvpltIA3pIbDAQv0NziJc1sLc9JmYCazli",
+             "username": userName, "password": userPassword]
         
         manager.request(myUrl!, method: .post, parameters: param, encoding: URLEncoding.httpBody).responseJSON{ response in
             
             switch(response.result){
             case .success:
-                
                 if let result = response.result.value{
                     let JSON = result as! NSDictionary
                     print(JSON.value(forKey: "access_token")!)
@@ -211,10 +257,9 @@ class LoginViewController: UIViewController {
                     do{
                         try Locksmith.saveData(data: [userName : JSON.value(forKey: "access_token")!], forUserAccount: "TicketValAPI")
                     }catch{
-                        
-                        //catch
+                        print(error)
                     }
-                    
+
                     self.performSegue(withIdentifier:"login_redirect", sender: nil)
                     progress.dismiss()
                 }
@@ -224,6 +269,14 @@ class LoginViewController: UIViewController {
                 if error._code == NSURLErrorTimedOut {
                     //timeout here
                 }
+                let alert = UIAlertController(title: "Achtung", message: "Bitte Internetverbindung prüfen!", preferredStyle: UIAlertControllerStyle.alert)
+                let backView = alert.view.subviews.last?.subviews.last
+                backView?.layer.cornerRadius = 10.0
+                
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                
+                progress.dismiss()
                 print("\n\nAuth request failed with error:\n \(error)")
                 break
             }
@@ -231,8 +284,7 @@ class LoginViewController: UIViewController {
     }
     
     public func validateAccessToken(userName: String, userPassword: String, progress: GradientCircularProgress){
-        
-        var userNameKeychain: String = ""
+
         var accessTokenKeychain: Any = ""
         
         var statusCode = 0
@@ -241,10 +293,7 @@ class LoginViewController: UIViewController {
         
         if (dictionary?.isEmpty == false){
             
-            print("Found AccessToken")
-            
-            for (key,value) in dictionary!{
-                userNameKeychain = key
+            for (value) in dictionary!{
                 accessTokenKeychain = value
             }
             
@@ -263,14 +312,12 @@ class LoginViewController: UIViewController {
                         print(JSON.value(forKey: "status")!)
                         
                         statusCode = Int((JSON.value(forKey: "status")) as! String)!
-                        
+                        print("parsed: \(statusCode)")
                     }
                     if statusCode == 200{
                      
                         DispatchQueue.main.sync {
-            
                             self.performSegue(withIdentifier:"login_redirect", sender: nil)
-                            
                         }
                         progress.dismiss()
                         
@@ -282,18 +329,11 @@ class LoginViewController: UIViewController {
                     }
                     
                     
-            })
-            } else{
-            
-                print("No Token found")
-                self.getAccessToken(userName: userName, userPassword: userPassword, progress: progress)
+                }
+            )
+        } else{
+            self.getAccessToken(userName: userName, userPassword: userPassword, progress: progress)
         }
-    }
-    
-    
-    public func redirect(){
-        
-            self.performSegue(withIdentifier:"login_redirect", sender: nil)
     }
 
 }

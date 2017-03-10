@@ -30,14 +30,11 @@ class AttendeeObject {
         self.is_cancelled = (data["is_cancelled"] as! NSString).integerValue
     }
     
-    
     func getStringFromJSON(data: NSDictionary, key: String) -> String{
         
         if let info = data[key] as? String {
-            //print("Info: \(info)")
             return info
         }
         return ""
     }
-    
 }

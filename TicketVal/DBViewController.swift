@@ -14,6 +14,36 @@ import Locksmith
 
 
 class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource  {
+    
+    
+    
+//Variables&Outlets
+    
+    @IBOutlet weak var attendeesCount: UITextView!
+    
+    @IBOutlet weak var tableViewTitle: UITextView!
+    
+    @IBOutlet weak var attendeesTableView: UITableView!
+    
+    @IBOutlet weak var eventpicker: UIPickerView!
+    
+    @IBOutlet weak var label: UILabel!
+    
+    @IBOutlet weak var attendeesTextView: UITextView!
+    
+    @IBOutlet weak var status_rect: UIView!
+   
+    
+    
+    var placementAnswer = 0;
+    
+    var eventarray = [String]()
+    
+    var eventsdictionary = NSDictionary()
+    
+    var attendees = [String]()
+    
+    var attendeesdictionary = NSDictionary()
    
 //Buttons
    
@@ -29,6 +59,14 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         appDelegate?.window??.rootViewController = loginPage
         
     }
+    
+    @IBAction func scanButton(_ sender: Any) {
+
+            self.performSegue(withIdentifier:"dbview_to_scan", sender: nil)
+
+
+    }
+    
     
     @IBAction func insertAttendeesButton(_ sender: Any) {
         
@@ -55,19 +93,29 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         }
     }
     
-    
-    @IBAction func showDatabase(_ sender: Any) {
-        checkDataStore()
-        print("Ticket exists: \(ticketExists(private_reference_number: 787313345))")
-        print("Arrived: \(hasArrived(private_reference_number: 787313345))")
-    }
-    
-    
     @IBAction func truncateDatabase(_ sender: Any) {
-        emptyDataStore()
-        attendeesCount.text = "Number of Attendees in Database: \(countAttendees())"
-        print("Database truncated")
         
+        let alertController = UIAlertController(title: "WARNUNG", message: "Alle Datensätze in der Datenbank werden gelöscht", preferredStyle: .alert)
+        
+        
+        let okAction = UIAlertAction(title: "Fortfahren", style: .default) { action in
+            
+            self.emptyDataStore()
+            self.attendeesCount.text = "Anzahl der Gäste in der Datenbank: \n \(self.countAttendees())"
+            
+        }
+        alertController.addAction(okAction)
+        
+        let cancelAction = UIAlertAction(title: "Abbrechen", style: .cancel) { action in
+            
+        }
+        alertController.addAction(cancelAction)
+        
+        
+        
+        self.present(alertController, animated: true) {
+            // ...
+        }
     }
     
     @IBAction func openpicker(_ sender: Any) {
@@ -78,8 +126,8 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     }
     
     @IBAction func selectevent(_ sender: Any) {
-        label.text = "Selected Event from Webservice: \(eventarray[placementAnswer])"
-        tableViewTitle.text = "Attendees found online for: \(eventarray[placementAnswer])"
+        label.text = "Gewähltes Event: \(eventarray[placementAnswer])"
+        tableViewTitle.text = "Verfügbare Datensätze für:\n\(eventarray[placementAnswer])"
         self.view.viewWithTag(1)?.isHidden = true
         UserDefaults.standard.setValue(placementAnswer, forKey: "selectedEvent")
         print(UserDefaults.standard.value(forKey: "selectedEvent")!)
@@ -104,31 +152,6 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
             }
         }
     }
-
-
-//Variables&Outlets
-    
-    @IBOutlet weak var attendeesCount: UITextView!
-    
-    @IBOutlet weak var tableViewTitle: UITextView!
-    
-    @IBOutlet weak var attendeesTableView: UITableView!
-    
-    @IBOutlet weak var eventpicker: UIPickerView!
-    
-    @IBOutlet weak var label: UILabel!
-    
-    @IBOutlet weak var attendeesTextView: UITextView!
-    
-    var placementAnswer = 0;
-    
-    var eventarray = [String]()
-    
-    var eventsdictionary = NSDictionary()
-    
-    var attendees = [String]()
-    
-    var attendeesdictionary = NSDictionary()
     
 //Methods
     
@@ -153,7 +176,14 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
             }
         }
         
-        attendeesCount.text = "Number of Attendees in Database: \(countAttendees())"
+        if(countAttendees()==0){
+            status_rect.backgroundColor = UIColor.red
+        }else{
+            status_rect.backgroundColor = UIColor.green
+        }
+        
+        attendeesCount.text = "Anzahl der Gäste in der Datenbank: \n \(countAttendees())"
+        
         
         // Do any additional setup after loading the view.
     }
@@ -232,6 +262,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         try! realm.write {
             realm.deleteAll()
         }
+        status_rect.backgroundColor = UIColor.red
     }
   
     
@@ -263,8 +294,6 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
                         attendeeRealmObject.arrived = false
                         attendeeRealmObject.eventName = self.eventarray[(attendee.eventid)-1]
                         
-                        
-                        
                         let realm = try! Realm()
                         
                         try! realm.write {
@@ -289,7 +318,8 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
                 
                 let destroyAction = UIAlertAction(title: "ok", style: .default) { action in
                     
-                    self.attendeesCount.text = "Number of Attendees in Database: \(self.countAttendees())"
+                    self.attendeesCount.text = "Anzahl der Gäste in der Datenbank: \n \(self.countAttendees())"
+                    self.status_rect.backgroundColor = UIColor.green
                     
                 }
                 

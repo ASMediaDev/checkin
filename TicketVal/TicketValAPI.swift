@@ -11,14 +11,11 @@ import Alamofire
 import Locksmith
 
 
-
-
-
 class TicketValAPI{
     
     func getEvents(completion: @escaping (Error?, [EventObject]) -> Void) {
         
-        var userNameKeychain: String = ""
+        var usernameKeychain: String = ""
         var accessTokenKeychain: Any = ""
         
         var events = [EventObject]()
@@ -26,47 +23,50 @@ class TicketValAPI{
         let dictionary = Locksmith.loadDataForUserAccount(userAccount: "TicketValAPI")
         
         if (dictionary?.isEmpty == false){
-            
-            print("Found AccessToken")
-            
+  
             for (key,value) in dictionary!{
-                userNameKeychain = key
+                usernameKeychain = key
                 accessTokenKeychain = value
             }
-        
-        let queue = DispatchQueue(label: "com.asmedia.ticketval.response-queue", qos: .utility, attributes: [.concurrent])
-        
-        let myUrl = URL(string: "https://ticketval.de/api/getEvents")
             
-        let headers = ["Authorization":"Bearer \(accessTokenKeychain)"]
+            print("Access Token: \(accessTokenKeychain)")
+        
+            let queue = DispatchQueue(label: "com.asmedia.ticketval.response-queue", qos: .utility, attributes: [.concurrent])
+        
+            let myUrl = URL(string: "https://ticketval.de/api/getEvents")
+            
+            let headers = ["Authorization":"Bearer \(accessTokenKeychain)"]
             
             Alamofire.request(myUrl!, method: .get, headers: headers).responseJSON(
-            queue: queue,
+                queue: queue,
                 completionHandler: { response in
+                    
+                    if (response.result.isFailure){
+                        print("empty")
+                    }else{
+                        
+                    
                 
                     let eventsData = response.result.value as! NSArray
                 
                     for event in eventsData{
                     
-                    let event = EventObject(data: event as! NSDictionary)
-                    //print(event.title)
-                    events.append(event)
-                    
-                }
-                
-                completion(nil, events)
-
-                    DispatchQueue.main.async {
-                    print(events[0].title)
+                        let event = EventObject(data: event as! NSDictionary)
+                   
+                        events.append(event)
                     }
-                }
+                
+                    completion(nil, events)
+                
+                    }
+            }
             )
         }
     }
     
     func getAttendees(eventId: Int, completion: @escaping (Error?, [AttendeeObject]) -> Void) {
-        
-        var userNameKeychain: String = ""
+
+        var usernameKeychain: String = ""
         var accessTokenKeychain: Any = ""
         
         var attendees = [AttendeeObject]()
@@ -78,16 +78,16 @@ class TicketValAPI{
             print("Found AccessToken")
             
             for (key,value) in dictionary!{
-                userNameKeychain = key
+                usernameKeychain = key
                 accessTokenKeychain = value
             }
             
-            let queue = DispatchQueue(label: "com.asmedia.ticketval.response-queue", qos: .utility, attributes: [.concurrent])
+            let queue = DispatchQueue(label: "com.ticketval.response-queue", qos: .utility, attributes: [.concurrent])
             
             let myUrl = URL(string: "https://ticketval.de/api/getAttendees/\(eventId)")
             
             
-           let headers = ["Authorization":"Bearer \(accessTokenKeychain)"]
+            let headers = ["Authorization":"Bearer \(accessTokenKeychain)"]
             
             
             
@@ -100,21 +100,13 @@ class TicketValAPI{
                     for attendee in attendeesData{
                         
                         let attendee = AttendeeObject(data: attendee as! NSDictionary)
-                        //print(event.title)
                         attendees.append(attendee)
                         
                     }
                     
                     completion(nil, attendees)
-                    
-                    
-                    DispatchQueue.main.async {
-                        
-                        //print(attendees[0].firstname)
-                        
-                        
-                    }
-            }
+                   
+                }
             )
         }
     }
