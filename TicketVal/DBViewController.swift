@@ -56,6 +56,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         
         do{
             try Locksmith.deleteDataForUserAccount(userAccount: "TicketVal")
+            try Locksmith.deleteDataForUserAccount(userAccount: "TicketValAPI")
         }catch{
         
         }
@@ -251,7 +252,10 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         try! realm.write {
             realm.deleteAll()
         }
-        status_rect.backgroundColor = UIColor.red
+        DispatchQueue.main.async{
+            self.status_rect.backgroundColor = UIColor.red
+    }
+        
     }
   
     
