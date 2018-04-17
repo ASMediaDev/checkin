@@ -34,11 +34,11 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
         captureSession = AVCaptureSession()
         
         //Anlegen und instanziierung eines neuen Capturedevices
-        let videoCaptureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+        let videoCaptureDevice = AVCaptureDevice.default(.builtInWideAngleCamera , for: AVMediaType.video, position: .back)
         let videoInput: AVCaptureDeviceInput
         
         do {
-            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
+            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice!)
         } catch {
             return
         }
@@ -58,7 +58,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
             captureSession.addOutput(metadataOutput)
             
             metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-            metadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
+            metadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
         } else {
             failed()
             return
@@ -66,7 +66,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
         
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession);
         previewLayer.frame = self.view.bounds
-        previewLayer.videoGravity = AVLayerVideoGravityResize;
+        previewLayer.videoGravity = AVLayerVideoGravity.resize;
         self.view.layer.addSublayer(previewLayer);
         
         captureSession.startRunning();
@@ -135,6 +135,19 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
         }
     }
     
+    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+        captureSession.stopRunning()
+        
+        if let metadataObject = metadataObjects.first {
+            let readableObject = metadataObject as! AVMetadataMachineReadableCodeObject;
+            
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+            
+            found(code: readableObject.stringValue!);
+            
+        }
+    }
+    
     func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
         captureSession.stopRunning()
         
@@ -142,11 +155,13 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
             let readableObject = metadataObject as! AVMetadataMachineReadableCodeObject;
             
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            found(code: readableObject.stringValue);
+            found(code: readableObject.stringValue!);
         }
     }
     
     func found(code: String) {
+        
+        let t1 = mach_absolute_time()
         
         
         let dbview = DBViewController()
@@ -169,10 +184,18 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
             
                 if(dbview.hasArrived(private_reference_number: reference!)==false){
                 
-                    attendee = dbview.getNameforTicket(private_reference_number: reference!)
+                    attendee = dbview.getNameForTicket(private_reference_number: reference!)
                 
                     scanStatus.backgroundColor = UIColor.green
                     scanStatus.text = attendee
+                    
+                    let t2 = mach_absolute_time()
+                    
+                    let elapsed = t2 - t1
+                    var timeBaseInfo = mach_timebase_info_data_t()
+                    mach_timebase_info(&timeBaseInfo)
+                    let elapsedNano = elapsed * UInt64(timeBaseInfo.numer) / UInt64(timeBaseInfo.denom);
+                    print("Validierungszeite: \(elapsedNano)")
                 
                     let alertController = UIAlertController(title: "GÜLTIG", message: "Gast: \(attendee)", preferredStyle: .alert)
             
@@ -204,7 +227,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
             }
             else if(dbview.hasArrived(private_reference_number: reference!)==true){
                 
-                attendee = dbview.getNameforTicket(private_reference_number: reference!)
+                attendee = dbview.getNameForTicket(private_reference_number: reference!)
                 
                 let checkin_time = dbview.getCheckinTime(private_reference_number: reference!)
                                     
@@ -272,24 +295,10 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
    
     
     @IBAction func toggleFlash(_ sender: Any) {
-        let device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
-        if (device?.hasTorch)! {
-            do {
-                try device?.lockForConfiguration()
-                if (device?.torchMode == AVCaptureTorchMode.on) {
-                    device?.torchMode = AVCaptureTorchMode.off
-                } else {
-                    do {
-                        try device?.setTorchModeOnWithLevel(1.0)
-                    } catch {
-                        print(error)
-                    }
-                }
-                device?.unlockForConfiguration()
-            } catch {
-                print(error)
-            }
-        }
+        guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .back) else {return}
+        //let videoCaptureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .back)
+        
+        
     }
     
     

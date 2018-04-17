@@ -12,29 +12,17 @@ import RealmSwift
 class Attendee: Object {
 
     
-    dynamic var ticketId: Int = Int(0)
-    dynamic var private_reference_number: Int = Int(0)
-    dynamic var orderId: Int = Int(0)
-    dynamic var lastName: String = ""
-    dynamic var firstName: String = ""
-    dynamic var checkinTime: String = ""
-    dynamic var arrived: Bool = false
-    dynamic var eventName: String = ""
-    dynamic var is_cancelled: Bool = false
+    @objc dynamic var ticketId: Int = Int(0)
+    @objc dynamic var private_reference_number: Int = Int(0)
+    @objc dynamic var orderId: Int = Int(0)
+    @objc dynamic var lastName: String = ""
+    @objc dynamic var firstName: String = ""
+    @objc dynamic var checkinTime: String = ""
+    @objc dynamic var arrived: Bool = false
+    @objc dynamic var eventName: String = ""
+    @objc dynamic var is_cancelled: Bool = false
     
     override static func primaryKey() -> String? {
         return "private_reference_number"
-    }
-    
-    
-    func save() {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                realm.add(self)
-            }
-        } catch let error as NSError {
-            fatalError(error.localizedDescription)
-        }
     }
 }

@@ -9,7 +9,7 @@ target 'Checkin' do
     pod 'Alamofire', '~> 4.0'
     pod 'RealmSwift'
     pod 'Locksmith'
-    pod 'GradientCircularProgress', :git => 'https://github.com/keygx/GradientCircularProgress'	
+    pod 'GradientCircularProgress', :git => 'https://github.com/keygx/GradientCircularProgress', :tag=>'3.8.0'	
 
 end
 

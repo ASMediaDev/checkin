@@ -23,20 +23,18 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func forgot_button(_ sender: Any) {
-        
+        /*
         let email = "forgot@ticketval.de"
         if let url = URL(string: "mailto:\(email)") {
             UIApplication.shared.open(url)
         }
-        
+        */
         
     }
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-      
         
         var userNameKeychain: String?
         var userPasswordKeychain: Any?

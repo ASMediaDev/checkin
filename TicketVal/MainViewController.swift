@@ -11,7 +11,6 @@ import Locksmith
 
 class MainViewController: UIViewController {
     
-    
     let gradientLayer = CAGradientLayer()
     
     let dbview = DBViewController()

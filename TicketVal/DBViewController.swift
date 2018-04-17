@@ -44,6 +44,11 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     var attendees = [String]()
     
     var attendeesdictionary = NSDictionary()
+    
+    //Time measurement test
+    
+    var startTime: TimeInterval = 0
+    var endTime: TimeInterval = 0
    
 //Buttons
    
@@ -100,7 +105,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         
         let okAction = UIAlertAction(title: "Fortfahren", style: .default) { action in
             
-            self.emptyDataStore()
+            self.clearDataStore()
             self.attendeesCount.text = "Anzahl der Gäste in der Datenbank: \n \(self.countAttendees())"
             
         }
@@ -156,22 +161,26 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
 //Methods
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        self.view.viewWithTag(1)?.isHidden = true
+        self.view.viewWithTag(1)?.isHidden = true //picker ausblenden
         eventpicker.delegate = self
         eventpicker.dataSource = self
         
         let api = TicketValAPI()
-        
         api.getEvents() {(error, events) in
             if let error = error{
                 print(error)
             }else {
-                //print("Content:")
+                print("Content:")
                 print(events[0].startdate)
                 
                 for event in events {
+                    
                     self.eventarray.append(event.title)
+                    print(event.title)
+                    
+                    
                 }
             }
         }
@@ -183,9 +192,6 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         }
         
         attendeesCount.text = "Anzahl der Gäste in der Datenbank: \n \(countAttendees())"
-        
-        
-        // Do any additional setup after loading the view.
     }
     
  
@@ -195,17 +201,14 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         // Dispose of any resources that can be recreated.
     }
     
-    //pickerview methods
+//pickerview methods
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        //Array = getEventNamesFromAPI()
-       
         return eventarray[row]
         
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        //Array = getEventNamesFromAPI()
         return eventarray.count
     }
     
@@ -214,13 +217,10 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-   
         placementAnswer = row
-        print(placementAnswer)
-    
     }
     
-    //tableview methods
+ //tableview methods
     
     func tableView(_ tableView:UITableView, numberOfRowsInSection section:Int) -> Int
     {
@@ -245,18 +245,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     
     //Realm methods
     
-    func checkDataStore() {
-        
-                let realm = try! Realm()
-                let AttendeesFromRealm = realm.objects(Attendee.self)
-        
-                for attendee in AttendeesFromRealm{
-            
-                    print("Attendee \(attendee.firstName) \(attendee.lastName) is attending \(attendee.eventName) ")
-                }
-    }
-    
-    func emptyDataStore(){
+    func clearDataStore(){
         
         let realm = try! Realm()
         try! realm.write {
@@ -267,15 +256,28 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
   
     
     func insertAttendees(eventId: Int){
+       
+        let t1 = mach_absolute_time()
+        
+        
         
         let api = TicketValAPI()
         api.getAttendees(eventId: eventId) {(error, attendees) in
             if let error = error{
                 print(error)
             }else {
+                let t11 = mach_absolute_time()
                 
-                self.emptyDataStore()
+                self.clearDataStore()
                 
+                let t21 = mach_absolute_time()
+                
+                let elapsed2 = t21 - t11
+                var timeBaseInfo2 = mach_timebase_info_data_t()
+                mach_timebase_info(&timeBaseInfo2)
+                let elapsedNano2 = elapsed2 * UInt64(timeBaseInfo2.numer) / UInt64(timeBaseInfo2.denom);
+                print("Zeit für Clear: \(elapsedNano2)")
+                let t2 = mach_absolute_time()
                 var insertcounter = 0
                 for attendee in attendees {
                     
@@ -298,7 +300,7 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
                         
                         try! realm.write {
                             realm.add(attendeeRealmObject)
-                            print("Added \(attendeeRealmObject.firstName) to Realm")
+                            //print("Added \(attendeeRealmObject.firstName) to Realm")
                             insertcounter = insertcounter + 1
                         }
                         
@@ -312,6 +314,19 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
                     }
                  
                 }
+                
+                
+                // do something
+                
+                
+                
+                let elapsed = t2 - t1
+                var timeBaseInfo = mach_timebase_info_data_t()
+                mach_timebase_info(&timeBaseInfo)
+                let elapsedNano = elapsed * UInt64(timeBaseInfo.numer) / UInt64(timeBaseInfo.denom);
+                print("Importzeit: \(elapsedNano)")
+                
+                
                 
                 let alertController = UIAlertController(title: "Synchronisation abgeschlossen!", message: "Es wurden \(insertcounter) Datensätze importiert", preferredStyle: .alert)
                 
@@ -331,6 +346,8 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         }
     }
     
+    
+   //Ticketing Methods
    func ticketExists(private_reference_number: Int) -> Bool{
     
         let realm = try! Realm()
@@ -341,9 +358,10 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
             
             return true
         
-        } else{
+        }else{
             
             return false
+        
         }
     }
     
@@ -365,20 +383,15 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     
     func checkIn(private_reference_number: Int){
         
-        
         let realm = try! Realm()
         
         let attendees = realm.objects(Attendee.self).filter("private_reference_number = \(private_reference_number)")
         
         if(attendees.count > 1){
-            
             print("Error: TicketID not unique!")
         }else if (attendees.count == 0){
-            
             print("Error: Ticket doesn't exist")
-            
         }else{
-            
             let date = NSDate()
             let calendar = NSCalendar.current
             let month = calendar.component(.month, from: date as Date)
@@ -401,21 +414,17 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         let attendees = realm.objects(Attendee.self).filter("private_reference_number = \(private_reference_number)")
         
         if(attendees.count > 1){
-            
             print("Error: TicketID not unique!")
         }else if (attendees.count == 0){
-            
             print("Error: Ticket doesn't exist")
-            
         }else{
-            
             try! realm.write {
                 realm.create(Attendee.self, value: ["private_reference_number": private_reference_number, "arrived": false], update: true)
             }
         }
     }
     
-    func getNameforTicket(private_reference_number: Int) -> String{
+    func getNameForTicket(private_reference_number: Int) -> String{
         
         var attendeeName = ""
         
@@ -424,16 +433,11 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         let attendees = realm.objects(Attendee.self).filter("private_reference_number = \(private_reference_number)")
         
         if (attendees.count == 1){
-            
             attendeeName = (attendees[0].firstName + " " + attendees[0].lastName)
         }else{
-            
             attendeeName = "Attendeename not found!"
-            
         }
-        
         return attendeeName
-        
     }
     
     func getCheckinTime(private_reference_number: Int) -> String{
@@ -445,17 +449,11 @@ class DBViewController: UIViewController, UIPickerViewDelegate, UIPickerViewData
         let attendees = realm.objects(Attendee.self).filter("private_reference_number = \(private_reference_number)")
         
         if (attendees.count == 1){
-            
             checkinTime = attendees[0].checkinTime
-            
         }else{
-            
             checkinTime = "Not checked in yet"
-            
         }
-        
         return checkinTime
-        
     }
     
     func countAttendees() -> Int{
